@@ -20,7 +20,7 @@ export default class CompetitionListAdd extends React.Component {
         e.preventDefault();
         action.add({
             name: this.state.input,
-            id: this.state.input
+            purchased: false
         });
 
         this.setState({

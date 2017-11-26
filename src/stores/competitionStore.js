@@ -1,5 +1,6 @@
 import dispatcher from './../dispatchers/dispatcher';
 import firebase from './../database/firebase';
+import competitionModel from './../models/competition';
 
 // ******** Public ********//
 
@@ -15,14 +16,16 @@ function onChange(listener) {
 
 var competitions = [];
 
-firebase.getCompetitionsRef()
-    .on('value', function (snapshot) {
-        const values = snapshot.val();
-        for (const v in values) {
-            competitions.push(values[v]);
-        };
-        triggerListeners();
-    });
+let competitionRef = firebase.getCompetitionsRef();
+
+competitionRef.on('value', function (snapshot) {
+    competitions = [];
+    const values = snapshot.val();
+    for (const v in values) {
+        competitions.push(values[v]);
+    };
+    triggerListeners();
+});
 
 var listeners = [];
 
@@ -30,20 +33,27 @@ function addCompetition(competition) {
     competitions.push(competition);
     triggerListeners();
 
-    // rest.post('/api/competitions/', competition);
+    let key = competitionRef.push().key;
+    let model = competitionModel(key, competition.name, competition.purchased);
+    firebase.getCompetitionRef(key).set(model).then(function () {
+        console.info('added')
+    });
 }
 
 function removeCompetition(competition) {
     var index;
     competitions.filter(function (_competition, _index) {
-        if (_competition.name == competition.name) {
+        if (_competition.id == competition.id) {
             index = _index;
+            return;
         }
     });
     competitions.splice(index, 1);
     triggerListeners();
 
-    // rest.remove('/api/competitions/' + competition.id);
+    firebase.getCompetitionRef(competition.id).remove().then(function () {
+        console.info('removed');
+    })
 }
 
 function setCompetitionBought(competition, isBought) {
@@ -53,7 +63,10 @@ function setCompetitionBought(competition, isBought) {
     competition.purchased = isBought;
     triggerListeners();
 
-    // rest.patch('/api/competitions/' + competition.id, competition);
+    let model = competitionModel(competition.id, competition.name, competition.purchased);
+    firebase.getCompetitionRef(competition.id).update(model).then(function () {
+        console.info('updated');
+    })
 }
 
 function triggerListeners() {

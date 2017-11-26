@@ -18,7 +18,7 @@ export default class CompetitionList extends React.Component {
                     {
                         this.state.competitions.map(function (competition, index) {
                             return (
-                                <Competition competition={competition} key={competition.name} />
+                                <Competition competition={competition} key={competition.id} />
                             )
                         })
                     }
