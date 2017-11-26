@@ -5,7 +5,7 @@ var babelify = require('babelify');
 var babel = require('gulp-babel');
 
 gulp.task('copystatic', function () {
-    return gulp.src(['static/*.css', 'static/favicon.ico', 'bower_components/**/*.css'])
+    return gulp.src(['static/**/*.css', 'static/**/*.js', 'static/favicon.ico', 'bower_components/**/*.css'])
         .pipe(gulp.dest('./public'));
 })
 
@@ -35,5 +35,5 @@ gulp.task('bundle', ['copystatic', 'copyejs', 'buildserver', 'jsxtojs'], functio
         .transform(babelify)
         .bundle()
         .pipe(source('app.js'))
-        .pipe(gulp.dest('./public'));
+        .pipe(gulp.dest('./public/js'));
 })
