@@ -4,14 +4,43 @@
 <head>
   <meta charset="utf-8">
   <title>Welcome to freepolls</title>
-  <link href="/styles.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
 </head>
 
 <body>
+  <header class="navbar navbar-bright navbar-fixed-top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">Home</a>
+      </div>
+      <nav class="collapse navbar-collapse" role="navigation">
+        <ul id="categories" class="nav navbar-nav" />
+      </nav>
+      <nav class="collapse navbar-collapse" role="navigation">
+        <ul class="nav navbar-right navbar-nav">
+          <li id="login" />
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <div id="root" class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel">
+          <div class="panel-body">
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- ::APP:: -->
   </div>
-  <script src="/app.js"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="/js/app.js"></script>
 </body>
 
 </html>

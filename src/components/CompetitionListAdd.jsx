@@ -27,6 +27,7 @@ export default class CompetitionListAdd extends React.Component {
             input: ''
         });
     }
+
     render() {
         return (
             <div className="competition-add" >
