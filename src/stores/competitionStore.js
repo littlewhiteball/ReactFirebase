@@ -1,4 +1,5 @@
 import dispatcher from './../dispatchers/dispatcher';
+// TODO: pass firebase in from index.jsx. May need to change this file to a class
 import firebase from './../database/firebase';
 import competitionModel from './../models/competition';
 
