@@ -1,6 +1,5 @@
 import dispatcher from './../dispatchers/dispatcher';
-// TODO: pass firebase in from index.jsx. May need to change this file to a class
-import firebase from './../database/firebase';
+import competitionDb from './../database/competitions';
 import competitionModel from './../models/competition';
 
 // ******** Public ********//
@@ -17,7 +16,7 @@ function onChange(listener) {
 
 var competitions = [];
 
-let competitionRef = firebase.getCompetitionsRef();
+let competitionRef = competitionDb.getCompetitionsRef();
 
 competitionRef.on('value', function (snapshot) {
     competitions = [];
@@ -36,7 +35,7 @@ function addCompetition(competition) {
 
     let key = competitionRef.push().key;
     let model = competitionModel(key, competition.name, competition.purchased);
-    firebase.getCompetitionRef(key).set(model).then(function () {
+    competitionDb.getCompetitionRef(key).set(model).then(function () {
         console.info('added')
     });
 }
@@ -52,7 +51,7 @@ function removeCompetition(competition) {
     competitions.splice(index, 1);
     triggerListeners();
 
-    firebase.getCompetitionRef(competition.id).remove().then(function () {
+    competitionDb.getCompetitionRef(competition.id).remove().then(function () {
         console.info('removed');
     })
 }
@@ -65,7 +64,7 @@ function setCompetitionBought(competition, isBought) {
     triggerListeners();
 
     let model = competitionModel(competition.id, competition.name, competition.purchased);
-    firebase.getCompetitionRef(competition.id).update(model).then(function () {
+    competitionDb.getCompetitionRef(competition.id).update(model).then(function () {
         console.info('updated');
     })
 }
