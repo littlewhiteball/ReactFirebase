@@ -1,0 +1,16 @@
+{
+    "users": {
+        "narisong@gmail.com": {
+            "name": "Risong Na",
+            "contacts": {
+                "daphnezht@gmail.com": true
+            }
+        },
+        "daphnezht@gmail.com": {
+            "name": "Haoting Zhuang",
+            "contacts": {
+                "narisong@gmail.com": true
+            }
+        }
+    }
+}

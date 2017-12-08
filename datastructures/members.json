@@ -1,0 +1,11 @@
+{
+    "members": {
+        "1": {
+            "narisong": true,
+            "zhuanghaoting": true
+        },
+        "2": {
+            // ...
+        }
+    }
+}
