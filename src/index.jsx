@@ -2,7 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
-import { Provider, connect } from 'react-redux';
 import { createLogger } from 'redux-logger';
 
 import firebase from 'firebase';
