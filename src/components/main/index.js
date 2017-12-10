@@ -1,9 +1,5 @@
-import Home from './Home';
-import Header from './Header';
-import Footer from './Footer';
-import Login from './Login';
-import Logout from './Logout';
-
-export {
-    Home, Header, Footer, Login, Logout
-};
+export * from './Home';
+export * from './Header';
+export * from './Footer';
+export * from './Login';
+export * from './Logout';

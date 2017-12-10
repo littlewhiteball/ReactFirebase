@@ -1,5 +1,3 @@
-import firebase from './../firebase';
-
 const ADD_COMPETITION = 'ADD_COMPETITION';
 const DELETE_COMPETITION = 'DELETE_COMPETITION';
 

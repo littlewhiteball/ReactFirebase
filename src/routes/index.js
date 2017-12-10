@@ -1,5 +1,1 @@
-import Routes from './Routes';
-
-export {
-    Routes
-};
+export * from './Routes';

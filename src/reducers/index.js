@@ -1,5 +1,1 @@
-import { competitions } from './competitionsReducer';
-
-export {
-    competitions
-};
+export * from './competitionsReducer';
