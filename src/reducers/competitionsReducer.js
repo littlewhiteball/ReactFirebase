@@ -1,12 +1,12 @@
-import { ADD_COMPETITION, DELETE_COMPETITION } from './../actions';
+import { ADD_COMPETITION, DELETE_COMPETITION } from './../actions/competitionsAction';
 
-const competitions = (state = [], competition) => {
+const competitions = (state = [], action) => {
     switch (action.type) {
         case ADD_COMPETITION:
-            return [competition, ...state];
+            return [action.competition, ...state];
 
         case DELETE_COMPETITION:
-            const index = state.findIndex(c => c.id === competition.id);
+            const index = state.findIndex(c => c.id === action.competition.id);
             if (index !== -1) {
                 state.splice(index, 1);
             }

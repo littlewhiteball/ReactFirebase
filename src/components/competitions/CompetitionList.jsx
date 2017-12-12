@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import Competition from './Competition';
 import CompetitionListAdd from './CompetitionListAdd';
 
-export default class CompetitionList extends React.Component {
+class CompetitionList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,3 +30,20 @@ export default class CompetitionList extends React.Component {
         )
     }
 };
+
+const mapStateToProps = (state) => ({
+    competitions: state.competitions
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        get: (competition) => {
+            dispatch(addCompetition(competition));
+        },
+        delete: (competition) => {
+            dispatch(deleteCompetition(competition));
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);

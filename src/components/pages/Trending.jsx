@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addCompetition, deleteCompetition } from './../actions';
+import { CompetitionList } from './../competitions/CompetitionList';
+import { getCompetitions } from './../../actions/competitionsAction';
 
 class Trending extends Component {
+    componentWillMount() {
+        this.props.get();
+    }
+
     render() {
         return (
-            <ul>
-                <li>{this.props.competitions.title}</li>
-            </ul>
+            <CompetitionList competitions={this.props.competitions} />
         );
     }
 }
@@ -19,11 +22,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        add: (competition) => {
-            dispatch(addCompetition(competition));
-        },
-        delete: (competition) => {
-            dispatch(deleteCompetition(competition));
+        get: () => {
+            dispatch(getCompetitions());
         }
     }
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import action from './../actions/competitionAction';
+import action from './../../actions/competitionsAction';
 
 export default class CompetitionListAdd extends React.Component {
     constructor(props) {

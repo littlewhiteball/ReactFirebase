@@ -3,11 +3,7 @@ import { combineReducers } from 'redux';
 import { competitions } from './competitionsReducer';
 import { user } from './usersReducer';
 
-const rootReducer = combineReducers({
+export default combineReducers({
     competitions,
     user
 });
-
-export {
-    rootReducer
-};

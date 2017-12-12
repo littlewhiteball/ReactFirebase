@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
-import { Home, Login, Logout } from './../components/main';
+import Home from './../components/main/Home';
+import Login from './../components/main/Login';
+import Logout from './../components/main/Logout';
 
 export default () => (
     <BrowserRouter>

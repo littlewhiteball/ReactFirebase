@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
-import { Header, Footer } from './';
-import { Tending } from './../pages';
+import Header from './Header';
+import Footer from './Footer';
+import Tending from './../pages/Trending';
 
-export default class App extends Component {
+export default class Home extends Component {
     render() {
         return (
             <div>

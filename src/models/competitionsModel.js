@@ -1,8 +1,8 @@
-const competition = (id, title) => ({
+const competitionModel = (id, title) => ({
     id,
     title
 });
 
 export {
-    competiton
+    competitionModel
 };
