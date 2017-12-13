@@ -1,0 +1,19 @@
+{
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+    "rules": {
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "indent": [
+            2,
+            4
+        ]
+    }
+}

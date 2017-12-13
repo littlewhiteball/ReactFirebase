@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Competition from './Competition';
 import CompetitionListAdd from './CompetitionListAdd';
 
-class CompetitionList extends React.Component {
+class CompetitionList extends Component {
     constructor(props) {
         super(props);
         this.state = {
