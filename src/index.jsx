@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 // components
 import App from './App';
 
-const render = () => ReactDOM.render(<App />, document.getElementById('root'));
+const render = () => ReactDOM.hydrate(<App />, document.getElementById('root'));
 
 render();
 

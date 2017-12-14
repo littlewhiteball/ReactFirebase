@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -16,16 +18,17 @@ class Trending extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    competitions: state.competitions
+Trending.propTypes = {
+    competitions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    get: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+    competitions: state.competitions,
 });
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        get: () => {
-            dispatch(getCompetitions());
-        }
-    }
-};
+const mapDispatchToProps = dispatch => ({
+    get: () => dispatch(getCompetitions()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Trending);
