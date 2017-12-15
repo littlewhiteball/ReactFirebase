@@ -5,5 +5,5 @@ import { user } from './usersReducer';
 
 export default combineReducers({
     competitions,
-    user
+    user,
 });

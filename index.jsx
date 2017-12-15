@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import * as functions from 'firebase-functions';
+import functions from 'firebase-functions';
 import express from 'express';
 import parser from 'body-parser';
 import React from 'react';

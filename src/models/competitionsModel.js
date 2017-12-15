@@ -1,8 +1,4 @@
-const competitionModel = (id, title) => ({
+export default (id, title) => ({
     id,
-    title
+    title,
 });
-
-export {
-    competitionModel
-};

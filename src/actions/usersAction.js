@@ -1,21 +1,16 @@
-const UPDATE_USER_NAME = 'UPDATE_USER_NAME';
-const USER_AUTHORIZING = 'USER_AUTHORIZING';
-const USER_AUTHORIZED = 'USER_AUTHORIZED';
+export const USER_AUTHORIZING = 'USER_AUTHORIZING';
+export const USER_AUTHORIZED = 'USER_AUTHORIZED';
+export const UPDATE_USER_NAME = 'UPDATE_USER_NAME';
 
-const updateUserName = (name) => ({
+export const userAuthorizing = () => ({
+    type: USER_AUTHORIZING,
+});
+
+export const userAuthorized = () => ({
+    type: USER_AUTHORIZED,
+});
+
+export const updateUserName = name => ({
     type: UPDATE_USER_NAME,
-    name
+    name,
 });
-
-
-const userAuthorizing = () => ({
-    type: USER_AUTHORIZING
-});
-
-const userAuthorized = () => ({
-    type: USER_AUTHORIZED
-});
-
-export {
-    updateUserName, userAuthorizing, userAuthorized
-};
