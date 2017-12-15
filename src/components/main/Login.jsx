@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import firebase from 'firebase';
 
-export default class Login extends React.Component {
+export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
         };
 
         this.login = this.login.bind(this);
@@ -14,25 +14,25 @@ export default class Login extends React.Component {
         this.updatePassword = this.updatePassword.bind(this);
     }
 
-    updateEmail(e) {
+    updateEmail = (e) => {
         this.setState({
-            email: e.target.value
+            email: e.target.value,
         });
     }
 
-    updatePassword(e) {
+    updatePassword = (e) => {
         this.setState({
-            password: e.target.value
+            password: e.target.value,
         });
     }
 
-    login() {
+    login = () => {
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(function (user) {
+            .then((user) => {
                 console.info('logged in');
                 // Redux: redirect to home page
             })
-            .catch(function (error) {
+            .catch((error) => {
                 // Handle errors
                 console.log(error.code);
                 console.log(error.message);
@@ -53,5 +53,5 @@ export default class Login extends React.Component {
                 </div>
             </form >
         );
-    };
+    }
 }

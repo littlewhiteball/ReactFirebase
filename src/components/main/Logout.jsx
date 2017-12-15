@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import firebase from 'firebase';
 
-export default class Logout extends React.Component {
-    logout() {
+export default class Logout extends Component {
+    logout = () => {
         firebase.auth().logout();
     }
 
@@ -11,6 +11,6 @@ export default class Logout extends React.Component {
             <div className="form-group">
                 <button className="btn btn-primary btn-lg btn-block" onClick={this.logout}>Log Out</button>
             </div>
-        )
+        );
     }
 }

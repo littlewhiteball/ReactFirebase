@@ -1,49 +1,46 @@
-import React from 'react';
-import action from './../../actions/competitionsAction';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class Competition extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            competition: props.competition
-        };
+import { updateCompetition, deleteCompetition } from './../../actions/competitionsAction';
 
-        this.togglePurchased = this.togglePurchased.bind(this);
-        this.remove = this.remove.bind(this);
-    }
 
-    togglePurchased(e) {
+class Competition extends Component {
+    remove = (e) => {
         e.preventDefault();
-        if (this.state.competition.purchased) {
-            action.unbuy(this.state.competition);
-        } else {
-            action.buy(this.state.competition);
-        }
-    }
-
-    remove(e) {
-        e.preventDefault();
-        action.remove(this.state.competition);
-    }
+        this.props.delete();
+    };
 
     render() {
-        const competition = this.state.competition;
         return (
             <div className="row">
                 <div className="six columns">
-                    <h4 className={competition.purchased ? "strikethrough" : ""}>
-                        {competition.name}
+                    <h4 className="strikethrough">
+                        {this.props.competition.title}
                     </h4>
-                    <form className="three columns" onSubmit={this.togglePurchased}>
-                        <button className={competition.purchased ? "" : "button-primary"}>
-                            {competition.purchased ? "Unbuy" : "Buy"}
-                        </button>
-                    </form>
                     <form className="three columns" onSubmit={this.remove}>
                         <button>&times;</button>
                     </form>
                 </div>
             </div>
-        )
+        );
     }
+}
+
+Competition.propTypes = {
+    competition: PropTypes.shape({
+        id: PropTypes.string,
+        title: PropTypes.string,
+    }).isRequired,
+    udpate: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = dispatch => (
+    {
+        update: competition => dispatch(updateCompetition(competition)),
+        delete: competition => dispatch(deleteCompetition(competition)),
+    }
+);
+
+export default connect(null, mapDispatchToProps)(Competition);

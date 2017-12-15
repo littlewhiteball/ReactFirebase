@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { CompetitionList } from './../competitions/CompetitionList';
+import CompetitionList from './../competitions/CompetitionList';
 import { getCompetitions } from './../../actions/competitionsAction';
 
 class Trending extends Component {
