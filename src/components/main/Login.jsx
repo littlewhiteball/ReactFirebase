@@ -8,10 +8,6 @@ export default class Login extends Component {
             email: '',
             password: '',
         };
-
-        this.login = this.login.bind(this);
-        this.updateEmail = this.updateEmail.bind(this);
-        this.updatePassword = this.updatePassword.bind(this);
     }
 
     updateEmail = (e) => {

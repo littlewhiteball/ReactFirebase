@@ -10,9 +10,6 @@ class CompetitionListAdd extends Component {
         this.state = {
             input: '',
         };
-
-        this.handleInputName = this.handleInputName.bind(this);
-        this.addCompetition = this.addCompetition.bind(this);
     }
 
     handleInputName = (e) => {
