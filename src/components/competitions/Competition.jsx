@@ -11,6 +11,11 @@ class Competition extends Component {
         this.props.delete();
     };
 
+    update = (e) => {
+        e.preventDefault();
+        this.props.update();
+    };
+
     render() {
         return (
             <div className="row">
@@ -19,6 +24,9 @@ class Competition extends Component {
                         {this.props.competition.title}
                     </h4>
                     <form className="three columns" onSubmit={this.remove}>
+                        <button>&times;</button>
+                    </form>
+                    <form className="three columns" onSubmit={this.update}>
                         <button>&times;</button>
                     </form>
                 </div>
@@ -32,7 +40,7 @@ Competition.propTypes = {
         id: PropTypes.string,
         title: PropTypes.string,
     }).isRequired,
-    udpate: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
     delete: PropTypes.func.isRequired,
 };
 

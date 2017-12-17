@@ -12,7 +12,10 @@ class Trending extends Component {
 
     render() {
         return (
-            <CompetitionList competitions={this.props.competitions} />
+            <div className="container">
+                <h1>Trending</h1>
+                <CompetitionList competitions={this.props.competitions} />
+            </div>
         );
     }
 }

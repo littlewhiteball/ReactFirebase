@@ -3,7 +3,7 @@ import { ADD_COMPETITION, DELETE_COMPETITION } from './../actions/competitionsAc
 export default (state = [], action) => {
     switch (action.type) {
         case ADD_COMPETITION:
-            return [action.competition, ...state]
+            return [action.competition, ...state];
 
         case DELETE_COMPETITION: {
             const index = state.findIndex(c => c.id === action.competition.id);

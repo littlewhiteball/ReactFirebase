@@ -10,18 +10,18 @@ gulp.task('copystatic', () =>
 
 gulp.task('copyejs', () =>
     gulp.src(['static/*.ejs'])
-        .pipe(gulp.dest('./()=>s/public')));
+        .pipe(gulp.dest('./functions/public')));
 
 gulp.task('buildserver', () =>
     gulp.src(['index.js'], { base: './' })
         .pipe(babel())
-        .pipe(gulp.dest('./()=>s/')));
+        .pipe(gulp.dest('./functions/')));
 
 gulp.task('jsxtojs', () =>
     gulp.src(['./src/**/*'])
         .pipe(babel())
         .pipe(gulp.dest('./js'))
-        .pipe(gulp.dest('./()=>s/src')));
+        .pipe(gulp.dest('./functions/src')));
 
 gulp.task('bundle', ['copystatic', 'copyejs', 'buildserver', 'jsxtojs'], () =>
     browserify({

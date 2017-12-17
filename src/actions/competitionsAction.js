@@ -41,7 +41,9 @@ export const getCompetitions = () =>
             setTimeout(() => {
                 const competitions = snapshot.val() || [];
 
-                competitions.foreach(c => dispatch(c));
+                Object.keys(competitions).forEach((key) => {
+                    dispatch(addCompetitionAction(competitions[key]));
+                });
 
                 dispatch(receivedCompetitionsAction);
             }, 0);
