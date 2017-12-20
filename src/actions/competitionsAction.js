@@ -1,5 +1,6 @@
 import { setTimeout } from 'timers';
 
+// import database from './../database';
 import { getCompetitionsRef, getCompetitionRef } from './../database/competitions';
 import competitionModel from './../models/competitionsModel';
 
@@ -52,13 +53,13 @@ export const getCompetitions = () =>
 
 export const addCompetition = competition =>
     (dispatch) => {
-        const { key } = getCompetitionRef.push().key;
+        const { key } = getCompetitionsRef().push();
         const model = competitionModel(key, competition.title);
         getCompetitionRef(key).set(model).then(() => {
             console.info('added competition to database');
         });
 
-        dispatch(addCompetitionAction(competition));
+        dispatch(addCompetitionAction(model));
     };
 
 export const updateCompetition = competition =>

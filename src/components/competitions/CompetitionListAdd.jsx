@@ -19,7 +19,7 @@ class CompetitionListAdd extends Component {
     addCompetition = (e) => {
         e.preventDefault();
         this.props.add({
-            name: this.state.input,
+            title: this.state.input,
         });
 
         this.setState({
