@@ -37,7 +37,8 @@ export const getCompetitions = () =>
     (dispatch) => {
         dispatch(gettingCompetitionsAction);
 
-        getCompetitionsRef().limitToLast(20).on('value', (snapshot) => {
+        // TODO: Debating on('value') or once('value')
+        getCompetitionsRef().limitToLast(20).once('value', (snapshot) => {
             // TODO: get around Redux panicking about actions in reducers
             setTimeout(() => {
                 const competitions = snapshot.val() || [];
