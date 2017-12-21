@@ -10,11 +10,13 @@ export default (state = [], action) => {
 
 
         case DELETE_COMPETITION: {
-            const index = state.findIndex(c => c.id === action.competition.id);
+            const newState = [...state];
+            const index = newState.findIndex(c => c.id === action.competition.id);
             if (index !== -1) {
-                state.splice(index, 1);
+                newState.splice(index, 1);
+                console.log(`competition deleted at ${index}`);
             }
-            return state;
+            return newState;
         }
 
         default:

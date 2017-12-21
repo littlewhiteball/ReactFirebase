@@ -9,7 +9,6 @@ class CompetitionList extends Component {
     render() {
         return (
             <div>
-                <h1>Competition Listify</h1>
                 <div>
                     {
                         this.props.competitions.map(competition => (

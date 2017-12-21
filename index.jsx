@@ -7,6 +7,8 @@ import parser from 'body-parser';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
+import App from './src/App';
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -17,7 +19,7 @@ const logout = fs.readFileSync(path.join(__dirname, '/public/logout.ejs'), 'utf-
 
 app.route('/')
     .get((req, res) => {
-        const html = index.replace('<!-- ::APP:: -->', renderToString(<h2>TODO: Index server side rendering</h2>));
+        const html = index.replace('<!-- ::APP:: -->', renderToString(<App />));
         res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
         res.send(html);
     });

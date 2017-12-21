@@ -4,16 +4,15 @@ import PropTypes from 'prop-types';
 
 import { updateCompetition, deleteCompetition } from './../../actions/competitionsAction';
 
-
 class Competition extends Component {
     remove = (e) => {
         e.preventDefault();
-        this.props.delete();
+        this.props.delete(this.props.competition);
     };
 
     update = (e) => {
         e.preventDefault();
-        this.props.update();
+        this.props.update(this.props.competition);
     };
 
     render() {
