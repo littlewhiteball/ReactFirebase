@@ -1,7 +1,7 @@
 import { setTimeout } from 'timers';
 
 // import database from './../database';
-import { getCompetitionsRef, getCompetitionRef } from './../database/competitions';
+import { getCompetitionsOnceFromDb, pushCompetitionToDb, addCompetitionToDb, removeCompetitionFromDb } from './../database/competitionsDbAdapter';
 import competitionModel from './../models/competitionsModel';
 
 export const GETTING_COMPETITIONS = 'GETTING_COMPETITIONS';
@@ -38,7 +38,7 @@ export const getCompetitions = () =>
         dispatch(gettingCompetitionsAction);
 
         // TODO: Debating on('value') or once('value')
-        getCompetitionsRef().limitToLast(20).once('value', (snapshot) => {
+        getCompetitionsOnceFromDb().then((snapshot) => {
             // TODO: get around Redux panicking about actions in reducers
             setTimeout(() => {
                 const competitions = snapshot.val() || [];
@@ -54,9 +54,9 @@ export const getCompetitions = () =>
 
 export const addCompetition = competition =>
     (dispatch) => {
-        const { key } = getCompetitionsRef().push();
+        const { key } = pushCompetitionToDb();
         const model = competitionModel(key, competition.title);
-        getCompetitionRef(key).set(model).then(() => {
+        addCompetitionToDb(model).then(() => {
             console.info('added competition to database');
         });
 
@@ -70,7 +70,7 @@ export const updateCompetition = competition =>
 
 export const deleteCompetition = competition =>
     (dispatch) => {
-        getCompetitionRef(competition.id).remove().then(() => {
+        removeCompetitionFromDb(competition.id).then(() => {
             console.info('deleted competition from database');
         });
 
