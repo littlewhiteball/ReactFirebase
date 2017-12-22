@@ -11,7 +11,7 @@ export const getCompetitionsOnceFromDb = (limitToLast = 0) => {
     return getCompetitionsRef().once('value');
 };
 
-export const pushCompetitionToDb = () => getCompetitionsRef().push();
+export const generateKeyForCompetitionFromDb = () => getCompetitionsRef().push().key;
 
 export const addCompetitionToDb = (competitionModel) => {
     const { id } = competitionModel;

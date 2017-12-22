@@ -1,7 +1,7 @@
 import { setTimeout } from 'timers';
 
 // import database from './../database';
-import { getCompetitionsOnceFromDb, pushCompetitionToDb, addCompetitionToDb, removeCompetitionFromDb } from './../database/competitionsDbAdapter';
+import { getCompetitionsOnceFromDb, generateKeyForCompetitionFromDb, addCompetitionToDb, removeCompetitionFromDb } from './../database/competitionsDbAdapter';
 import competitionModel from './../models/competitionsModel';
 
 export const GETTING_COMPETITIONS = 'GETTING_COMPETITIONS';
@@ -54,7 +54,7 @@ export const getCompetitions = () =>
 
 export const addCompetition = competition =>
     (dispatch) => {
-        const { key } = pushCompetitionToDb();
+        const key = generateKeyForCompetitionFromDb();
         const model = competitionModel(key, competition.title);
         addCompetitionToDb(model).then(() => {
             console.info('added competition to database');
