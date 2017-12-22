@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "firebase": "firebase serve --only functions,hosting"
+    "firebase": "firebase serve --only functions,hosting",
+    "test": "jest"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -24,6 +25,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
+    "jest": "^22.0.3",
     "prop-types": "^15.6.0",
     "redux-logger": "^3.0.6",
     "vinyl-source-stream": "^1.1.0"
