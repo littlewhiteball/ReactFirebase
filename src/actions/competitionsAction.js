@@ -37,8 +37,7 @@ export const getCompetitions = () =>
     (dispatch) => {
         dispatch(gettingCompetitionsAction);
 
-        // TODO: Debating on('value') or once('value')
-        getCompetitionsOnceFromDb().then((snapshot) => {
+        return getCompetitionsOnceFromDb().then((snapshot) => {
             // TODO: get around Redux panicking about actions in reducers
             setTimeout(() => {
                 const competitions = snapshot.val() || [];
@@ -56,11 +55,10 @@ export const addCompetition = competition =>
     (dispatch) => {
         const key = generateKeyForCompetitionFromDb();
         const model = competitionModel(key, competition.title);
-        addCompetitionToDb(model).then(() => {
+        return addCompetitionToDb(model).then(() => {
             console.info('added competition to database');
+            dispatch(addCompetitionAction(model));
         });
-
-        dispatch(addCompetitionAction(model));
     };
 
 export const updateCompetition = competition =>
@@ -70,9 +68,9 @@ export const updateCompetition = competition =>
 
 export const deleteCompetition = competition =>
     (dispatch) => {
-        removeCompetitionFromDb(competition.id).then(() => {
+        const { id } = competition;
+        return removeCompetitionFromDb(id).then(() => {
             console.info('deleted competition from database');
+            dispatch(deleteCompetitionAction(competition));
         });
-
-        dispatch(deleteCompetitionAction(competition));
     };

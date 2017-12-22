@@ -5,7 +5,7 @@ const babelify = require('babelify');
 const babel = require('gulp-babel');
 
 gulp.task('copystatic', () =>
-    gulp.src(['static/**/*.css', 'static/**/*.js', 'static/favicon.ico', 'bower_components/**/*.css'])
+    gulp.src(['static/**/*.css', 'static/**/*.js', 'static/favicon.ico'])
         .pipe(gulp.dest('./public')));
 
 gulp.task('copyejs', () =>
@@ -18,7 +18,7 @@ gulp.task('buildserver', () =>
         .pipe(gulp.dest('./functions/')));
 
 gulp.task('jsxtojs', () =>
-    gulp.src(['./src/**/*'])
+    gulp.src(['./src/**/*', '!./src/**/__tests__', '!./src/**/__tests__/**', '!./src/**/__mocks__', '!./src/**/__mocks__/**'])
         .pipe(babel())
         .pipe(gulp.dest('./js'))
         .pipe(gulp.dest('./functions/src')));
