@@ -3,7 +3,6 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import { Competition } from './../Competition';
-import { unescape } from 'querystring';
 
 configure({ adapter: new Adapter() });
 
@@ -15,7 +14,6 @@ const competition0 = {
 const setup = () => {
     const props = {
         competition: competition0,
-        update: jest.fn(),
         delete: jest.fn(),
     };
     const wrapper = mount(<Competition {...props} />);
@@ -39,7 +37,7 @@ describe('competition component', () => {
         expect(wrapper.find('button').text()).toBe('×');
     });
 
-    it('should call remove once submitted', () => {
+    it('should call delete once submitted', () => {
         const { props, wrapper } = setup();
         wrapper.find('form').simulate('submit', { preventDefault() { } });
 
