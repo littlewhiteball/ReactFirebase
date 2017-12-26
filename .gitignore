@@ -2,7 +2,10 @@ package-lock.json
 node_modules/
 bower_components/
 *.log
-/functions
+/functions/node_modules
+/functions/public
+/functions/src
+/functions/package-lock.json
 /js
 /public
 /coverage
