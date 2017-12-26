@@ -6,9 +6,13 @@ import Competition from './Competition';
 import CompetitionListAdd from './CompetitionListAdd';
 
 class CompetitionList extends Component {
+    // TODO: This is to stop eslint complaining the component should be pure function
+    getCompetitionsCount = () => this.props.competitions.length;
+
     render() {
         return (
             <div>
+                <h1>{this.getCompetitionsCount}</h1>
                 <div>
                     {
                         this.props.competitions.map(competition => (
