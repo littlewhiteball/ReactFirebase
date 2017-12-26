@@ -33,17 +33,15 @@ var _server = require('react-dom/server');
 
 var _reactRouterDom = require('react-router-dom');
 
-var _reactRouterConfig = require('react-router-config');
-
 var _reactRedux = require('react-redux');
 
 var _stores = require('./src/stores');
 
 var _stores2 = _interopRequireDefault(_stores);
 
-var _Routes = require('./src/Routes');
+var _App = require('./src/App');
 
-var _Routes2 = _interopRequireDefault(_Routes);
+var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -66,7 +64,7 @@ app.route('*').get(function (req, res) {
             _react2.default.createElement(
                 _reactRouterDom.StaticRouter,
                 { location: req.url, context: context },
-                (0, _reactRouterConfig.renderRoutes)(_Routes2.default)
+                _react2.default.createElement(_App2.default, null)
             )
         );
     };

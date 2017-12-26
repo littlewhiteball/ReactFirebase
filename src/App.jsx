@@ -1,11 +1,14 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
 
-import store from './stores';
-import Routes from './Routes';
+import Home from './components/main/Home';
+import Login from './components/main/Login';
+import Logout from './components/main/Logout';
 
 export default () => (
-    <Provider store={store}>
-        <Routes />
-    </Provider>
+    <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/logout" exact component={Logout} />
+    </Switch>
 );

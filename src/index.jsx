@@ -1,19 +1,24 @@
 // packages
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 // components
 import App from './App';
+import store from './stores';
 
-const render = () => ReactDOM.hydrate(<App />, document.getElementById('root'));
+const element = (
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
+);
+
+const render = () => ReactDOM.hydrate(element, document.getElementById('root'));
 
 render();
-
-// function render() {
-//     ReactDOM.render(<CompetitionList competitions={initial} />, document.getElementById('root'));
-//     ReactDOM.render(<CategoryList />, document.getElementById('categories'));
-//     ReactDOM.render(<Login />, document.getElementById('auth'));
-// }
 
 // firebase.auth().onAuthStateChanged(function (user) {
 //     if (user) {
@@ -21,9 +26,4 @@ render();
 //     } else {
 //         ReactDOM.render(<Login />, document.getElementById('auth'));
 //     }
-// });
-
-// competitionStore.onChange(function (competitions) {
-//     initial = competitions;
-//     render();
 // });
