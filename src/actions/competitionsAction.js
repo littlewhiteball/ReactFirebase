@@ -54,7 +54,13 @@ export const getCompetitions = () =>
 export const addCompetition = competition =>
     (dispatch) => {
         const key = generateKeyForCompetitionFromDb();
-        const model = competitionModel(key, competition.title);
+        const model = competitionModel(
+            key,
+            competition.title,
+            competition.start,
+            competition.closing,
+            competition.options,
+        );
         return addCompetitionToDb(model).then(() => {
             console.info('added competition to database');
             dispatch(addCompetitionAction(model));

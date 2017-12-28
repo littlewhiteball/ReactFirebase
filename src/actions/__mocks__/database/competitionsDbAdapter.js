@@ -1,13 +1,4 @@
-const competitions = [
-    {
-        id: 'id0',
-        title: 'title0',
-    },
-    {
-        id: 'id1',
-        title: 'title1',
-    },
-];
+import { competitions } from './../../../__tests_constants__';
 
 const firebaseKey = '-0123456789abcdefghi';
 

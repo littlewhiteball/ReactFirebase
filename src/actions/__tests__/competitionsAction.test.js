@@ -1,16 +1,9 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as actions from './../competitionsAction';
+import { competition0, competition1 } from './../../__tests_constants__';
 
-const competition0 = {
-    id: 'id0',
-    title: 'title0',
-};
-const competition1 = {
-    id: 'id1',
-    title: 'title1',
-};
+import * as actions from './../competitionsAction';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

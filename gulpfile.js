@@ -18,7 +18,7 @@ gulp.task('buildserver', () =>
         .pipe(gulp.dest('./functions/')));
 
 gulp.task('jsxtojs', () =>
-    gulp.src(['./src/**/*', '!./src/**/__tests__', '!./src/**/__tests__/**', '!./src/**/__mocks__', '!./src/**/__mocks__/**'])
+    gulp.src(['./src/**/*', '!./src/**/__tests__', '!./src/**/__tests__/**', '!./src/**/__mocks__', '!./src/**/__mocks__/**', '!./src/__tests_constants__.js'])
         .pipe(babel())
         .pipe(gulp.dest('./js'))
         .pipe(gulp.dest('./functions/src')));

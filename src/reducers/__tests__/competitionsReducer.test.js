@@ -1,15 +1,7 @@
 import competitionReducer from './../competitionsReducer';
 import { ADD_COMPETITION, DELETE_COMPETITION } from './../../actions/competitionsAction';
 
-const competition0 = {
-    id: 'id0',
-    title: 'title0',
-};
-
-const competition1 = {
-    id: 'id1',
-    title: 'title1',
-};
+import { competition0, competition1 } from './../../__tests_constants__';
 
 describe('add competition', () => {
     it('should return the initial state', () => {
