@@ -16,10 +16,14 @@ class CompetitionListAdd extends Component {
         this.setState({ input: e.target.value });
     }
 
-    addCompetition = (e) => {
+    submitAddCompetition = (e) => {
         e.preventDefault();
+        // TODO: closing and options are hard coded
         this.props.add({
             title: this.state.input,
+            start: Date.now(),
+            closing: Date.now() + (10 * 24 * 60 * 60 * 1000),
+            options: ['option1', 'option2'],
         });
 
         this.setState({
@@ -30,7 +34,7 @@ class CompetitionListAdd extends Component {
     render() {
         return (
             <div className="competition-add" >
-                <form onSubmit={this.addCompetition}>
+                <form onSubmit={this.submitAddCompetition}>
                     <input value={this.state.input} type="text" onChange={this.handleInputName} />
                     <button>Add Competition</button>
                 </form>

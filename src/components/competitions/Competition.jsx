@@ -2,34 +2,48 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import CompetitionSummary from './CompetitionSummary';
+
 import { deleteCompetition } from './../../actions/competitionsAction';
 
-export class Competition extends Component {
+export class CompetitionComponent extends Component {
     remove = (e) => {
         e.preventDefault();
         this.props.delete(this.props.competition);
     };
 
     render() {
+        const competitionSummaryId = `competitionSummary${this.props.competition.id}`;
+
         return (
-            <div className="row">
-                <div className="col-3">
-                    <h4 className="strikethrough">
-                        {this.props.competition.title}
-                    </h4>
-                    <form className="col-3" onSubmit={this.remove}>
-                        <button>&times;</button>
-                    </form>
+            <div className="container">
+                <div className="row">
+                    <div className="col-9">
+                        <a href={`#${competitionSummaryId}`} data-toggle="collapse">
+                            {this.props.competition.title}
+                        </a>
+                    </div>
+                    <div className="col-3">
+                        <form onSubmit={this.remove}>
+                            <button>&times;</button>
+                        </form>
+                    </div>
+                </div>
+                <div className="collapse" id={competitionSummaryId}>
+                    <CompetitionSummary competition={this.props.competition} />
                 </div>
             </div>
         );
     }
 }
 
-Competition.propTypes = {
+CompetitionComponent.propTypes = {
     competition: PropTypes.shape({
         id: PropTypes.string,
         title: PropTypes.string,
+        start: PropTypes.date,
+        closing: PropTypes.date,
+        options: PropTypes.arrayOf(PropTypes.string),
     }).isRequired,
     delete: PropTypes.func.isRequired,
 };
@@ -40,4 +54,4 @@ const mapDispatchToProps = dispatch => (
     }
 );
 
-export default connect(null, mapDispatchToProps)(Competition);
+export default connect(null, mapDispatchToProps)(CompetitionComponent);

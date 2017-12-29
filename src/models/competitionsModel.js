@@ -1,3 +1,5 @@
+// TODO: use a class, and update props of each component
+
 /**
  * Returns the competition model in json format
  * @param {string} id - competition id
