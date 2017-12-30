@@ -25,13 +25,14 @@ export class CompetitionComponent extends Component {
                     </div>
                     <div className="col-3">
                         <form onSubmit={this.remove}>
-                            <button>&times;</button>
+                            <button type="button" className="btn btn-primary">Join</button>
                         </form>
                     </div>
                 </div>
                 <div className="collapse" id={competitionSummaryId}>
                     <CompetitionSummary competition={this.props.competition} />
                 </div>
+                <hr />
             </div>
         );
     }

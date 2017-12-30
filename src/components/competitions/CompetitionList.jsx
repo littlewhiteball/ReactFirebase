@@ -10,6 +10,7 @@ class CompetitionList extends PureComponent {
         return (
             <div>
                 <div>
+                    <br />
                     {
                         this.props.competitions.map(competition => (
                             <Competition competition={competition} key={competition.id} />
