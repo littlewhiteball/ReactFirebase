@@ -68,7 +68,7 @@ app.route('*').get(function (req, res) {
             )
         );
     };
-    var content = (0, _server.renderToString)(element());
+    var content = (0, _server.renderToStaticMarkup)(element());
     var html = index.replace('<!-- ::APP:: -->', content);
     res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
     res.send(html);
