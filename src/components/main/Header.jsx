@@ -1,39 +1,46 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-export default class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { navbarTabs: ['NFL', 'EPL'] };
-    }
-
+export default class Header extends PureComponent {
     render() {
+        const navCategoryListId = 'navCategoryList';
         return (
-            <header className="navbar navbar-bright navbar-fixed-top" role="banner">
-                <div className="container">
-                    <div className="navbar-header">
-                        <button className="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar" />
-                            <span className="icon-bar" />
-                            <span className="icon-bar" />
-                        </button>
-                        <a href="/" className="navbar-brand">Home</a>
-                    </div>
-                    <nav className="collapse navbar-collapse">
-                        <ul className="nav navbar-nav">
-                            <li>
-                                <a href={this.state.navbarTabs}>{this.state.navbarTabs}</a>
-                            </li>
-                        </ul>
-                        <ul className="nav navbar-right navbar-nav">
-                            <li className="dropdown">
-                                <Link to="/login" href="/login" className="btn btn-default navbar-btn">Login/Register</Link>
-                            </li>
-                        </ul>
-                    </nav>
+            <header className="navbar navbar-expand-md navbar-dark bg-dark" role="banner">
+                <a href="/" className="navbar-brand">
+                    <img src="/favicon.ico" alt="Ga" width="36" height="36" />
+                    Home
+                </a>
+                <button className="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target={`#${navCategoryListId}`}>
+                    <span className="navbar-toggler-icon" />
+                </button>
+                <div className="collapse navbar-collapse" id={navCategoryListId}>
+                    <ul className="navbar-nav mr-auto">
+                        {this.props.categoryList.map(category => (
+                            <li className="nav-item">
+                                <a className="nav-link active" href={category.link}>{category.name}</a>
+                            </li>))}
+                    </ul>
+                    <button className="btn btn-outline-info">Login/Register</button>
                 </div>
             </header>
         );
     }
 }
+
+// TODO: create a class for category, and use it as isRequired
+Header.propTypes = {
+    categoryList: PropTypes.arrayOf(PropTypes.objet),
+};
+
+Header.defaultProps = {
+    categoryList: [
+        {
+            name: 'NFL',
+            link: '/nfl',
+        },
+        {
+            name: 'EPL',
+            link: '/epl',
+        },
+    ],
+};
