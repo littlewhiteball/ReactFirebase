@@ -14,14 +14,17 @@ export default class CompetitionSummary extends PureComponent {
                 <small>closing: {closing}</small>
                 <ul className="list-group">
                     {
-                        this.props.competition.options.map(option => (
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
-                                {option}
-                                <span className="badge badge-primary badge-pill">
-                                    10
-                                </span>
-                            </li>
-                        ))
+                        this.props.competition.options.map((option, i) => {
+                            const optionId = `${this.props.competition.id}option${i}`;
+                            return (
+                                <li className="list-group-item d-flex justify-content-between align-items-center" key={optionId}>
+                                    <span>{option}</span>
+                                    <span className="badge badge-primary badge-pill">
+                                        {i}
+                                    </span>
+                                </li>
+                            );
+                        })
                     }
                 </ul>
             </div>

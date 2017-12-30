@@ -4,7 +4,7 @@ export const competition0 =
         title: 'MLB world series 2017',
         start: new Date('2017-11-02T09:00:00z'),
         closing: new Date('2017-11-12T09:00:00z'),
-        options: ['Houston Astros', 'LA Dogers'],
+        options: ['Houston Astros', 'LA Dodgers'],
     };
 export const competition1 =
     {
