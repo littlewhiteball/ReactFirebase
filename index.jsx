@@ -5,7 +5,7 @@ import * as functions from 'firebase-functions';
 import express from 'express';
 import parser from 'body-parser';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -30,7 +30,7 @@ app.route('*')
                 </StaticRouter>
             </Provider>
         );
-        const content = renderToString(element());
+        const content = renderToStaticMarkup(element());
         const html = index.replace('<!-- ::APP:: -->', content);
         res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
         res.send(html);
