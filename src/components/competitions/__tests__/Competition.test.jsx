@@ -33,7 +33,9 @@ describe('competition component', () => {
         expect(wrapper.find('a').prop('data-toggle')).toBe('collapse');
         expect(wrapper.find('a').text()).toBe('MLB world series 2017');
         expect(wrapper.find('div').at(3).hasClass('col-3')).toBe(true);
-        expect(wrapper.find('button').text()).toBe('×');
+        expect(wrapper.find('button').hasClass('btn btn-primary')).toBe(true);
+        expect(wrapper.find('button').prop('type')).toBe('button');
+        expect(wrapper.find('button').text()).toBe('Join');
         expect(wrapper.find('div').at(4).hasClass('collapse')).toBe(true);
         expect(wrapper.find('div').at(4).prop('id')).toBe('competitionSummaryid0');
         expect(wrapper.find(CompetitionSummary)).toHaveLength(1);
