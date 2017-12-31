@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class CompetitionSummary extends PureComponent {
+export default class CompetitionSummary extends Component {
     render() {
         // TODO: Create util class to handle datetime conversion
         const start = new Date(this.props.competition.start).toLocaleString();
