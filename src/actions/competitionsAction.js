@@ -1,6 +1,5 @@
 import { setTimeout } from 'timers';
 
-// import database from './../database';
 import { getCompetitionsOnceFromDb, generateKeyForCompetitionFromDb, addCompetitionToDb, removeCompetitionFromDb } from './../database/competitionsDbAdapter';
 import competitionModel from './../models/competitionsModel';
 
