@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Header extends PureComponent {
+export default class Header extends Component {
     render() {
         const navCategoryListId = 'navCategoryList';
         return (
@@ -16,11 +16,11 @@ export default class Header extends PureComponent {
                 <div className="collapse navbar-collapse" id={navCategoryListId}>
                     <ul className="navbar-nav mr-auto">
                         {this.props.categoryList.map(category => (
-                            <li className="nav-item">
+                            <li className="nav-item" key={category.name}>
                                 <a className="nav-link active" href={category.link}>{category.name}</a>
                             </li>))}
                     </ul>
-                    <button className="btn btn-outline-info">Login/Register</button>
+                    <a href="/auth"><button className="btn btn-outline-info">Login/Register</button></a>
                 </div>
             </header>
         );
@@ -29,7 +29,7 @@ export default class Header extends PureComponent {
 
 // TODO: create a class for category, and use it as isRequired
 Header.propTypes = {
-    categoryList: PropTypes.arrayOf(PropTypes.objet),
+    categoryList: PropTypes.arrayOf(PropTypes.object),
 };
 
 Header.defaultProps = {
