@@ -5,6 +5,8 @@ import { competition0, competition1 } from './../../__tests_constants__';
 
 import * as actions from './../competitionsAction';
 
+jest.mock('./../../database/competitionsDbAdapter');
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
