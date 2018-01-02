@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Auth from './../Auth';
@@ -9,9 +9,9 @@ import Login from './../../users/Login';
 
 configure({ adapter: new Adapter() });
 
-const wrapper = mount(<Auth />);
+const wrapper = shallow(<Auth />);
 
-describe('footer component', () => {
+describe('auth component', () => {
     it('should render self', () => {
         expect(wrapper.find('div').exists()).toBe(true);
         expect(wrapper.find(Header).exists()).toBe(true);
@@ -19,4 +19,3 @@ describe('footer component', () => {
         expect(wrapper.find(Footer).exists()).toBe(true);
     });
 });
-

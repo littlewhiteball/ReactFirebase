@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const pleaseSignin = 'Please sign in';
-const signinOrRegisterWarning = 'If you do not have an account already. This will create your account';
-const signin = 'Sign in';
-const rememberMe = 'Remember me';
-const forgotPassword = 'Forgot password?';
+import { signInEmailPassword } from './../../actions/usersAction';
 
-export default class Login extends Component {
+const PLEASE_SIGN_IN = 'Please sign in';
+const SIGN_IN_OR_REGISTERING_WARNING = 'If you do not have an account already. This will create your account';
+const SIGN_IN = 'Sign in';
+const REMEMBER_ME = 'Remember me';
+const FORGOT_PASSWORD = 'Forgot password?';
+
+export class LoginComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,39 +20,33 @@ export default class Login extends Component {
     }
 
     updateEmail = (e) => {
+        e.preventDefault();
         this.setState({
             email: e.target.value,
         });
     }
 
     updatePassword = (e) => {
+        e.preventDefault();
         this.setState({
             password: e.target.value,
         });
     }
 
-    login = () => {
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then((user) => {
-                console.info('logged in');
-                // Redux: redirect to home page
-            })
-            .catch((error) => {
-                // Handle errors
-                console.log(error.code);
-                console.log(error.message);
-            });
+    signInWithEmailPassword = () => {
+        this.props.signInWithEmailPassword(this.state.email, this.state.password);
     }
 
     render() {
         const chkRememberMeId = 'chkRememberMe';
+        // TODO: group email, password, remember me, forgot password, and sign in button to one form
         return (
             <div className="container">
                 <form className="form-signin">
                     <div className="form-group">
-                        <h2 className="form-signin-heading">{pleaseSignin}</h2>
+                        <h2 className="form-signin-heading">{PLEASE_SIGN_IN}</h2>
                         <i className="fa fa-exclamation-triangle fa-3" />
-                        <small>{signinOrRegisterWarning}</small>
+                        <small>{SIGN_IN_OR_REGISTERING_WARNING}</small>
                     </div>
                     <div className="form-group">
                         <input type="email" className="form-control" placeholder="Email" />
@@ -61,11 +58,11 @@ export default class Login extends Component {
                         <div className="form-check-inline">
                             <label className="form-check-label" htmlFor={chkRememberMeId}>
                                 <input type="checkbox" className="form-check-input" id={chkRememberMeId} />
-                                {rememberMe}
+                                {REMEMBER_ME}
                             </label>
                         </div>
-                        <a href="/" className="float-right">{forgotPassword}</a>
-                        <button type="submit" className="btn btn-primary btn-block mb-2">{signin}</button>
+                        <a href="/" className="float-right">{FORGOT_PASSWORD}</a>
+                        <button type="submit" className="btn btn-primary btn-block mb-2" onClick={this.signInWithEmailPassword}>{SIGN_IN}</button>
                     </div>
                     <div className="text-center">
                         <button className="btn btn-social-icon btn-google ml-1 mr-1">
@@ -83,3 +80,17 @@ export default class Login extends Component {
         );
     }
 }
+
+LoginComponent.propTypes = {
+    signInWithEmailPassword: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+    signInWithEmailPassword: () => dispatch(signInEmailPassword),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);

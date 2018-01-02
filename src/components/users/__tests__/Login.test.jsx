@@ -2,14 +2,29 @@ import React from 'react';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Login from './../Login';
+import { user } from './../../../__tests_constants__';
+
+import { LoginComponent } from './../Login';
 
 configure({ adapter: new Adapter() });
 
-const wrapper = mount(<Login />);
+const setup = () => {
+    const props = {
+        user,
+        signInWithEmailPassword: jest.fn(),
+    };
+    const wrapper = mount(<LoginComponent {...props} />);
+
+    return {
+        props,
+        wrapper,
+    };
+};
 
 describe('login component', () => {
     it('should render self', () => {
+        const { wrapper } = setup();
+
         expect(wrapper.find('div').at(0).hasClass('container')).toBe(true);
         expect(wrapper.find('form').hasClass('form-signin')).toBe(true);
         expect(wrapper.find('div').at(1).hasClass('form-group')).toBe(true);
@@ -46,5 +61,12 @@ describe('login component', () => {
         expect(wrapper.find('span').at(1).hasClass('fa fa-facebook')).toBe(true);
         expect(wrapper.find('button').at(3).hasClass('btn btn-social-icon btn-twitter ml-1 mr-1')).toBe(true);
         expect(wrapper.find('span').at(2).hasClass('fa fa-twitter')).toBe(true);
+    });
+
+    it('should call sign in with email and password once clicked', () => {
+        const { props, wrapper } = setup();
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        expect(props.signInWithEmailPassword.mock.calls.length).toBe(1);
     });
 });
