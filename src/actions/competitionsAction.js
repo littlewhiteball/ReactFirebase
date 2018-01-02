@@ -33,22 +33,21 @@ export const deleteCompetitionAction = competition => ({
 });
 
 export const getCompetitions = () =>
-    (dispatch) => {
-        dispatch(gettingCompetitionsAction);
+    dispatch =>
+        getCompetitionsOnceFromDb().then((snapshot) => {
+            dispatch(gettingCompetitionsAction());
 
-        return getCompetitionsOnceFromDb().then((snapshot) => {
             // TODO: get around Redux panicking about actions in reducers
-            setTimeout(() => {
-                const competitions = snapshot.val() || [];
+            // setTimeout(() => {
+            const competitions = snapshot.val() || [];
 
-                Object.keys(competitions).forEach((key) => {
-                    dispatch(addCompetitionAction(competitions[key]));
-                });
+            Object.keys(competitions).forEach((key) => {
+                dispatch(addCompetitionAction(competitions[key]));
+            });
 
-                dispatch(receivedCompetitionsAction);
-            }, 0);
+            dispatch(receivedCompetitionsAction());
+            // }, 0);
         });
-    };
 
 export const addCompetition = competition =>
     (dispatch) => {

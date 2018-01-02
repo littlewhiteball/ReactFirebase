@@ -86,7 +86,7 @@ describe('getCompetitions', () => {
         ];
 
         const store = mockStore({});
-        store.dispatch(actions.getCompetitions()).then(() => {
+        return store.dispatch(actions.getCompetitions()).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
@@ -94,13 +94,21 @@ describe('getCompetitions', () => {
 
 describe('addCompetition', () => {
     it('should 1. create competition to database, 2. create action to add competition', () => {
-        const expectedAction = {
-            type: 'ADD_COMPETITION',
-            competition: competition0,
-        };
+        const expectedAction = [
+            {
+                type: 'ADD_COMPETITION',
+                competition: {
+                    id: '-0123456789abcdefghi',
+                    title: competition0.title,
+                    start: competition0.start,
+                    closing: competition0.closing,
+                    options: competition0.options,
+                },
+            },
+        ];
 
         const store = mockStore({});
-        store.dispatch(actions.addCompetition(competition0)).then(() => {
+        return store.dispatch(actions.addCompetition(competition0)).then(() => {
             expect(store.getActions()).toEqual(expectedAction);
         });
     });
@@ -108,13 +116,15 @@ describe('addCompetition', () => {
 
 describe('updateCompetition', () => {
     it.skip('should 1. update competition in database, 2. create action to update competition', () => {
-        const expectedAction = {
-            type: 'UPDATE_COMPETITION',
-            competition: competition0,
-        };
+        const expectedAction = [
+            {
+                type: 'UPDATE_COMPETITION',
+                competition: competition0,
+            },
+        ];
 
         const store = mockStore({});
-        store.dispatch(actions.updateCompetition(competition0)).then(() => {
+        return store.dispatch(actions.updateCompetition(competition0)).then(() => {
             expect(store.getActions()).toEqual(expectedAction);
         });
     });
@@ -122,13 +132,15 @@ describe('updateCompetition', () => {
 
 describe('deleteCompetition', () => {
     it('should 1. delete competition from database, 2. create action to delete competition', () => {
-        const expectedAction = {
-            type: 'DELETE_COMPETITION',
-            competition: competition0,
-        };
+        const expectedAction = [
+            {
+                type: 'DELETE_COMPETITION',
+                competition: competition0,
+            },
+        ];
 
         const store = mockStore({});
-        store.dispatch(actions.deleteCompetition(competition0)).then(() => {
+        return store.dispatch(actions.deleteCompetition(competition0)).then(() => {
             expect(store.getActions()).toEqual(expectedAction);
         });
     });

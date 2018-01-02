@@ -17,7 +17,7 @@ export const generateKeyForCompetitionFromDb = () => firebaseKey;
 export const addCompetitionToDb = (competitionModel) => {
     competitions.push(competitionModel);
     return new Promise((resolve) => {
-        resolve(competitionModel);
+        resolve();
     });
 };
 
