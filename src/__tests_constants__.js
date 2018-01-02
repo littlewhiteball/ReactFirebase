@@ -22,8 +22,6 @@ export const competitions = [
 /**
  * Users
  */
-export const EMAIL = 'email@me.com';
-export const PASSWORD = 'password';
 export const user = {
     name: 'name',
 };
@@ -31,5 +29,17 @@ export const googleResult = {
     user,
     credential: {
         accessToken: 'googleaccesstoken',
+    },
+};
+export const facebookResult = {
+    user,
+    credential: {
+        accessToken: 'googleaccesstoken',
+    },
+};
+export const twitterResult = {
+    credential: {
+        accessToken: 'googleaccesstoken',
+        secret: 'secret',
     },
 };

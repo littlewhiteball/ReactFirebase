@@ -51,3 +51,40 @@ export const signInGoogle = () =>
             dispatch(userUnauthorized());
         });
     };
+
+export const signInFacebook = () =>
+    (dispatch) => {
+        dispatch(userAuthorizing());
+
+        return signInWithFacebook().then((result) => {
+            const { user } = result;
+            const { accessToken } = result.credential;
+            console.info(user);
+            console.info(accessToken);
+
+            dispatch(userAuthorized());
+        }).catch((error) => {
+            const { code, method } = error;
+            console.error(code, method);
+
+            dispatch(userUnauthorized());
+        });
+    };
+
+export const signInTwitter = () =>
+    (dispatch) => {
+        dispatch(userAuthorizing());
+
+        return signInWithTwitter().then((result) => {
+            const { accessToken, secret } = result.credential;
+            console.info(accessToken);
+            console.info(secret);
+
+            dispatch(userAuthorized());
+        }).catch((error) => {
+            const { code, method } = error;
+            console.error(code, method);
+
+            dispatch(userUnauthorized());
+        });
+    };
