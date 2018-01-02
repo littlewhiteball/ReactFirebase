@@ -1,3 +1,3 @@
-import firebase from './../firebase';
+import { firebaseApp } from './../firebase';
 
-export default () => firebase.database().ref();
+export default () => firebaseApp.database().ref();
