@@ -5,37 +5,38 @@ export const USER_AUTHORIZED = 'USER_AUTHORIZED';
 export const USER_UNAUTHORIZED = 'USER_UNAUTHORIZED';
 export const UPDATE_USER_NAME = 'UPDATE_USER_NAME';
 
-export const userAuthorizing = () => ({
+export const userAuthorizingAction = () => ({
     type: USER_AUTHORIZING,
 });
 
-export const userAuthorized = () => ({
+export const userAuthorizedAction = user => ({
     type: USER_AUTHORIZED,
+    user,
 });
 
-export const userUnauthorized = () => ({
+export const userUnauthorizedAction = () => ({
     type: USER_UNAUTHORIZED,
 });
 
 export const signInEmailPassword = (email, password) =>
     (dispatch) => {
-        dispatch(userAuthorizing());
+        dispatch(userAuthorizingAction());
 
         return signInWithEmailAndPassword(email, password).then((user) => {
             console.info(`${user.name} signed in`);
 
-            dispatch(userAuthorized());
+            dispatch(userAuthorizedAction(user));
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
 
-            dispatch(userUnauthorized());
+            dispatch(userUnauthorizedAction());
         });
     };
 
 export const signInGoogle = () =>
     (dispatch) => {
-        dispatch(userAuthorizing());
+        dispatch(userAuthorizingAction());
 
         return signInWithGoogle().then((result) => {
             const { user } = result;
@@ -43,18 +44,18 @@ export const signInGoogle = () =>
             console.info(user);
             console.info(accessToken);
 
-            dispatch(userAuthorized());
+            dispatch(userAuthorizedAction());
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
 
-            dispatch(userUnauthorized());
+            dispatch(userUnauthorizedAction());
         });
     };
 
 export const signInFacebook = () =>
     (dispatch) => {
-        dispatch(userAuthorizing());
+        dispatch(userAuthorizingAction());
 
         return signInWithFacebook().then((result) => {
             const { user } = result;
@@ -62,29 +63,29 @@ export const signInFacebook = () =>
             console.info(user);
             console.info(accessToken);
 
-            dispatch(userAuthorized());
+            dispatch(userAuthorizedAction());
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
 
-            dispatch(userUnauthorized());
+            dispatch(userUnauthorizedAction());
         });
     };
 
 export const signInTwitter = () =>
     (dispatch) => {
-        dispatch(userAuthorizing());
+        dispatch(userAuthorizingAction());
 
         return signInWithTwitter().then((result) => {
             const { accessToken, secret } = result.credential;
             console.info(accessToken);
             console.info(secret);
 
-            dispatch(userAuthorized());
+            dispatch(userAuthorizedAction());
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
 
-            dispatch(userUnauthorized());
+            dispatch(userUnauthorizedAction());
         });
     };

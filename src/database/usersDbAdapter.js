@@ -1,22 +1,22 @@
-import { firebase } from './../firebase';
+import { firebaseApp } from './../firebase';
 
-const signInWithPopup = provider => firebase.auth().signInWithPopup(provider);
+const signInWithPopup = provider => firebaseApp.auth().signInWithPopup(provider);
 
 export const signInWithEmailAndPassword = (email, password) =>
     // TODO: validate email regex
-    firebase.auth().signInWithEmailAndPassword(email, password);
+    firebaseApp.auth().signInWithEmailAndPassword(email, password);
 
 export const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new firebaseApp.auth.GoogleAuthProvider();
     return signInWithPopup(provider);
 };
 
 export const signInWithFacebook = () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
+    const provider = new firebaseApp.auth.FacebookAuthProvider();
     return signInWithPopup(provider);
 };
 
 export const signInWithTwitter = () => {
-    const provider = new firebase.auth.TwitterAuthProvider();
+    const provider = new firebaseApp.auth.TwitterAuthProvider();
     return signInWithPopup(provider);
 };

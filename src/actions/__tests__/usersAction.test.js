@@ -1,6 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import { user } from './../../__tests_constants__';
+
 import * as actions from './../usersAction';
 
 jest.mock('./../../database/usersDbAdapter');
@@ -8,33 +10,33 @@ jest.mock('./../../database/usersDbAdapter');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('userAuthorizingAction', () => {
+describe('userAuthorizingActionAction', () => {
     it('should create action to indicate user is being authorized', () => {
         const expectedAction = {
             type: 'USER_AUTHORIZING',
         };
 
-        expect(actions.userAuthorizing()).toEqual(expectedAction);
+        expect(actions.userAuthorizingAction()).toEqual(expectedAction);
     });
 });
 
-describe('userAuthorizedAction', () => {
+describe('userAuthorizedActionAction', () => {
     it('should create action to indicate user is authorized', () => {
         const expectedAction = {
             type: 'USER_AUTHORIZED',
         };
 
-        expect(actions.userAuthorized()).toEqual(expectedAction);
+        expect(actions.userAuthorizedAction()).toEqual(expectedAction);
     });
 });
 
-describe('userUnauthorizedAction', () => {
+describe('userUnauthorizedActionAction', () => {
     it('should create action to indicate user is not authorized', () => {
         const expectedAction = {
             type: 'USER_UNAUTHORIZED',
         };
 
-        expect(actions.userUnauthorized()).toEqual(expectedAction);
+        expect(actions.userUnauthorizedAction()).toEqual(expectedAction);
     });
 });
 
@@ -42,7 +44,10 @@ describe('signInEmailPassword', () => {
     it('should 1.create authorizing action 2.sign in with email and password 3.create authorized action', () => {
         const expectedActions = [
             { type: 'USER_AUTHORIZING' },
-            { type: 'USER_AUTHORIZED' },
+            {
+                type: 'USER_AUTHORIZED',
+                user,
+            },
         ];
 
         const store = mockStore({});

@@ -42,17 +42,17 @@ export class LoginComponent extends Component {
         // TODO: group email, password, remember me, forgot password, and sign in button to one form
         return (
             <div className="container">
-                <form className="form-signin">
+                <div className="form-signin">
                     <div className="form-group">
                         <h2 className="form-signin-heading">{PLEASE_SIGN_IN}</h2>
                         <i className="fa fa-exclamation-triangle fa-3" />
                         <small>{SIGN_IN_OR_REGISTERING_WARNING}</small>
                     </div>
                     <div className="form-group">
-                        <input type="email" className="form-control" placeholder="Email" />
+                        <input type="email" className="form-control" placeholder="Email" onChange={this.updateEmail} />
                     </div>
                     <div className="form-group">
-                        <input type="password" className="form-control" placeholder="Password" />
+                        <input type="password" className="form-control" placeholder="Password" onChange={this.updatePassword} />
                     </div>
                     <div className="form-group">
                         <div className="form-check-inline">
@@ -62,7 +62,7 @@ export class LoginComponent extends Component {
                             </label>
                         </div>
                         <a href="/" className="float-right">{FORGOT_PASSWORD}</a>
-                        <button type="submit" className="btn btn-primary btn-block mb-2" onClick={this.signInWithEmailPassword}>{SIGN_IN}</button>
+                        <button className="btn btn-primary btn-block mb-2" onClick={this.signInWithEmailPassword}>{SIGN_IN}</button>
                     </div>
                     <div className="text-center">
                         <button className="btn btn-social-icon btn-google ml-1 mr-1">
@@ -75,7 +75,7 @@ export class LoginComponent extends Component {
                             <span className="fa fa-twitter" />
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         );
     }
@@ -90,7 +90,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    signInWithEmailPassword: () => dispatch(signInEmailPassword),
+    signInWithEmailPassword:
+        (email, password) => dispatch(signInEmailPassword(email, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
