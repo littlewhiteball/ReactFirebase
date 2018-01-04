@@ -16,4 +16,8 @@ describe('footer component', () => {
         expect(wrapper.find('span').hasClass('text-muted')).toBe(true);
         expect(wrapper.find('span').text()).toBe('2018 ReactFirebase');
     });
+
+    it('initial state', () => {
+        expect(wrapper.state('year')).toEqual(2018);
+    });
 });

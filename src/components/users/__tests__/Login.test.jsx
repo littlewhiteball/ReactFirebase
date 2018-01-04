@@ -62,7 +62,38 @@ describe('login component', () => {
         expect(wrapper.find('span').at(2).hasClass('fa fa-twitter')).toBe(true);
     });
 
-    it('should call sign in with email and password once clicked', () => {
+    it('initial state', () => {
+        const { wrapper } = setup();
+
+        expect(wrapper.state('email')).toEqual('');
+        expect(wrapper.state('password')).toEqual('');
+    });
+
+    it('should handle email change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(0).simulate('change', {
+            target: {
+                name: 'email',
+                value: 'email@me.com',
+            },
+        });
+
+        expect(wrapper.state('email')).toEqual('email@me.com');
+    });
+
+    it('should handle password change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'password',
+                value: 'password123',
+            },
+        });
+
+        expect(wrapper.state('password')).toEqual('password123');
+    });
+
+    it('should call props sign in with email and password once clicked', () => {
         const { props, wrapper } = setup();
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
