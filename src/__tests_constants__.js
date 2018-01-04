@@ -43,3 +43,17 @@ export const twitterResult = {
         secret: 'secret',
     },
 };
+
+/**
+ * Competition category
+ */
+export const categoryList = [
+    {
+        name: 'NFL',
+        link: '/nfl',
+    },
+    {
+        name: 'EPL',
+        link: '/epl',
+    },
+];
