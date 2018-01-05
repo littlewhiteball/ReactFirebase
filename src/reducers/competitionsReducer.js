@@ -1,15 +1,15 @@
-import { ADD_COMPETITION, DELETE_COMPETITION } from './../actions/competitionsAction';
+import { actionTypes } from './../actions/competitionsAction';
 
 export default (state = [], action) => {
     switch (action.type) {
-        case ADD_COMPETITION:
+        case actionTypes.ADD_COMPETITION:
             if (state.map(competition => competition.id).includes(action.competition.id)) {
                 return state;
             }
             return [action.competition, ...state];
 
 
-        case DELETE_COMPETITION: {
+        case actionTypes.DELETE_COMPETITION: {
             const newState = [...state];
             const index = newState.findIndex(c => c.id === action.competition.id);
             if (index !== -1) {

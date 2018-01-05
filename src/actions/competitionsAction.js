@@ -1,13 +1,19 @@
-import { setTimeout } from 'timers';
-
-import { getCompetitionsOnceFromDb, generateKeyForCompetitionFromDb, addCompetitionToDb, removeCompetitionFromDb } from './../database/competitionsDbAdapter';
+import competitionsDbAdapter from './../database/competitionsDbAdapter';
 import competitionModel from './../models/competitionsModel';
 
-export const GETTING_COMPETITIONS = 'GETTING_COMPETITIONS';
-export const RECEIVED_COMPETITIONS = 'RECEIVED_COMPETITIONS';
-export const ADD_COMPETITION = 'ADD_COMPETITION';
-export const UPDATE_COMPETITION = 'UPDATE_COMPETITION';
-export const DELETE_COMPETITION = 'DELETE_COMPETITION';
+const GETTING_COMPETITIONS = 'GETTING_COMPETITIONS';
+const RECEIVED_COMPETITIONS = 'RECEIVED_COMPETITIONS';
+const ADD_COMPETITION = 'ADD_COMPETITION';
+const UPDATE_COMPETITION = 'UPDATE_COMPETITION';
+const DELETE_COMPETITION = 'DELETE_COMPETITION';
+
+export const actionTypes = {
+    GETTING_COMPETITIONS,
+    RECEIVED_COMPETITIONS,
+    ADD_COMPETITION,
+    UPDATE_COMPETITION,
+    DELETE_COMPETITION,
+};
 
 export const gettingCompetitionsAction = () => ({
     type: GETTING_COMPETITIONS,
@@ -34,7 +40,7 @@ export const deleteCompetitionAction = competition => ({
 
 export const getCompetitions = () =>
     dispatch =>
-        getCompetitionsOnceFromDb().then((snapshot) => {
+        competitionsDbAdapter.getCompetitionsOnceFromDb().then((snapshot) => {
             dispatch(gettingCompetitionsAction());
 
             // TODO: get around Redux panicking about actions in reducers
@@ -51,7 +57,7 @@ export const getCompetitions = () =>
 
 export const addCompetition = competition =>
     (dispatch) => {
-        const key = generateKeyForCompetitionFromDb();
+        const key = competitionsDbAdapter.generateKeyForCompetitionFromDb();
         const model = competitionModel(
             key,
             competition.title,
@@ -59,7 +65,7 @@ export const addCompetition = competition =>
             competition.closing,
             competition.options,
         );
-        return addCompetitionToDb(model).then(() => {
+        return competitionsDbAdapter.addCompetitionToDb(model).then(() => {
             console.info('added competition to database');
             dispatch(addCompetitionAction(model));
         });
@@ -73,7 +79,7 @@ export const updateCompetition = competition =>
 export const deleteCompetition = competition =>
     (dispatch) => {
         const { id } = competition;
-        return removeCompetitionFromDb(id).then(() => {
+        return competitionsDbAdapter.removeCompetitionFromDb(id).then(() => {
             console.info('deleted competition from database');
             dispatch(deleteCompetitionAction(competition));
         });

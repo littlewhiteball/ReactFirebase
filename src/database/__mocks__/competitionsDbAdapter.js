@@ -2,7 +2,7 @@ import { competitions } from './../../__tests_constants__';
 
 const firebaseKey = '-0123456789abcdefghi';
 
-export const getCompetitionsOnceFromDb = (limitToLast = 0) => {
+const getCompetitionsOnceFromDb = (limitToLast = 0) => {
     const competitionsSnapshot =
         limitToLast > 0 ? competitions.slice(0, limitToLast) : competitions;
     return new Promise((resolve) => {
@@ -12,16 +12,16 @@ export const getCompetitionsOnceFromDb = (limitToLast = 0) => {
     });
 };
 
-export const generateKeyForCompetitionFromDb = () => firebaseKey;
+const generateKeyForCompetitionFromDb = () => firebaseKey;
 
-export const addCompetitionToDb = (competitionModel) => {
+const addCompetitionToDb = (competitionModel) => {
     competitions.push(competitionModel);
     return new Promise((resolve) => {
         resolve();
     });
 };
 
-export const removeCompetitionFromDb = (id) => {
+const removeCompetitionFromDb = (id) => {
     const index = competitions.findIndex(c => c.id === id);
     if (index !== -1) {
         competitions.splice(index, 1);
@@ -29,4 +29,11 @@ export const removeCompetitionFromDb = (id) => {
     return new Promise((resolve) => {
         resolve();
     });
+};
+
+export default {
+    getCompetitionsOnceFromDb,
+    generateKeyForCompetitionFromDb,
+    addCompetitionToDb,
+    removeCompetitionFromDb,
 };
