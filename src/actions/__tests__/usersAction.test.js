@@ -110,3 +110,29 @@ describe('signInTwitter', () => {
         });
     });
 });
+
+describe('signOutUser', () => {
+    it('should 1.create signingout action 2.sign out 3.create signedout action', () => {
+        const expectedActions = [
+            { type: 'USER_SIGNINGOUT' },
+            { type: 'USER_SIGNEDOUT' },
+        ];
+
+        const store = mockStore({});
+        return store.dispatch(actions.signOutUser()).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+
+    it.skip('should 1.create signingout action 2.sign out 3.sign out should fail 4.create not signedout action', () => {
+        const expectedActions = [
+            { type: 'USER_SIGNINGOUT' },
+            { type: 'USER_NOT_SIGNEDOUT' },
+        ];
+
+        const store = mockStore({});
+        return store.dispatch(actions.signOutUser()).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+});

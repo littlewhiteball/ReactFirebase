@@ -1,28 +1,49 @@
-import { USER_AUTHORIZING, USER_AUTHORIZED, USER_UNAUTHORIZED, UPDATE_USER_NAME } from './../actions/usersAction';
+import { actionTypes } from './../actions/usersAction';
 
-export default (state = {}, action) => {
+const initialState = {
+    name: undefined,
+    authorizing: false,
+    authorized: false,
+    signingIn: false,
+    signedIn: false,
+    signingOut: false,
+    signedOut: false,
+};
+
+// TODO: signedIn and authorized sound duplicating
+export default (state = initialState, action) => {
     switch (action.type) {
-        case USER_AUTHORIZING:
+        case actionTypes.USER_AUTHORIZING:
             return Object.assign({}, state, {
                 authorizing: true,
-                authorized: false,
             });
 
-        case USER_AUTHORIZED:
+        case actionTypes.USER_AUTHORIZED:
             return Object.assign({}, state, {
                 name: action.user.name,
                 authorizing: false,
                 authorized: true,
             });
 
-        case USER_UNAUTHORIZED:
+        case actionTypes.USER_UNAUTHORIZED:
             return Object.assign({}, state, {
-                name: undefined,
                 authorizing: false,
                 authorized: false,
             });
 
-        case UPDATE_USER_NAME:
+        case actionTypes.USER_SIGNINGOUT:
+            return Object.assign({}, state, {
+                signingOut: true,
+            });
+
+        case actionTypes.USER_SIGNEDOUT:
+            return Object.assign({}, state, {
+                name: undefined,
+                signingOut: false,
+                signedOut: true,
+            });
+
+        case actionTypes.UPDATE_USER_NAME:
             return state;
 
         default:

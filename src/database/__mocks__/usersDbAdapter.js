@@ -1,6 +1,6 @@
 import { user, googleResult, facebookResult, twitterResult } from './../../__tests_constants__';
 
-export const signInWithEmailAndPassword = (email, password) =>
+const signInWithEmailAndPassword = (email, password) =>
     new Promise((resolve, reject) => {
         if (email === 'email@me.com' && password === 'password') {
             resolve(user);
@@ -14,17 +14,32 @@ export const signInWithEmailAndPassword = (email, password) =>
         }
     });
 
-export const signInWithGoogle = () =>
+const signInWithGoogle = () =>
     new Promise((resolve) => {
         resolve(googleResult);
     });
 
-export const signInWithFacebook = () =>
+const signInWithFacebook = () =>
     new Promise((resolve) => {
         resolve(facebookResult);
     });
 
-export const signInWithTwitter = () =>
+const signInWithTwitter = () =>
     new Promise((resolve) => {
         resolve(twitterResult);
     });
+
+const signOut = () =>
+    new Promise((resolve) => {
+        resolve();
+
+        // TODO: figure out how to reject();
+    });
+
+export default {
+    signInWithEmailAndPassword,
+    signInWithGoogle,
+    signInWithFacebook,
+    signInWithTwitter,
+    signOut,
+};

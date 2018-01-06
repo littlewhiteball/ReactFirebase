@@ -23,7 +23,7 @@ export const competitions = [
  * Users
  */
 export const user = {
-    name: 'name',
+    name: 'name0',
 };
 export const googleResult = {
     user,

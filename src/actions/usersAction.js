@@ -1,9 +1,22 @@
-import { signInWithEmailAndPassword, signInWithGoogle, signInWithFacebook, signInWithTwitter } from './../database/usersDbAdapter';
+import usersDbAdapter from './../database/usersDbAdapter';
 
-export const USER_AUTHORIZING = 'USER_AUTHORIZING';
-export const USER_AUTHORIZED = 'USER_AUTHORIZED';
-export const USER_UNAUTHORIZED = 'USER_UNAUTHORIZED';
-export const UPDATE_USER_NAME = 'UPDATE_USER_NAME';
+const USER_AUTHORIZING = 'USER_AUTHORIZING';
+const USER_AUTHORIZED = 'USER_AUTHORIZED';
+const USER_UNAUTHORIZED = 'USER_UNAUTHORIZED';
+const USER_SIGNINGOUT = 'USER_SIGNINGOUT';
+const USER_SIGNEDOUT = 'USER_SIGNEDOUT';
+const USER_NOT_SIGNEDOUT = 'USER_NOT_SIGNEDOUT';
+const UPDATE_USER_NAME = 'UPDATE_USER_NAME';
+
+export const actionTypes = {
+    USER_AUTHORIZING,
+    USER_AUTHORIZED,
+    USER_UNAUTHORIZED,
+    USER_SIGNINGOUT,
+    USER_SIGNEDOUT,
+    USER_NOT_SIGNEDOUT,
+    UPDATE_USER_NAME,
+};
 
 export const userAuthorizingAction = () => ({
     type: USER_AUTHORIZING,
@@ -18,11 +31,23 @@ export const userUnauthorizedAction = () => ({
     type: USER_UNAUTHORIZED,
 });
 
+export const userSigningOutAction = () => ({
+    type: USER_SIGNINGOUT,
+});
+
+export const userSignedOutAction = () => ({
+    type: USER_SIGNEDOUT,
+});
+
+export const userNotSignedOutAction = () => ({
+    type: USER_NOT_SIGNEDOUT,
+});
+
 export const signInEmailPassword = (email, password) =>
     (dispatch) => {
         dispatch(userAuthorizingAction());
 
-        return signInWithEmailAndPassword(email, password).then((user) => {
+        return usersDbAdapter.signInWithEmailAndPassword(email, password).then((user) => {
             console.info(`${user.name} signed in`);
 
             dispatch(userAuthorizedAction(user));
@@ -38,7 +63,7 @@ export const signInGoogle = () =>
     (dispatch) => {
         dispatch(userAuthorizingAction());
 
-        return signInWithGoogle().then((result) => {
+        return usersDbAdapter.signInWithGoogle().then((result) => {
             const { user } = result;
             const { accessToken } = result.credential;
             console.info(user);
@@ -57,7 +82,7 @@ export const signInFacebook = () =>
     (dispatch) => {
         dispatch(userAuthorizingAction());
 
-        return signInWithFacebook().then((result) => {
+        return usersDbAdapter.signInWithFacebook().then((result) => {
             const { user } = result;
             const { accessToken } = result.credential;
             console.info(user);
@@ -76,7 +101,7 @@ export const signInTwitter = () =>
     (dispatch) => {
         dispatch(userAuthorizingAction());
 
-        return signInWithTwitter().then((result) => {
+        return usersDbAdapter.signInWithTwitter().then((result) => {
             const { accessToken, secret } = result.credential;
             console.info(accessToken);
             console.info(secret);
@@ -87,5 +112,18 @@ export const signInTwitter = () =>
             console.error(code, method);
 
             dispatch(userUnauthorizedAction());
+        });
+    };
+
+export const signOutUser = () =>
+    (dispatch) => {
+        dispatch(userSigningOutAction());
+
+        return usersDbAdapter.signOut().then(() => {
+            dispatch(userSignedOutAction());
+        }).catch((error) => {
+            console.error(error);
+
+            dispatch(userNotSignedOutAction());
         });
     };
