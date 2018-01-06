@@ -10,42 +10,42 @@ jest.mock('./../../database/usersDbAdapter');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('userAuthorizingActionAction', () => {
+describe('userSigningInActionAction', () => {
     it('should create action to indicate user is being authorized', () => {
         const expectedAction = {
-            type: 'USER_AUTHORIZING',
+            type: 'USER_SIGNINGIN',
         };
 
-        expect(actions.userAuthorizingAction()).toEqual(expectedAction);
+        expect(actions.userSigningInAction()).toEqual(expectedAction);
     });
 });
 
-describe('userAuthorizedActionAction', () => {
+describe('userSignedInActionAction', () => {
     it('should create action to indicate user is authorized', () => {
         const expectedAction = {
-            type: 'USER_AUTHORIZED',
+            type: 'USER_SIGNEDIN',
         };
 
-        expect(actions.userAuthorizedAction()).toEqual(expectedAction);
+        expect(actions.userSignedInAction()).toEqual(expectedAction);
     });
 });
 
-describe('userUnauthorizedActionAction', () => {
+describe('userSignInFailedActionAction', () => {
     it('should create action to indicate user is not authorized', () => {
         const expectedAction = {
-            type: 'USER_UNAUTHORIZED',
+            type: 'USER_SIGNINFAILED',
         };
 
-        expect(actions.userUnauthorizedAction()).toEqual(expectedAction);
+        expect(actions.userSignInFailedAction()).toEqual(expectedAction);
     });
 });
 
 describe('signInEmailPassword', () => {
     it('should 1.create authorizing action 2.sign in with email and password 3.create authorized action', () => {
         const expectedActions = [
-            { type: 'USER_AUTHORIZING' },
+            { type: 'USER_SIGNINGIN' },
             {
-                type: 'USER_AUTHORIZED',
+                type: 'USER_SIGNEDIN',
                 user,
             },
         ];
@@ -56,10 +56,10 @@ describe('signInEmailPassword', () => {
         });
     });
 
-    it('should 1.create authorizing action 2.sign in with email and password 3.sign in should fail 4.create unauthorized action', () => {
+    it('should 1.create authorizing action 2.sign in with email and password 3.sign in should fail 4.create signInFailed action', () => {
         const expectedActions = [
-            { type: 'USER_AUTHORIZING' },
-            { type: 'USER_UNAUTHORIZED' },
+            { type: 'USER_SIGNINGIN' },
+            { type: 'USER_SIGNINFAILED' },
         ];
 
         const store = mockStore({});
@@ -72,8 +72,8 @@ describe('signInEmailPassword', () => {
 describe('signInGoogle', () => {
     it('should 1.create authorizing action 2.sign in with google 3.create authorized action', () => {
         const expectedActions = [
-            { type: 'USER_AUTHORIZING' },
-            { type: 'USER_AUTHORIZED' },
+            { type: 'USER_SIGNINGIN' },
+            { type: 'USER_SIGNEDIN' },
         ];
 
         const store = mockStore({});
@@ -86,8 +86,8 @@ describe('signInGoogle', () => {
 describe('signInFacebook', () => {
     it('should 1.create authorizing action 2.sign in with facebook 3.create authorized action', () => {
         const expectedActions = [
-            { type: 'USER_AUTHORIZING' },
-            { type: 'USER_AUTHORIZED' },
+            { type: 'USER_SIGNINGIN' },
+            { type: 'USER_SIGNEDIN' },
         ];
 
         const store = mockStore({});
@@ -100,8 +100,8 @@ describe('signInFacebook', () => {
 describe('signInTwitter', () => {
     it('should 1.create authorizing action 2.sign in with twitter 3.create authorized action', () => {
         const expectedActions = [
-            { type: 'USER_AUTHORIZING' },
-            { type: 'USER_AUTHORIZED' },
+            { type: 'USER_SIGNINGIN' },
+            { type: 'USER_SIGNEDIN' },
         ];
 
         const store = mockStore({});
@@ -127,7 +127,7 @@ describe('signOutUser', () => {
     it.skip('should 1.create signingout action 2.sign out 3.sign out should fail 4.create not signedout action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGOUT' },
-            { type: 'USER_NOT_SIGNEDOUT' },
+            { type: 'USER_SIGNOUTFAILED' },
         ];
 
         const store = mockStore({});

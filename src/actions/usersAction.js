@@ -1,34 +1,34 @@
 import usersDbAdapter from './../database/usersDbAdapter';
 
-const USER_AUTHORIZING = 'USER_AUTHORIZING';
-const USER_AUTHORIZED = 'USER_AUTHORIZED';
-const USER_UNAUTHORIZED = 'USER_UNAUTHORIZED';
+const USER_SIGNINGIN = 'USER_SIGNINGIN';
+const USER_SIGNEDIN = 'USER_SIGNEDIN';
+const USER_SIGNINFAILED = 'USER_SIGNINFAILED';
 const USER_SIGNINGOUT = 'USER_SIGNINGOUT';
 const USER_SIGNEDOUT = 'USER_SIGNEDOUT';
-const USER_NOT_SIGNEDOUT = 'USER_NOT_SIGNEDOUT';
+const USER_SIGNOUTFAILED = 'USER_SIGNOUTFAILED';
 const UPDATE_USER_NAME = 'UPDATE_USER_NAME';
 
 export const actionTypes = {
-    USER_AUTHORIZING,
-    USER_AUTHORIZED,
-    USER_UNAUTHORIZED,
+    USER_SIGNINGIN,
+    USER_SIGNEDIN,
+    USER_SIGNINFAILED,
     USER_SIGNINGOUT,
     USER_SIGNEDOUT,
-    USER_NOT_SIGNEDOUT,
+    USER_SIGNOUTFAILED,
     UPDATE_USER_NAME,
 };
 
-export const userAuthorizingAction = () => ({
-    type: USER_AUTHORIZING,
+export const userSigningInAction = () => ({
+    type: USER_SIGNINGIN,
 });
 
-export const userAuthorizedAction = user => ({
-    type: USER_AUTHORIZED,
+export const userSignedInAction = user => ({
+    type: USER_SIGNEDIN,
     user,
 });
 
-export const userUnauthorizedAction = () => ({
-    type: USER_UNAUTHORIZED,
+export const userSignInFailedAction = () => ({
+    type: USER_SIGNINFAILED,
 });
 
 export const userSigningOutAction = () => ({
@@ -39,29 +39,29 @@ export const userSignedOutAction = () => ({
     type: USER_SIGNEDOUT,
 });
 
-export const userNotSignedOutAction = () => ({
-    type: USER_NOT_SIGNEDOUT,
+export const userSignOutFailedAction = () => ({
+    type: USER_SIGNOUTFAILED,
 });
 
 export const signInEmailPassword = (email, password) =>
     (dispatch) => {
-        dispatch(userAuthorizingAction());
+        dispatch(userSigningInAction());
 
         return usersDbAdapter.signInWithEmailAndPassword(email, password).then((user) => {
             console.info(`${user.name} signed in`);
 
-            dispatch(userAuthorizedAction(user));
+            dispatch(userSignedInAction(user));
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
 
-            dispatch(userUnauthorizedAction());
+            dispatch(userSignInFailedAction());
         });
     };
 
 export const signInGoogle = () =>
     (dispatch) => {
-        dispatch(userAuthorizingAction());
+        dispatch(userSigningInAction());
 
         return usersDbAdapter.signInWithGoogle().then((result) => {
             const { user } = result;
@@ -69,18 +69,18 @@ export const signInGoogle = () =>
             console.info(user);
             console.info(accessToken);
 
-            dispatch(userAuthorizedAction());
+            dispatch(userSignedInAction());
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
 
-            dispatch(userUnauthorizedAction());
+            dispatch(userSignInFailedAction());
         });
     };
 
 export const signInFacebook = () =>
     (dispatch) => {
-        dispatch(userAuthorizingAction());
+        dispatch(userSigningInAction());
 
         return usersDbAdapter.signInWithFacebook().then((result) => {
             const { user } = result;
@@ -88,30 +88,30 @@ export const signInFacebook = () =>
             console.info(user);
             console.info(accessToken);
 
-            dispatch(userAuthorizedAction());
+            dispatch(userSignedInAction());
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
 
-            dispatch(userUnauthorizedAction());
+            dispatch(userSignInFailedAction());
         });
     };
 
 export const signInTwitter = () =>
     (dispatch) => {
-        dispatch(userAuthorizingAction());
+        dispatch(userSigningInAction());
 
         return usersDbAdapter.signInWithTwitter().then((result) => {
             const { accessToken, secret } = result.credential;
             console.info(accessToken);
             console.info(secret);
 
-            dispatch(userAuthorizedAction());
+            dispatch(userSignedInAction());
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
 
-            dispatch(userUnauthorizedAction());
+            dispatch(userSignInFailedAction());
         });
     };
 
@@ -124,6 +124,6 @@ export const signOutUser = () =>
         }).catch((error) => {
             console.error(error);
 
-            dispatch(userNotSignedOutAction());
+            dispatch(userSignOutFailedAction());
         });
     };

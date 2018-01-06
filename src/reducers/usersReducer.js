@@ -13,19 +13,19 @@ const initialState = {
 // TODO: signedIn and authorized sound duplicating
 export default (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.USER_AUTHORIZING:
+        case actionTypes.USER_SIGNINGIN:
             return Object.assign({}, state, {
                 authorizing: true,
             });
 
-        case actionTypes.USER_AUTHORIZED:
+        case actionTypes.USER_SIGNEDIN:
             return Object.assign({}, state, {
                 name: action.user.name,
                 authorizing: false,
                 authorized: true,
             });
 
-        case actionTypes.USER_UNAUTHORIZED:
+        case actionTypes.USER_SIGNINFAILED:
             return Object.assign({}, state, {
                 authorizing: false,
                 authorized: false,

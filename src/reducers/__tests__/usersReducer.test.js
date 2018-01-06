@@ -27,7 +27,7 @@ describe('user authorizing', () => {
             authorizing: true,
         });
         const action = {
-            type: actionTypes.USER_AUTHORIZING,
+            type: actionTypes.USER_SIGNINGIN,
         };
 
         expect(usersReducer(initialState, action)).toEqual(expectedState);
@@ -42,7 +42,7 @@ describe('user authorized', () => {
             authorized: true,
         });
         const action = {
-            type: actionTypes.USER_AUTHORIZED,
+            type: actionTypes.USER_SIGNEDIN,
             user,
         };
 
@@ -50,14 +50,14 @@ describe('user authorized', () => {
     });
 });
 
-describe('user unauthorized', () => {
-    it('should return user unauthorized state', () => {
+describe('user signInFailed', () => {
+    it('should return user signInFailed state', () => {
         const expectedState = Object.assign({}, initialState, {
             authorizing: false,
             authorized: false,
         });
         const action = {
-            type: actionTypes.USER_UNAUTHORIZED,
+            type: actionTypes.USER_SIGNINFAILED,
         };
 
         expect(usersReducer(initialState, action)).toEqual(expectedState);
