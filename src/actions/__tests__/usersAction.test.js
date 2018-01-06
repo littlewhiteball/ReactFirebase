@@ -11,7 +11,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('userSigningInActionAction', () => {
-    it('should create action to indicate user is being authorized', () => {
+    it('should create action to indicate user is being signedIn', () => {
         const expectedAction = {
             type: 'USER_SIGNINGIN',
         };
@@ -21,7 +21,7 @@ describe('userSigningInActionAction', () => {
 });
 
 describe('userSignedInActionAction', () => {
-    it('should create action to indicate user is authorized', () => {
+    it('should create action to indicate user is signedIn', () => {
         const expectedAction = {
             type: 'USER_SIGNEDIN',
         };
@@ -31,7 +31,7 @@ describe('userSignedInActionAction', () => {
 });
 
 describe('userSignInFailedActionAction', () => {
-    it('should create action to indicate user is not authorized', () => {
+    it('should create action to indicate user is not signedIn', () => {
         const expectedAction = {
             type: 'USER_SIGNINFAILED',
         };
@@ -41,7 +41,7 @@ describe('userSignInFailedActionAction', () => {
 });
 
 describe('signInEmailPassword', () => {
-    it('should 1.create authorizing action 2.sign in with email and password 3.create authorized action', () => {
+    it('should 1.create signingIn action 2.sign in with email and password 3.create signedIn action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
             {
@@ -56,7 +56,7 @@ describe('signInEmailPassword', () => {
         });
     });
 
-    it('should 1.create authorizing action 2.sign in with email and password 3.sign in should fail 4.create signInFailed action', () => {
+    it('should 1.create signingIn action 2.sign in with email and password 3.sign in should fail 4.create signInFailed action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
             { type: 'USER_SIGNINFAILED' },
@@ -70,7 +70,7 @@ describe('signInEmailPassword', () => {
 });
 
 describe('signInGoogle', () => {
-    it('should 1.create authorizing action 2.sign in with google 3.create authorized action', () => {
+    it('should 1.create signingIn action 2.sign in with google 3.create signedIn action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
             { type: 'USER_SIGNEDIN' },
@@ -84,7 +84,7 @@ describe('signInGoogle', () => {
 });
 
 describe('signInFacebook', () => {
-    it('should 1.create authorizing action 2.sign in with facebook 3.create authorized action', () => {
+    it('should 1.create signingIn action 2.sign in with facebook 3.create signedIn action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
             { type: 'USER_SIGNEDIN' },
@@ -98,7 +98,7 @@ describe('signInFacebook', () => {
 });
 
 describe('signInTwitter', () => {
-    it('should 1.create authorizing action 2.sign in with twitter 3.create authorized action', () => {
+    it('should 1.create signingIn action 2.sign in with twitter 3.create signedIn action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
             { type: 'USER_SIGNEDIN' },

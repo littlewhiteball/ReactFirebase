@@ -2,33 +2,31 @@ import { actionTypes } from './../actions/usersAction';
 
 const initialState = {
     name: undefined,
-    authorizing: false,
-    authorized: false,
     signingIn: false,
     signedIn: false,
     signingOut: false,
     signedOut: false,
 };
 
-// TODO: signedIn and authorized sound duplicating
+// TODO: signedIn and signedIn sound duplicating
 export default (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.USER_SIGNINGIN:
             return Object.assign({}, state, {
-                authorizing: true,
+                signingIn: true,
             });
 
         case actionTypes.USER_SIGNEDIN:
             return Object.assign({}, state, {
                 name: action.user.name,
-                authorizing: false,
-                authorized: true,
+                signingIn: false,
+                signedIn: true,
             });
 
         case actionTypes.USER_SIGNINFAILED:
             return Object.assign({}, state, {
-                authorizing: false,
-                authorized: false,
+                signingIn: false,
+                signedIn: false,
             });
 
         case actionTypes.USER_SIGNINGOUT:
