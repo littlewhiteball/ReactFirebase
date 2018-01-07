@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { signInEmailPassword } from './../../actions/usersAction';
 
@@ -38,6 +39,15 @@ export class LoginComponent extends Component {
     }
 
     render() {
+        if (this.props.user.signedIn) {
+            return (
+                <Redirect to={{
+                    pathname: '/',
+                }}
+                />
+            );
+        }
+
         const chkRememberMeId = 'chkRememberMe';
         // TODO: group email, password, remember me, forgot password, and sign in button to one form
         return (
@@ -82,6 +92,7 @@ export class LoginComponent extends Component {
 }
 
 LoginComponent.propTypes = {
+    user: PropTypes.object.isRequired,
     signInWithEmailPassword: PropTypes.func.isRequired,
 };
 

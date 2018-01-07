@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
+import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import { user } from './../../../__tests_constants__';
@@ -8,12 +8,15 @@ import { LoginComponent } from './../Login';
 
 configure({ adapter: new Adapter() });
 
-const setup = () => {
+const setup = (isShallow = false, signedIn = false) => {
     const props = {
-        user,
+        user: Object.assign({}, user, {
+            signedIn,
+        }),
         signInWithEmailPassword: jest.fn(),
     };
-    const wrapper = mount(<LoginComponent {...props} />);
+    const wrapper =
+        isShallow ? shallow(<LoginComponent {...props} />) : mount(<LoginComponent {...props} />);
 
     return {
         props,
@@ -98,5 +101,11 @@ describe('login component', () => {
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
         expect(props.signInWithEmailPassword.mock.calls.length).toBe(1);
+    });
+
+    it('should render redirect when use has signed in', () => {
+        const { wrapper } = setup(true, true);
+
+        expect(wrapper.find('Redirect').prop('to')).toEqual({ pathname: '/' });
     });
 });
