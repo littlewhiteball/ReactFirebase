@@ -70,7 +70,7 @@ export const signInGoogle = () =>
             console.info(user);
             console.info(accessToken);
 
-            dispatch(userSignedInAction());
+            dispatch(userSignedInAction(user));
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
@@ -89,7 +89,7 @@ export const signInFacebook = () =>
             console.info(user);
             console.info(accessToken);
 
-            dispatch(userSignedInAction());
+            dispatch(userSignedInAction(user));
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
@@ -103,14 +103,17 @@ export const signInTwitter = () =>
         dispatch(userSigningInAction());
 
         return usersDbAdapter.signInWithTwitter().then((result) => {
+            const { user } = result;
             const { accessToken, secret } = result.credential;
             console.info(accessToken);
             console.info(secret);
 
-            dispatch(userSignedInAction());
+            dispatch(userSignedInAction(user));
         }).catch((error) => {
-            const { code, method } = error;
-            console.error(code, method);
+            console.error(error);
+            // if(error.code == 'auth/account-exists-with-different-credential') {
+            //     dispatch(userSignedInAction(user))
+            // }
 
             dispatch(userSignInFailedAction());
         });

@@ -1,30 +1,30 @@
-import { firebaseApp } from './../firebase';
+import firebase from './../firebase';
 
-const signInWithPopup = provider => firebaseApp.auth().signInWithPopup(provider);
+const signInWithPopup = provider => firebase.auth().signInWithPopup(provider);
 
 const signInWithEmailAndPassword = (email, password) =>
     // TODO: validate email regex
-    firebaseApp.auth().signInWithEmailAndPassword(email, password);
+    firebase.auth().signInWithEmailAndPassword(email, password);
 
 const signInWithGoogle = () => {
-    const provider = new firebaseApp.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     return signInWithPopup(provider);
 };
 
 const signInWithFacebook = () => {
-    const provider = new firebaseApp.auth.FacebookAuthProvider();
+    const provider = new firebase.auth.FacebookAuthProvider();
     return signInWithPopup(provider);
 };
 
 const signInWithTwitter = () => {
-    const provider = new firebaseApp.auth.TwitterAuthProvider();
+    const provider = new firebase.auth.TwitterAuthProvider();
     return signInWithPopup(provider);
 };
 
 const signOut = () => {
     // TODO: throw if not signed in
     console.info('signed out');
-    return firebaseApp.auth().signOut();
+    return firebase.auth().signOut();
 };
 
 export default {
