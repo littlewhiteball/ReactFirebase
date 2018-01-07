@@ -14,6 +14,9 @@ const setup = (isShallow = false, signedIn = false) => {
             signedIn,
         }),
         signInWithEmailPassword: jest.fn(),
+        signInWithGoogle: jest.fn(),
+        signInWithFacebook: jest.fn(),
+        signInWithTwitter: jest.fn(),
     };
     const wrapper =
         isShallow ? shallow(<LoginComponent {...props} />) : mount(<LoginComponent {...props} />);
@@ -101,6 +104,27 @@ describe('login component', () => {
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
         expect(props.signInWithEmailPassword.mock.calls.length).toBe(1);
+    });
+
+    it('should call props sign in with google once clicked', () => {
+        const { props, wrapper } = setup();
+        wrapper.find('button').at(1).simulate('click', { preventDefault() { } });
+
+        expect(props.signInWithGoogle.mock.calls.length).toBe(1);
+    });
+
+    it('should call props sign in with facebook once clicked', () => {
+        const { props, wrapper } = setup();
+        wrapper.find('button').at(2).simulate('click', { preventDefault() { } });
+
+        expect(props.signInWithFacebook.mock.calls.length).toBe(1);
+    });
+
+    it('should call props sign in with twitter once clicked', () => {
+        const { props, wrapper } = setup();
+        wrapper.find('button').at(3).simulate('click', { preventDefault() { } });
+
+        expect(props.signInWithTwitter.mock.calls.length).toBe(1);
     });
 
     it('should render redirect when use has signed in', () => {

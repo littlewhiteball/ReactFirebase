@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-import { signInEmailPassword } from './../../actions/usersAction';
+import { signInEmailPassword, signInGoogle, signInFacebook, signInTwitter } from './../../actions/usersAction';
 
 const PLEASE_SIGN_IN = 'Please sign in';
 const SIGN_IN_OR_REGISTERING_WARNING = 'If you do not have an account already. This will create your account';
@@ -36,6 +36,18 @@ export class LoginComponent extends Component {
 
     signInWithEmailPassword = () => {
         this.props.signInWithEmailPassword(this.state.email, this.state.password);
+    }
+
+    signInWithGoogle = () => {
+        this.props.signInWithGoogle();
+    }
+
+    signInWithFacebook = () => {
+        this.props.signInWithFacebook();
+    }
+
+    signInWithTwitter = () => {
+        this.props.signInWithTwitter();
     }
 
     render() {
@@ -75,13 +87,13 @@ export class LoginComponent extends Component {
                         <button className="btn btn-primary btn-block mb-2" onClick={this.signInWithEmailPassword}>{SIGN_IN}</button>
                     </div>
                     <div className="text-center">
-                        <button className="btn btn-social-icon btn-google ml-1 mr-1">
+                        <button className="btn btn-social-icon btn-google ml-1 mr-1" onClick={this.signInWithGoogle}>
                             <span className="fa fa-google" />
                         </button>
-                        <button className="btn btn-social-icon btn-facebook ml-1 mr-1">
+                        <button className="btn btn-social-icon btn-facebook ml-1 mr-1" onClick={this.signInWithFacebook}>
                             <span className="fa fa-facebook" />
                         </button>
-                        <button className="btn btn-social-icon btn-twitter ml-1 mr-1">
+                        <button className="btn btn-social-icon btn-twitter ml-1 mr-1" onClick={this.signInWithTwitter}>
                             <span className="fa fa-twitter" />
                         </button>
                     </div>
@@ -94,6 +106,9 @@ export class LoginComponent extends Component {
 LoginComponent.propTypes = {
     user: PropTypes.object.isRequired,
     signInWithEmailPassword: PropTypes.func.isRequired,
+    signInWithGoogle: PropTypes.func.isRequired,
+    signInWithFacebook: PropTypes.func.isRequired,
+    signInWithTwitter: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -103,6 +118,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     signInWithEmailPassword:
         (email, password) => dispatch(signInEmailPassword(email, password)),
+    signInWithGoogle:
+        () => dispatch(signInGoogle()),
+    signInWithFacebook:
+        () => dispatch(signInFacebook()),
+    signInWithTwitter:
+        () => dispatch(signInTwitter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
