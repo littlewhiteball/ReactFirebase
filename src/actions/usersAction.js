@@ -1,4 +1,5 @@
 import usersDbAdapter from './../database/usersDbAdapter';
+import { firebaseApp } from '../firebase';
 
 const USER_SIGNINGIN = 'USER_SIGNINGIN';
 const USER_SIGNEDIN = 'USER_SIGNEDIN';
@@ -48,7 +49,7 @@ export const signInEmailPassword = (email, password) =>
         dispatch(userSigningInAction());
 
         return usersDbAdapter.signInWithEmailAndPassword(email, password).then((user) => {
-            console.info(`${user.name} signed in`);
+            console.info(`${user.email} signed in`);
 
             dispatch(userSignedInAction(user));
         }).catch((error) => {

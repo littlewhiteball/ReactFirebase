@@ -48,14 +48,14 @@ describe('user signedIn', () => {
     });
 });
 
-describe('user unsignedIn', () => {
-    it('should return user unsignedIn state', () => {
+describe('user signin failed', () => {
+    it('should return user signin failed state', () => {
         const expectedState = Object.assign({}, initialState, {
             signingIn: false,
             signedIn: false,
         });
         const action = {
-            type: actionTypes.USER_UNsignedIn,
+            type: actionTypes.USER_SIGNINFAILED,
         };
 
         expect(usersReducer(initialState, action)).toEqual(expectedState);
@@ -78,6 +78,7 @@ describe('user signing out', () => {
 describe('user signed out', () => {
     it('should return user signedout state', () => {
         const expectedState = Object.assign({}, initialState, {
+            signedIn: false,
             signingOut: false,
             signedOut: true,
         });
@@ -86,5 +87,21 @@ describe('user signed out', () => {
         };
 
         expect(usersReducer(initialState, action)).toEqual(expectedState);
+    });
+
+    it('should update signedin state to false', () => {
+        const expectedState = Object.assign({}, initialState, {
+            signedIn: false,
+            signingOut: false,
+            signedOut: true,
+        });
+        const currentState = Object.assign({}, initialState, {
+            signedIn: true,
+        });
+        const action = {
+            type: actionTypes.USER_SIGNEDOUT,
+        };
+
+        expect(usersReducer(currentState, action)).toEqual(expectedState);
     });
 });

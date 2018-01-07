@@ -21,9 +21,11 @@ const signInWithTwitter = () => {
     return signInWithPopup(provider);
 };
 
-const signOut = () =>
+const signOut = () => {
     // TODO: throw if not signed in
-    firebaseApp.auth().signOut();
+    console.info('signed out');
+    return firebaseApp.auth().signOut();
+};
 
 export default {
     signInWithEmailAndPassword,

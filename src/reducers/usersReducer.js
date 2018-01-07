@@ -37,6 +37,7 @@ export default (state = initialState, action) => {
         case actionTypes.USER_SIGNEDOUT:
             return Object.assign({}, state, {
                 name: undefined,
+                signedIn: false,
                 signingOut: false,
                 signedOut: true,
             });

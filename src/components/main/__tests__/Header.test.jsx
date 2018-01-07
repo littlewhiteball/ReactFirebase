@@ -14,6 +14,7 @@ const setup = (signedIn) => {
             signedIn,
         }),
         categoryList,
+        signOut: jest.fn(),
     };
     const wrapper = mount(<HeaderComponent {...props} />);
 
@@ -70,5 +71,12 @@ describe('header component', () => {
         expect(wrapper.find('a').at(3).prop('href')).toBe('/auth');
         expect(wrapper.find('a').at(3).prop('role')).toBe('button');
         expect(wrapper.find('a').at(3).text()).toBe('Login/Register');
+    });
+
+    it('should handle sign out button', () => {
+        const { props, wrapper } = setup(true);
+        wrapper.find('button').at(1).simulate('click');
+
+        expect(props.signOut.mock.calls.length).toBe(1);
     });
 });
