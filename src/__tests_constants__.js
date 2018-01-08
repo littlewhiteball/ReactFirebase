@@ -34,12 +34,13 @@ export const googleResult = {
 export const facebookResult = {
     user,
     credential: {
-        accessToken: 'googleaccesstoken',
+        accessToken: 'facebookaccesstoken',
     },
 };
 export const twitterResult = {
+    user,
     credential: {
-        accessToken: 'googleaccesstoken',
+        accessToken: 'twitteraccesstoken',
         secret: 'secret',
     },
 };

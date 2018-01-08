@@ -10,8 +10,8 @@ jest.mock('./../../database/usersDbAdapter');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('userSigningInActionAction', () => {
-    it('should create action to indicate user is being signedIn', () => {
+describe('userSigningInAction', () => {
+    it('should create action to indicate user is signing in', () => {
         const expectedAction = {
             type: 'USER_SIGNINGIN',
         };
@@ -20,8 +20,8 @@ describe('userSigningInActionAction', () => {
     });
 });
 
-describe('userSignedInActionAction', () => {
-    it('should create action to indicate user is signedIn', () => {
+describe('userSignedInAction', () => {
+    it('should create action to indicate user is signed in', () => {
         const expectedAction = {
             type: 'USER_SIGNEDIN',
         };
@@ -30,8 +30,8 @@ describe('userSignedInActionAction', () => {
     });
 });
 
-describe('userSignInFailedActionAction', () => {
-    it('should create action to indicate user is not signedIn', () => {
+describe('userSignInFailedAction', () => {
+    it('should create action to indicate user is failed to sign in', () => {
         const expectedAction = {
             type: 'USER_SIGNINFAILED',
         };
@@ -39,6 +39,37 @@ describe('userSignInFailedActionAction', () => {
         expect(actions.userSignInFailedAction()).toEqual(expectedAction);
     });
 });
+
+describe('userSigningUpAction', () => {
+    it('should create action to indicate user is signing up', () => {
+        const expectedAction = {
+            type: 'USER_SIGNINGUP',
+        };
+
+        expect(actions.userSigningUpAction()).toEqual(expectedAction);
+    });
+});
+
+describe('userSignedUpAction', () => {
+    it('should create action to indicate user is signed up', () => {
+        const expectedAction = {
+            type: 'USER_SIGNEDUP',
+        };
+
+        expect(actions.userSignedUpAction()).toEqual(expectedAction);
+    });
+});
+
+describe('userSignInFailedAction', () => {
+    it('should create action to indicate user failed to sign up', () => {
+        const expectedAction = {
+            type: 'USER_SIGNUPFAILED',
+        };
+
+        expect(actions.userSignUpFailedAction()).toEqual(expectedAction);
+    });
+});
+
 
 describe('signInEmailPassword', () => {
     it('should 1.create signingIn action 2.sign in with email and password 3.create signedIn action', () => {
@@ -51,19 +82,48 @@ describe('signInEmailPassword', () => {
         ];
 
         const store = mockStore({});
-        return store.dispatch(actions.signInEmailPassword('email@me.com', 'password')).then(() => {
+        return store.dispatch(actions.signInEmailPassword('email@me.com', 'password0')).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
 
-    it('should 1.create signingIn action 2.sign in with email and password 3.sign in should fail 4.create signInFailed action', () => {
+    it('should 1.create signingIn action 2.sign in with email and password 3.sign in should fail with wrong password 4.create signInFailed action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
             { type: 'USER_SIGNINFAILED' },
         ];
 
         const store = mockStore({});
-        return store.dispatch(actions.signInEmailPassword('wrongemail', 'wrongpassword')).then(() => {
+        return store.dispatch(actions.signInEmailPassword('email@me.com', 'wrongpassword')).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+
+    const signUpWhenUserNotFoundTestCaseName = `
+        1.create signingIn action
+        2.sign in with email and password
+        3.sign in should fail with user not found
+        4.create signingUp action
+        5.sign up with email and password
+        6.create signedUp action
+        7.create signedIn action
+    `;
+    it(signUpWhenUserNotFoundTestCaseName, () => {
+        const expectedActions = [
+            { type: 'USER_SIGNINGIN' },
+            { type: 'USER_SIGNINGUP' },
+            {
+                type: 'USER_SIGNEDUP',
+                user,
+            },
+            {
+                type: 'USER_SIGNEDIN',
+                user,
+            },
+        ];
+
+        const store = mockStore({});
+        return store.dispatch(actions.signInEmailPassword('usernotfound@me.com', 'usernotfoundpassword')).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
@@ -73,7 +133,10 @@ describe('signInGoogle', () => {
     it('should 1.create signingIn action 2.sign in with google 3.create signedIn action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
-            { type: 'USER_SIGNEDIN' },
+            {
+                type: 'USER_SIGNEDIN',
+                user,
+            },
         ];
 
         const store = mockStore({});
@@ -87,7 +150,10 @@ describe('signInFacebook', () => {
     it('should 1.create signingIn action 2.sign in with facebook 3.create signedIn action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
-            { type: 'USER_SIGNEDIN' },
+            {
+                type: 'USER_SIGNEDIN',
+                user,
+            },
         ];
 
         const store = mockStore({});
@@ -101,7 +167,10 @@ describe('signInTwitter', () => {
     it('should 1.create signingIn action 2.sign in with twitter 3.create signedIn action', () => {
         const expectedActions = [
             { type: 'USER_SIGNINGIN' },
-            { type: 'USER_SIGNEDIN' },
+            {
+                type: 'USER_SIGNEDIN',
+                user,
+            },
         ];
 
         const store = mockStore({});

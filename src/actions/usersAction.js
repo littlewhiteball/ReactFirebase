@@ -1,9 +1,13 @@
 import usersDbAdapter from './../database/usersDbAdapter';
-import { firebaseApp } from '../firebase';
+
+const ERROR_AUTH_USER_NOT_FOUND = 'auth/user-not-found';
 
 const USER_SIGNINGIN = 'USER_SIGNINGIN';
 const USER_SIGNEDIN = 'USER_SIGNEDIN';
 const USER_SIGNINFAILED = 'USER_SIGNINFAILED';
+const USER_SIGNINGUP = 'USER_SIGNINGUP';
+const USER_SIGNEDUP = 'USER_SIGNEDUP';
+const USER_SIGNUPFAILED = 'USER_SIGNUPFAILED';
 const USER_SIGNINGOUT = 'USER_SIGNINGOUT';
 const USER_SIGNEDOUT = 'USER_SIGNEDOUT';
 const USER_SIGNOUTFAILED = 'USER_SIGNOUTFAILED';
@@ -13,6 +17,7 @@ export const actionTypes = {
     USER_SIGNINGIN,
     USER_SIGNEDIN,
     USER_SIGNINFAILED,
+    USER_SIGNINGUP,
     USER_SIGNINGOUT,
     USER_SIGNEDOUT,
     USER_SIGNOUTFAILED,
@@ -30,6 +35,19 @@ export const userSignedInAction = user => ({
 
 export const userSignInFailedAction = () => ({
     type: USER_SIGNINFAILED,
+});
+
+export const userSigningUpAction = () => ({
+    type: USER_SIGNINGUP,
+});
+
+export const userSignedUpAction = user => ({
+    type: USER_SIGNEDUP,
+    user,
+});
+
+export const userSignUpFailedAction = () => ({
+    type: USER_SIGNUPFAILED,
 });
 
 export const userSigningOutAction = () => ({
@@ -52,11 +70,26 @@ export const signInEmailPassword = (email, password) =>
             console.info(`${user.email} signed in`);
 
             dispatch(userSignedInAction(user));
-        }).catch((error) => {
-            const { code, method } = error;
-            console.error(code, method);
+        }).catch((signInError) => {
+            const { code } = signInError;
+            if (code === ERROR_AUTH_USER_NOT_FOUND) {
+                // user not found. should create new user
+                dispatch(userSigningUpAction());
 
-            dispatch(userSignInFailedAction());
+                usersDbAdapter.createUserWithEmailAndPassword(email, password).then((user) => {
+                    dispatch(userSignedUpAction(user));
+
+                    console.info(`${user.email} created`);
+
+                    dispatch(userSignedInAction(user));
+                }).catch((signUpError) => {
+                    console.error(signUpError);
+
+                    dispatch(userSignUpFailedAction());
+                });
+            } else {
+                dispatch(userSignInFailedAction());
+            }
         });
     };
 

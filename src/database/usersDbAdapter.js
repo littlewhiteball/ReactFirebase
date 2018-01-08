@@ -2,6 +2,10 @@ import firebase from './../firebase';
 
 const signInWithPopup = provider => firebase.auth().signInWithPopup(provider);
 
+const createUserWithEmailAndPassword = (email, password) =>
+    // TODO: validate email and password
+    firebase.auth().createUserWithEmailAndPassword(email, password);
+
 const signInWithEmailAndPassword = (email, password) =>
     // TODO: validate email regex
     firebase.auth().signInWithEmailAndPassword(email, password);
@@ -28,6 +32,7 @@ const signOut = () => {
 };
 
 export default {
+    createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signInWithGoogle,
     signInWithFacebook,
