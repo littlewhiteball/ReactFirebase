@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -6,15 +6,20 @@ import Profile from './../users/Profile';
 
 const LOGIN_REGISTER = 'Login/Register';
 const HOME = 'Home';
+const NAV_CATEGORY_LIST_ID = 'navCategoryList';
+const NEW_COMPETITION = 'New Competition';
 
-export class HeaderComponent extends Component {
+export class HeaderComponent extends PureComponent {
     render() {
         const userElement = this.props.user.signedIn ?
             // TODO: Call Logout component
-            (<Profile />) :
+            (
+                <div className="nav right-actions">
+                    <Profile />
+                    <a className="btn btn-outline-info ml-2" href="/competition">{NEW_COMPETITION}</a>
+                </div>
+            ) :
             (<a href="/auth" className="btn btn-outline-info" role="button">{LOGIN_REGISTER}</a>);
-
-        const navCategoryListId = 'navCategoryList';
 
         return (
             <div className="container">
@@ -23,10 +28,10 @@ export class HeaderComponent extends Component {
                         <img src="/favicon.ico" alt="Ga" width="36" height="36" />
                         <span>{HOME}</span>
                     </a>
-                    <button className="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target={`#${navCategoryListId}`}>
+                    <button className="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target={`#${NAV_CATEGORY_LIST_ID}`}>
                         <span className="navbar-toggler-icon" />
                     </button>
-                    <div className="collapse navbar-collapse" id={navCategoryListId}>
+                    <div className="collapse navbar-collapse" id={NAV_CATEGORY_LIST_ID}>
                         <ul className="navbar-nav mr-auto">
                             {
                                 this.props.categoryList.map(category => (
