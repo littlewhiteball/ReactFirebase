@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { signOutUser } from './../../actions/usersAction';
 
 const PROFILE = 'Profile';
-const EDIT_PROFILE = 'Edit Profile';
+const EDIT_PROFILE = 'Edit profile';
 const SIGN_OUT = 'Sign out';
 
 export class ProfileComponent extends Component {

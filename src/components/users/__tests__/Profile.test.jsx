@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
+import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import { user } from './../../../__tests_constants__';
@@ -8,14 +8,17 @@ import { ProfileComponent } from './../Profile';
 
 configure({ adapter: new Adapter() });
 
-const setup = () => {
+const setup = (signedIn, isShallow) => {
     const props = {
         user: Object.assign({}, user, {
-            signedIn: true,
+            signedIn,
         }),
         signOut: jest.fn(),
     };
-    const wrapper = mount(<ProfileComponent {...props} />);
+    const wrapper =
+        isShallow ?
+            shallow(<ProfileComponent {...props} />) :
+            mount(<ProfileComponent {...props} />);
 
     return {
         props,
@@ -24,10 +27,25 @@ const setup = () => {
 };
 
 describe('profile component', () => {
-    it('should render self', () => {
-        const { wrapper } = setup();
+    it('should render profile menus when signed in', () => {
+        const { wrapper } = setup(true);
 
         expect(wrapper.find('div').at(0).hasClass('dropdown show')).toBe(true);
+        expect(wrapper.find('button').at(0).hasClass('btn btn-default dropdown-toggle')).toBe(true);
+        expect(wrapper.find('button').at(0).prop('type')).toBe('button');
+        expect(wrapper.find('button').at(0).prop('data-toggle')).toBe('dropdown');
+        expect(wrapper.find('img').prop('src')).toBe('./favicon.ico');
+        expect(wrapper.find('img').prop('width')).toBe('28');
+        expect(wrapper.find('img').prop('height')).toBe('28');
+        expect(wrapper.find('img').prop('alt')).toBe('Profile');
+        expect(wrapper.find('div').at(1).hasClass('dropdown-menu')).toBe(true);
+        expect(wrapper.find('a').hasClass('dropdown-item')).toBe(true);
+        expect(wrapper.find('a').prop('href')).toBe('/');
+        expect(wrapper.find('a').text()).toBe('Edit profile');
+        expect(wrapper.find('div').at(2).hasClass('dropdown-divider')).toBe(true);
+        expect(wrapper.find('div').at(3).hasClass('dropdown-item')).toBe(true);
+        expect(wrapper.find('button').at(1).hasClass('btn btn-outline-warning')).toBe(true);
+        expect(wrapper.find('button').at(1).text()).toBe('Sign out');
     });
 
     it('should handle sign out button', () => {
@@ -35,5 +53,11 @@ describe('profile component', () => {
         wrapper.find('button').at(1).simulate('click');
 
         expect(props.signOut.mock.calls.length).toBe(1);
+    });
+
+    it('should render redirect home when not signed in', () => {
+        const { wrapper } = setup(false, true);
+
+        expect(wrapper.find('Redirect').prop('to')).toEqual({ pathname: '/' });
     });
 });
