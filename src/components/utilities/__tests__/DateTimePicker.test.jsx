@@ -13,7 +13,7 @@ const wrapper = shallow(<DateTimePicker />);
 
 describe('footer component', () => {
     it('should render self', () => {
-        expect(wrapper.find(DateTime)).toHaveLength(1);
+        expect(wrapper.find(DateTime).exists()).toBe(true);
         expect(wrapper.find(DateTime).prop('value')).toBe('01/12/2018 11:30 PM');
     });
 

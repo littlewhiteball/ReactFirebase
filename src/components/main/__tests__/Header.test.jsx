@@ -63,7 +63,7 @@ describe('header component', () => {
         const { wrapper } = setup(true);
 
         expect(wrapper.find('div').at(2).hasClass('nav right-actions')).toBe(true);
-        expect(wrapper.find(Profile)).toHaveLength(1);
+        expect(wrapper.find(Profile).exists()).toBe(true);
         expect(wrapper.find('a').at(3).hasClass('btn btn-outline-info ml-2')).toBe(true);
         expect(wrapper.find('a').at(3).prop('href')).toBe('/competition');
         expect(wrapper.find('a').at(3).text()).toBe('New Competition');

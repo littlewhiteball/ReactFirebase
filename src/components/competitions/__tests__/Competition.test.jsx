@@ -38,7 +38,7 @@ describe('competition component', () => {
         expect(wrapper.find('button').text()).toBe('Join');
         expect(wrapper.find('div').at(4).hasClass('collapse')).toBe(true);
         expect(wrapper.find('div').at(4).prop('id')).toBe('competitionSummaryid0');
-        expect(wrapper.find(CompetitionSummary)).toHaveLength(1);
+        expect(wrapper.find(CompetitionSummary).exists()).toBe(true);
         expect(wrapper.find(CompetitionSummary).props('competition').competition).toBe(competition0);
     });
 

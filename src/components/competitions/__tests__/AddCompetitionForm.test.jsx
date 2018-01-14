@@ -75,13 +75,13 @@ describe('add competition form component', () => {
         expect(wrapper.find('label').at(5).prop('htmlFor')).toBe('EntriesClose');
         expect(wrapper.find('label').at(5).text()).toBe('Entries Close');
         expect(wrapper.find('div').at(15).hasClass('col-lg-9')).toBe(true);
-        expect(wrapper.find(DateTimePicker).at(0)).toHaveLength(1);
+        expect(wrapper.find(DateTimePicker).exists()).toBe(true);
         expect(wrapper.find('div').at(16).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('label').at(6).hasClass('col-lg-3 col-form-label form-control-label')).toBe(true);
         expect(wrapper.find('label').at(6).prop('htmlFor')).toBe('FulfillmentDate');
         expect(wrapper.find('label').at(6).text()).toBe('Fulfillment Date');
         expect(wrapper.find('div').at(17).hasClass('col-lg-9')).toBe(true);
-        expect(wrapper.find(DateTimePicker).at(1)).toHaveLength(1);
+        expect(wrapper.find(DateTimePicker).exists()).toBe(true);
         expect(wrapper.find('div').at(18).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('label').at(7).hasClass('col-lg-3 col-form-label form-control-label')).toBe(true);
         expect(wrapper.find('label').at(7).prop('htmlFor')).toBe('Options');
