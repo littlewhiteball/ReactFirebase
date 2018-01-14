@@ -20,8 +20,8 @@ const VISIBILITY_ID = 'Visibility';
 const ENTRIES_CLOSE = 'Entries Close';
 const ENTRIES_CLOSE_ID = 'EntriesClose';
 const FULFILLMENT_DATE = 'Fulfillment Date';
-const FULFILLMENT_DATE_ID = 'FullfillmentDate';
-const OPTIONS = 'OPTIONS';
+const FULFILLMENT_DATE_ID = 'FulfillmentDate';
+const OPTIONS = 'Options';
 // TODO: Temporarily using comma separated text as list of options
 const OPTIONS_PLACEHOLDER = 'Option1,Option2';
 const OPTIONS_ID = 'Options';
@@ -61,7 +61,7 @@ export class AddCompetitionFormComponent extends Component {
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={VISIBILITY_ID}>{VISIBILITY}</label>
                                                 <div className="col-lg-9">
-                                                    <input name={VISIBILITY} type="radio" id={PUBLIC_ID} checked />
+                                                    <input name={VISIBILITY} type="radio" id={PUBLIC_ID} checked="checked" />
                                                     <label htmlFor={PUBLIC_ID}>{PUBLIC}</label>
                                                     <input name={VISIBILITY} type="radio" id={PRIVATE_ID} />
                                                     <label htmlFor={PRIVATE_ID}>{PRIVATE}</label>
