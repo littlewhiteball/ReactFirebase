@@ -61,9 +61,9 @@ export class AddCompetitionFormComponent extends Component {
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={VISIBILITY_ID}>{VISIBILITY}</label>
                                                 <div className="col-lg-9">
-                                                    <input name={VISIBILITY} type="radio" id={PUBLIC_ID} checked="checked" />
-                                                    <label htmlFor={PUBLIC_ID}>{PUBLIC}</label>
-                                                    <input name={VISIBILITY} type="radio" id={PRIVATE_ID} />
+                                                    <input className="mr-1" name={VISIBILITY} type="radio" id={PUBLIC_ID} value={PUBLIC} defaultChecked />
+                                                    <label className="mr-2" htmlFor={PUBLIC_ID}>{PUBLIC}</label>
+                                                    <input className="mr-1" name={VISIBILITY} type="radio" id={PRIVATE_ID} value={PRIVATE} />
                                                     <label htmlFor={PRIVATE_ID}>{PRIVATE}</label>
                                                 </div>
                                             </div>

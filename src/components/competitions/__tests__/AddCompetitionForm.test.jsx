@@ -55,13 +55,16 @@ describe('add competition form component', () => {
         expect(wrapper.find('label').at(2).prop('htmlFor')).toBe('Visibility');
         expect(wrapper.find('label').at(2).text()).toBe('Visibility');
         expect(wrapper.find('div').at(13).hasClass('col-lg-9')).toBe(true);
+        expect(wrapper.find('input').at(2).hasClass('mr-1')).toBe(true);
         expect(wrapper.find('input').at(2).prop('name')).toBe('Visibility');
         expect(wrapper.find('input').at(2).prop('type')).toBe('radio');
         expect(wrapper.find('input').at(2).prop('id')).toBe('Public');
-        expect(wrapper.find('input').at(2).prop('checked')).toBe('checked');
+        expect(wrapper.find('input').at(2).prop('defaultChecked')).toBe(true);
+        expect(wrapper.find('label').at(3).hasClass('mr-2')).toBe(true);
         expect(wrapper.find('label').at(3).prop('htmlFor')).toBe('Public');
         expect(wrapper.find('label').at(3).text()).toBe('Public');
         expect(wrapper.find('input').at(3).prop('name')).toBe('Visibility');
+        expect(wrapper.find('input').at(3).hasClass('mr-1')).toBe(true);
         expect(wrapper.find('input').at(3).prop('type')).toBe('radio');
         expect(wrapper.find('input').at(3).prop('id')).toBe('Private');
         expect(wrapper.find('input').at(3).prop('checked')).toBe(undefined);
