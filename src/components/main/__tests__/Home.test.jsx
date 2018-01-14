@@ -2,15 +2,15 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Auth from './../Auth';
-import Login from './../../users/Login';
+import Home from './../Home';
+import Trending from './../../pages/Trending';
 
 configure({ adapter: new Adapter() });
 
-const wrapper = shallow(<Auth />);
+const wrapper = shallow(<Home />);
 
-describe('auth component', () => {
+describe('home component', () => {
     it('should render self', () => {
-        expect(wrapper.find(Login).exists()).toBe(true);
+        expect(wrapper.find(Trending).exists()).toBe(true);
     });
 });
