@@ -39,7 +39,7 @@ var _stores = require('./src/stores');
 
 var _stores2 = _interopRequireDefault(_stores);
 
-var _App = require('./src/App');
+var _App = require('./src/components/App');
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -105,6 +105,7 @@ app.route('*').get(function (req, res) {
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 
+// TODO: default export does not work
 var rfapp = exports.rfapp = functions.https.onRequest(app);
 
 // const rfapp = functions.https.onRequest(app);

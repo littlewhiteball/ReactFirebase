@@ -10,7 +10,7 @@ import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './src/stores';
-import App from './src/App';
+import App from './src/components/App';
 
 const app = express();
 
@@ -67,6 +67,7 @@ app.route('*')
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
+// TODO: default export does not work
 export const rfapp = functions.https.onRequest(app);
 
 // const rfapp = functions.https.onRequest(app);

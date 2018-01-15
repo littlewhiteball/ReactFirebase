@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 // components
-import App from './App';
+import App from './components/App';
 import store from './stores';
 
 const element = (
