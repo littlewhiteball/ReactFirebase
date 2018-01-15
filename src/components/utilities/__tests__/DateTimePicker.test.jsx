@@ -11,7 +11,7 @@ jest.mock('moment');
 
 const wrapper = shallow(<DateTimePicker />);
 
-describe('footer component', () => {
+describe('datetime picker component', () => {
     it('should render self', () => {
         expect(wrapper.find(DateTime).exists()).toBe(true);
         expect(wrapper.find(DateTime).prop('value')).toBe('01/12/2018 11:30 PM');
