@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Home from './components/main/Home';
-import Auth from './components/pages/Auth';
-import NewCompetition from './components/pages/NewCompetition';
-import Header from './components/main/Header';
-import Footer from './components/main/Footer';
+import Home from './main/Home';
+import Auth from './pages/Auth';
+import NewCompetition from './pages/NewCompetition';
+import Header from './main/Header';
+import Footer from './main/Footer';
 
 export default () => (
     <div>
