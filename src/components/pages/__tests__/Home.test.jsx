@@ -3,7 +3,7 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Home from './../Home';
-import Trending from './../../pages/Trending';
+import Trending from './../../competitions/Trending';
 
 configure({ adapter: new Adapter() });
 

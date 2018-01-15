@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Home from './main/Home';
+import Home from './pages/Home';
 import Auth from './pages/Auth';
 import NewCompetition from './pages/NewCompetition';
 import Header from './main/Header';
