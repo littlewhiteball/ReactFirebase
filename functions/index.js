@@ -60,7 +60,7 @@ app.route('*').get(function (req, res) {
     var element = function element() {
         return _react2.default.createElement(
             _reactRedux.Provider,
-            { store: _stores2.default },
+            { store: (0, _stores2.default)([]) },
             _react2.default.createElement(
                 _reactRouterDom.StaticRouter,
                 { location: req.url, context: context },

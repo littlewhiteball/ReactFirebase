@@ -5,7 +5,7 @@ import competitions from './competitionsReducer';
 import user from './usersReducer';
 
 export default combineReducers({
-    routerReducer,
+    routing: routerReducer,
     competitions,
     user,
 });

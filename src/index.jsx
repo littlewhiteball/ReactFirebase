@@ -2,17 +2,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
+import { routerMiddleware, ConnectedRouter } from 'react-router-redux';
+
+// redux
+import store from './stores';
 
 // components
 import App from './components/App';
-import store from './stores';
+
+const middlewares = [];
+const history = createHistory();
+middlewares.push(routerMiddleware(history));
 
 const element = (
-    <Provider store={store}>
-        <BrowserRouter>
+    <Provider store={store(middlewares)}>
+        <ConnectedRouter history={history}>
             <App />
-        </BrowserRouter>
+        </ConnectedRouter>
     </Provider>
 );
 

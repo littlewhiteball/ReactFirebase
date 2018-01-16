@@ -8,7 +8,6 @@ const initialState = {
     signedOut: false,
 };
 
-// TODO: signedIn and signedIn sound duplicating
 export default (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.USER_SIGNINGIN:

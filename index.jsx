@@ -24,7 +24,7 @@ app.route('*')
     .get((req, res) => {
         const context = {};
         const element = () => (
-            <Provider store={store}>
+            <Provider store={store([])}>
                 <StaticRouter location={req.url} context={context}>
                     <App />
                 </StaticRouter>

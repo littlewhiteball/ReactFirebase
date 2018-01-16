@@ -12,7 +12,10 @@ middlewares.push(reduxThunk);
 // TODO: Only in dev
 middlewares.push(createLogger);
 
-export default createStore(
-    rootReducer,
-    applyMiddleware(...middlewares),
-);
+const store = extraMiddlewares =>
+    createStore(
+        rootReducer,
+        applyMiddleware(...middlewares.concat(extraMiddlewares)),
+    );
+
+export default store;
