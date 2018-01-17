@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 
 import Profile from './../users/Profile';
 
@@ -9,7 +10,9 @@ const HOME = 'Home';
 const NAV_CATEGORY_LIST_ID = 'navCategoryList';
 const NEW_COMPETITION = 'New Competition';
 
-export class HeaderComponent extends PureComponent {
+export class HeaderComponent extends Component {
+    navToAuth = () => this.props.navToPath('/auth');
+
     render() {
         const userElement = this.props.user.signedIn ?
             // TODO: Call Logout component
@@ -19,7 +22,7 @@ export class HeaderComponent extends PureComponent {
                     <a className="btn btn-outline-info ml-2" href="/competition">{NEW_COMPETITION}</a>
                 </div>
             ) :
-            (<a href="/auth" className="btn btn-outline-info" role="button">{LOGIN_REGISTER}</a>);
+            (<button className="btn btn-outline-info" onClick={this.navToAuth}>{LOGIN_REGISTER}</button>);
 
         return (
             <div className="container">
@@ -52,6 +55,7 @@ export class HeaderComponent extends PureComponent {
 HeaderComponent.propTypes = {
     user: PropTypes.object.isRequired,
     categoryList: PropTypes.arrayOf(PropTypes.object),
+    navToPath: PropTypes.func.isRequired,
 };
 
 HeaderComponent.defaultProps = {
@@ -71,4 +75,8 @@ const mapStateToProps = state => ({
     user: state.user,
 });
 
-export default connect(mapStateToProps, null)(HeaderComponent);
+const mapDispatchToProps = dispatch => ({
+    navToPath: pathname => dispatch(push(pathname)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);

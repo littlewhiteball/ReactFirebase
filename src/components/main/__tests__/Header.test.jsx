@@ -15,7 +15,7 @@ const setup = (signedIn) => {
             signedIn,
         }),
         categoryList,
-        signOut: jest.fn(),
+        navToPath: jest.fn(),
     };
     const wrapper = shallow(<HeaderComponent {...props} />);
 
@@ -72,9 +72,14 @@ describe('header component', () => {
     it('should render login/register button when not signed in', () => {
         const { wrapper } = setup(false);
 
-        expect(wrapper.find('a').at(3).hasClass('btn btn-outline-info')).toBe(true);
-        expect(wrapper.find('a').at(3).prop('href')).toBe('/auth');
-        expect(wrapper.find('a').at(3).prop('role')).toBe('button');
-        expect(wrapper.find('a').at(3).text()).toBe('Login/Register');
+        expect(wrapper.find('button').at(1).hasClass('btn btn-outline-info')).toBe(true);
+        expect(wrapper.find('button').at(1).text()).toBe('Login/Register');
+    });
+
+    it('should handle login/register button when not signed in', () => {
+        const { props, wrapper } = setup(false);
+        wrapper.find('button').at(1).simulate('click');
+
+        expect(props.navToPath.mock.calls.length).toBe(1);
     });
 });

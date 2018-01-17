@@ -7,7 +7,6 @@ import AddCompetitionForm from './../competitions/AddCompetitionForm';
 
 export class NewCompetitionComponent extends PureComponent {
     render() {
-        console.error(this.props.user);
         return this.props.user.signedIn
             ? (<AddCompetitionForm />)
             : (<Redirect to="/auth" />);
