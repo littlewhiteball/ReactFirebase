@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 
-import Profile from './../users/Profile';
+import UserProfileDropDown from './../users/UserProfileDropDown';
 
 const LOGIN_REGISTER = 'Login/Register';
 const HOME = 'Home';
@@ -20,7 +20,7 @@ export class HeaderComponent extends Component {
             // TODO: Call Logout component
             (
                 <div className="nav right-actions">
-                    <Profile />
+                    <UserProfileDropDown />
                     <button className="btn btn-outline-info ml-2" onClick={this.navToNewCompetition}>{NEW_COMPETITION}</button>
                 </div>
             ) :

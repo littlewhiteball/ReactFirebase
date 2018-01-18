@@ -9,7 +9,7 @@ const PROFILE = 'Profile';
 const EDIT_PROFILE = 'Edit profile';
 const SIGN_OUT = 'Sign out';
 
-export class ProfileComponent extends Component {
+export class UserProfileDropDownComponent extends Component {
     signOut = () => this.props.signOut();
 
     render() {
@@ -39,7 +39,7 @@ export class ProfileComponent extends Component {
     }
 }
 
-ProfileComponent.propTypes = {
+UserProfileDropDownComponent.propTypes = {
     user: PropTypes.object.isRequired,
     signOut: PropTypes.func.isRequired,
 };
@@ -54,4 +54,4 @@ const mapDispatchToProps = dispatch => (
     }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfileDropDownComponent);

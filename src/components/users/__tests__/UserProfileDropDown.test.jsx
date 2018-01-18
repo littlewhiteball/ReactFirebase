@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { user } from './../../../__tests_constants__';
 
-import { ProfileComponent } from './../Profile';
+import { UserProfileDropDownComponent } from './../UserProfileDropDown';
 
 configure({ adapter: new Adapter() });
 
@@ -17,8 +17,8 @@ const setup = (signedIn, isShallow) => {
     };
     const wrapper =
         isShallow ?
-            shallow(<ProfileComponent {...props} />) :
-            mount(<ProfileComponent {...props} />);
+            shallow(<UserProfileDropDownComponent {...props} />) :
+            mount(<UserProfileDropDownComponent {...props} />);
 
     return {
         props,
