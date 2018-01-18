@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import CompetitionSummary from './CompetitionSummary';
+import CompetitionListItemSummary from './CompetitionListItemSummary';
 
 import { deleteCompetition } from './../../actions/competitionsAction';
 
@@ -30,7 +30,7 @@ export class CompetitionListItemComponent extends Component {
                     </div>
                 </div>
                 <div className="collapse" id={competitionSummaryId}>
-                    <CompetitionSummary competition={this.props.competition} />
+                    <CompetitionListItemSummary competition={this.props.competition} />
                 </div>
                 <hr />
             </div>

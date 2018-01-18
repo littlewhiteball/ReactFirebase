@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { competition0 } from './../../../__tests_constants__';
 
-import CompetitionSummary from './../CompetitionSummary';
+import CompetitionListItemSummary from './../CompetitionListItemSummary';
 
 configure({ adapter: new Adapter() });
 
@@ -12,7 +12,7 @@ const setup = () => {
     const props = {
         competition: competition0,
     };
-    const wrapper = mount(<CompetitionSummary {...props} />);
+    const wrapper = mount(<CompetitionListItemSummary {...props} />);
 
     return {
         wrapper,

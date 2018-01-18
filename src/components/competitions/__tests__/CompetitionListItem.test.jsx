@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { competition0 } from './../../../__tests_constants__';
 
 import { CompetitionListItemComponent } from './../CompetitionListItem';
-import CompetitionSummary from './../CompetitionSummary';
+import CompetitionListItemSummary from './../CompetitionListItemSummary';
 
 configure({ adapter: new Adapter() });
 
@@ -38,8 +38,8 @@ describe('competition component', () => {
         expect(wrapper.find('button').text()).toBe('Join');
         expect(wrapper.find('div').at(4).hasClass('collapse')).toBe(true);
         expect(wrapper.find('div').at(4).prop('id')).toBe('competitionSummaryid0');
-        expect(wrapper.find(CompetitionSummary).exists()).toBe(true);
-        expect(wrapper.find(CompetitionSummary).props('competition').competition).toBe(competition0);
+        expect(wrapper.find(CompetitionListItemSummary).exists()).toBe(true);
+        expect(wrapper.find(CompetitionListItemSummary).props('competition').competition).toBe(competition0);
     });
 
     it('should call delete once submitted', () => {

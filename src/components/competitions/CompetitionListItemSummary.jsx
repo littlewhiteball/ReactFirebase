@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class CompetitionSummary extends PureComponent {
+// eslint-disable-next-line react/prefer-stateless-function
+export default class CompetitionListItemSummary extends Component {
     render() {
         // TODO: Create util class to handle datetime conversion
         const start = new Date(this.props.competition.start).toLocaleString();
@@ -32,7 +33,7 @@ export default class CompetitionSummary extends PureComponent {
     }
 }
 
-CompetitionSummary.propTypes = {
+CompetitionListItemSummary.propTypes = {
     competition: PropTypes.shape({
         id: PropTypes.string,
         title: PropTypes.string,
