@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -8,6 +8,7 @@ import Auth from './pages/Auth';
 import NewCompetition from './pages/NewCompetition';
 import Header from './main/Header';
 import Footer from './main/Footer';
+import NotFound from './main/NotFound';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class AppComponent extends Component {
@@ -15,9 +16,12 @@ export class AppComponent extends Component {
         return (
             <div>
                 <Header location={this.props.location} />
-                <Route path="/" exact component={Home} />
-                <Route path="/auth" exact component={Auth} />
-                <Route path="/competition" exact component={NewCompetition} />
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/auth" exact component={Auth} />
+                    <Route path="/competition" exact component={NewCompetition} />
+                    <Route path="*" component={NotFound} />
+                </Switch>
                 <Footer />
             </div>
         );
