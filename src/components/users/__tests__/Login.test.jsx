@@ -99,11 +99,29 @@ describe('login component', () => {
         expect(wrapper.state('password')).toEqual('password123');
     });
 
+    it.skip('should validate email and password', () => {
+
+    });
+
     it('should call props sign in with email and password once clicked', () => {
         const { props, wrapper } = setup();
+        wrapper.find('input').at(0).simulate('change', {
+            target: {
+                name: 'email',
+                value: 'email@me.com',
+            },
+        });
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'password',
+                value: 'password123',
+            },
+        });
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
         expect(props.signInWithEmailPassword.mock.calls.length).toBe(1);
+        expect(props.signInWithEmailPassword.mock.calls[0][0]).toBe('email@me.com');
+        expect(props.signInWithEmailPassword.mock.calls[0][1]).toBe('password123');
     });
 
     it('should call props sign in with google once clicked', () => {

@@ -35,6 +35,7 @@ export class LoginComponent extends Component {
     }
 
     signInWithEmailPassword = () => {
+        // TODO: validation on empty email or empty password, plus other validations
         this.props.signInWithEmailPassword(this.state.email, this.state.password);
     }
 

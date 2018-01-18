@@ -47,5 +47,6 @@ describe('competition component', () => {
         wrapper.find('form').simulate('submit', { preventDefault() { } });
 
         expect(props.delete.mock.calls.length).toBe(1);
+        expect(props.delete.mock.calls[0][0]).toBe(competition0);
     });
 });
