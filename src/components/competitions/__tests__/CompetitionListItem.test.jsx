@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { competition0 } from './../../../__tests_constants__';
 
-import { CompetitionComponent } from './../Competition';
+import { CompetitionListItemComponent } from './../CompetitionListItem';
 import CompetitionSummary from './../CompetitionSummary';
 
 configure({ adapter: new Adapter() });
@@ -14,7 +14,7 @@ const setup = () => {
         competition: competition0,
         delete: jest.fn(),
     };
-    const wrapper = mount(<CompetitionComponent {...props} />);
+    const wrapper = mount(<CompetitionListItemComponent {...props} />);
 
     return {
         props,

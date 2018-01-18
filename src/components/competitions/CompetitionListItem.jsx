@@ -6,7 +6,7 @@ import CompetitionSummary from './CompetitionSummary';
 
 import { deleteCompetition } from './../../actions/competitionsAction';
 
-export class CompetitionComponent extends Component {
+export class CompetitionListItemComponent extends Component {
     remove = (e) => {
         e.preventDefault();
         this.props.delete(this.props.competition);
@@ -38,7 +38,7 @@ export class CompetitionComponent extends Component {
     }
 }
 
-CompetitionComponent.propTypes = {
+CompetitionListItemComponent.propTypes = {
     competition: PropTypes.shape({
         id: PropTypes.string,
         title: PropTypes.string,
@@ -55,4 +55,4 @@ const mapDispatchToProps = dispatch => (
     }
 );
 
-export default connect(null, mapDispatchToProps)(CompetitionComponent);
+export default connect(null, mapDispatchToProps)(CompetitionListItemComponent);
