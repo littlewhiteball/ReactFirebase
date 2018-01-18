@@ -13,13 +13,15 @@ const NEW_COMPETITION = 'New Competition';
 export class HeaderComponent extends Component {
     navToAuth = () => this.props.navToPath('/auth');
 
+    navToNewCompetition = () => this.props.navToPath('/competition');
+
     render() {
         const userElement = this.props.user.signedIn ?
             // TODO: Call Logout component
             (
                 <div className="nav right-actions">
                     <Profile />
-                    <a className="btn btn-outline-info ml-2" href="/competition">{NEW_COMPETITION}</a>
+                    <button className="btn btn-outline-info ml-2" onClick={this.navToNewCompetition}>{NEW_COMPETITION}</button>
                 </div>
             ) :
             (<button className="btn btn-outline-info" onClick={this.navToAuth}>{LOGIN_REGISTER}</button>);

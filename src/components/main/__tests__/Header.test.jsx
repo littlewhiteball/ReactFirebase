@@ -64,9 +64,16 @@ describe('header component', () => {
 
         expect(wrapper.find('div').at(2).hasClass('nav right-actions')).toBe(true);
         expect(wrapper.find(Profile).exists()).toBe(true);
-        expect(wrapper.find('a').at(3).hasClass('btn btn-outline-info ml-2')).toBe(true);
-        expect(wrapper.find('a').at(3).prop('href')).toBe('/competition');
-        expect(wrapper.find('a').at(3).text()).toBe('New Competition');
+        expect(wrapper.find('button').at(1).hasClass('btn btn-outline-info')).toBe(true);
+        expect(wrapper.find('button').at(1).text()).toBe('New Competition');
+    });
+
+    it('should handle new competition button when signed in', () => {
+        const { props, wrapper } = setup(true);
+        wrapper.find('button').at(1).simulate('click');
+
+        expect(props.navToPath.mock.calls.length).toBe(1);
+        expect(props.navToPath.mock.calls[0][0]).toBe('/competition');
     });
 
     it('should render login/register button when not signed in', () => {
@@ -81,5 +88,6 @@ describe('header component', () => {
         wrapper.find('button').at(1).simulate('click');
 
         expect(props.navToPath.mock.calls.length).toBe(1);
+        expect(props.navToPath.mock.calls[0][0]).toBe('/auth');
     });
 });
