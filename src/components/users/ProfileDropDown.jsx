@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { push } from 'react-router-redux';
 
 import { signOutUser } from './../../actions/usersAction';
 
@@ -9,7 +10,9 @@ const PROFILE = 'Profile';
 const EDIT_PROFILE = 'Edit profile';
 const SIGN_OUT = 'Sign out';
 
-export class UserProfileDropDownComponent extends Component {
+export class ProfileDropDownComponent extends Component {
+    navToEditProfile = () => this.props.navToPath('/profile');
+
     signOut = () => this.props.signOut();
 
     render() {
@@ -28,7 +31,7 @@ export class UserProfileDropDownComponent extends Component {
                     <img src="./favicon.ico" width="28" height="28" alt={PROFILE} />
                 </button>
                 <div className="dropdown-menu">
-                    <a className="dropdown-item" href="/">{EDIT_PROFILE}</a>
+                    <button className="dropdown-item" onClick={this.navToEditProfile}>{EDIT_PROFILE}</button>
                     <div className="dropdown-divider" />
                     <div className="dropdown-item">
                         <button className="btn btn-outline-warning" onClick={this.signOut}>{SIGN_OUT}</button>
@@ -39,9 +42,10 @@ export class UserProfileDropDownComponent extends Component {
     }
 }
 
-UserProfileDropDownComponent.propTypes = {
+ProfileDropDownComponent.propTypes = {
     user: PropTypes.object.isRequired,
     signOut: PropTypes.func.isRequired,
+    navToPath: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -51,7 +55,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => (
     {
         signOut: () => dispatch(signOutUser()),
+        navToPath: pathname => dispatch(push(pathname)),
     }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfileDropDownComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileDropDownComponent);

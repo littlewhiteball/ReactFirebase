@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { user, categoryList } from './../../../__tests_constants__';
 
 import { HeaderComponent } from './../Header';
-import UserProfileDropDown from './../../users/UserProfileDropDown';
+import ProfileDropDown from './../../users/ProfileDropDown';
 
 configure({ adapter: new Adapter() });
 
@@ -63,7 +63,7 @@ describe('header component', () => {
         const { wrapper } = setup(true);
 
         expect(wrapper.find('div').at(2).hasClass('nav right-actions')).toBe(true);
-        expect(wrapper.find(UserProfileDropDown).exists()).toBe(true);
+        expect(wrapper.find(ProfileDropDown).exists()).toBe(true);
         expect(wrapper.find('button').at(1).hasClass('btn btn-outline-info')).toBe(true);
         expect(wrapper.find('button').at(1).text()).toBe('New Competition');
     });
