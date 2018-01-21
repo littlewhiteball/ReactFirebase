@@ -74,11 +74,11 @@ export class EditProfileComponent extends Component {
 }
 
 EditProfileComponent.propTypes = {
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-    user: state.user,
+    auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({

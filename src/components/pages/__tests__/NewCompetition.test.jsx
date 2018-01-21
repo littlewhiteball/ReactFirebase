@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 
 const setup = (signedIn) => {
     const props = {
-        user: Object.assign({}, user, {
+        auth: Object.assign({}, user, {
             signedIn,
         }),
     };

@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 
 const setup = (isShallow = false, signedIn = false) => {
     const props = {
-        user: Object.assign({}, user, {
+        auth: Object.assign({}, user, {
             signedIn,
         }),
         signInWithEmailPassword: jest.fn(),

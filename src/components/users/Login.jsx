@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-import { signInEmailPassword, signInGoogle, signInFacebook, signInTwitter } from './../../actions/usersAction';
+import { signInEmailPassword, signInGoogle, signInFacebook, signInTwitter } from './../../actions/authAction';
 
 const PLEASE_SIGN_IN = 'Please sign in';
 const SIGN_IN_OR_REGISTERING_WARNING = 'If you do not have an account already. This will create your account';
@@ -52,7 +52,7 @@ export class LoginComponent extends Component {
     }
 
     render() {
-        if (this.props.user.signedIn) {
+        if (this.props.auth.signedIn) {
             return (
                 <Redirect to={{
                     pathname: '/',
@@ -105,7 +105,7 @@ export class LoginComponent extends Component {
 }
 
 LoginComponent.propTypes = {
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     signInWithEmailPassword: PropTypes.func.isRequired,
     signInWithGoogle: PropTypes.func.isRequired,
     signInWithFacebook: PropTypes.func.isRequired,
@@ -113,7 +113,7 @@ LoginComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    user: state.user,
+    auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({

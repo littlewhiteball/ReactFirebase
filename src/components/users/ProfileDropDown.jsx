@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
-import { signOutUser } from './../../actions/usersAction';
+import { signOutUser } from './../../actions/authAction';
 
 const PROFILE = 'Profile';
 const EDIT_PROFILE = 'Edit profile';
@@ -16,7 +16,7 @@ export class ProfileDropDownComponent extends Component {
     signOut = () => this.props.signOut();
 
     render() {
-        if (!this.props.user.signedIn) {
+        if (!this.props.auth.signedIn) {
             return (
                 <Redirect to={{
                     pathname: '/',
@@ -43,13 +43,13 @@ export class ProfileDropDownComponent extends Component {
 }
 
 ProfileDropDownComponent.propTypes = {
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     signOut: PropTypes.func.isRequired,
     navToPath: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    user: state.user,
+    auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => (

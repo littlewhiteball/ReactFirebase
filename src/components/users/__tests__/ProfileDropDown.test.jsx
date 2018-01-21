@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 
 const setup = (signedIn, isShallow) => {
     const props = {
-        user: Object.assign({}, user, {
+        auth: Object.assign({}, user, {
             signedIn,
         }),
         navToPath: jest.fn(),
