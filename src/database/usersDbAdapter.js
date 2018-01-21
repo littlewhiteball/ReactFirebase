@@ -1,4 +1,10 @@
-import firebase from './../firebase';
+import firebase, { firebaseApp } from './../firebase';
+
+const getUserRef = key => firebaseApp.database().ref(`/users/${key}`);
+
+/**
+ * auth
+ */
 
 const signInWithPopup = provider => firebase.auth().signInWithPopup(provider);
 
@@ -31,6 +37,25 @@ const signOut = () => {
     return firebase.auth().signOut();
 };
 
+/**
+ * user
+ */
+
+const addUserToDb = (userModel) => {
+    const { id } = userModel;
+    return getUserRef(id).set(userModel);
+};
+
+const updateUserToDb = (userUpdateModel) => {
+    // TODO: validations
+    const { id } = userUpdateModel;
+    return getUserRef(id).update(userUpdateModel);
+};
+
+/**
+ * export
+ */
+
 export default {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -38,4 +63,7 @@ export default {
     signInWithFacebook,
     signInWithTwitter,
     signOut,
+
+    addUserToDb,
+    updateUserToDb,
 };

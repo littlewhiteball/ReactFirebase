@@ -23,7 +23,32 @@ export const competitions = [
  * Users
  */
 export const user = {
+    id: 'id0',
     name: 'name0',
+    email: 'email0@me0.com',
+};
+export const user0Update = {
+    id: 'id0',
+    name: 'name0update',
+    email: 'email0update@me0update.com',
+};
+export const user1 = {
+    id: 'id1',
+    name: 'name1',
+    email: 'email1@me1.com',
+};
+export const users = [
+    user,
+    user1,
+];
+export const userWithoutId = {
+    name: 'namex',
+    email: 'emailx@mex.com',
+};
+export const userIdNotFound = {
+    id: 'idnotfound',
+    name: 'nameidnotfound',
+    email: 'emailidnotfound@meidnotfound.com',
 };
 export const googleResult = {
     user,
