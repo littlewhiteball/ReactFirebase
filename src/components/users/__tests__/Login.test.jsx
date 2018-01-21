@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { user } from './../../../__tests_constants__';
+import { auth } from './../../../__tests_constants__';
 
 import { LoginComponent } from './../Login';
 
@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 
 const setup = (isShallow = false, signedIn = false) => {
     const props = {
-        auth: Object.assign({}, user, {
+        auth: Object.assign({}, auth, {
             signedIn,
         }),
         signInWithEmailPassword: jest.fn(),

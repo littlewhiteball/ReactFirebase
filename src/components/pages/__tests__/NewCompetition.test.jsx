@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { user } from './../../../__tests_constants__';
+import { auth } from './../../../__tests_constants__';
 
 import { NewCompetitionComponent } from './../NewCompetition';
 import AddCompetitionForm from './../../competitions/AddCompetitionForm';
@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 
 const setup = (signedIn) => {
     const props = {
-        auth: Object.assign({}, user, {
+        auth: Object.assign({}, auth, {
             signedIn,
         }),
     };

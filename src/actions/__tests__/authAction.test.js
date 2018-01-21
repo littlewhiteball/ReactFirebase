@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { user } from './../../__tests_constants__';
+import { authState0 } from './../../__tests_constants__';
 
 import * as actions from './../authAction';
 
@@ -76,7 +76,7 @@ describe('signInEmailPassword', () => {
             { type: 'USER_SIGNINGIN' },
             {
                 type: 'USER_SIGNEDIN',
-                user,
+                auth: authState0,
             },
         ];
 
@@ -113,11 +113,11 @@ describe('signInEmailPassword', () => {
             { type: 'USER_SIGNINGUP' },
             {
                 type: 'USER_SIGNEDUP',
-                user,
+                auth: authState0,
             },
             {
                 type: 'USER_SIGNEDIN',
-                user,
+                auth: authState0,
             },
         ];
 
@@ -134,7 +134,7 @@ describe('signInGoogle', () => {
             { type: 'USER_SIGNINGIN' },
             {
                 type: 'USER_SIGNEDIN',
-                user,
+                auth: authState0,
             },
         ];
 
@@ -151,7 +151,7 @@ describe('signInFacebook', () => {
             { type: 'USER_SIGNINGIN' },
             {
                 type: 'USER_SIGNEDIN',
-                user,
+                auth: authState0,
             },
         ];
 
@@ -168,7 +168,7 @@ describe('signInTwitter', () => {
             { type: 'USER_SIGNINGIN' },
             {
                 type: 'USER_SIGNEDIN',
-                user,
+                auth: authState0,
             },
         ];
 

@@ -3,7 +3,7 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Redirect } from 'react-router-dom';
 
-import { user } from './../../../__tests_constants__';
+import { auth } from './../../../__tests_constants__';
 
 import { ProfileComponent } from './../Profile';
 import EditProfile from './../../users/EditProfile';
@@ -12,7 +12,7 @@ configure({ adapter: new Adapter() });
 
 const setup = (signedIn) => {
     const props = {
-        auth: Object.assign({}, user, {
+        auth: Object.assign({}, auth, {
             signedIn,
         }),
     };

@@ -1,9 +1,9 @@
-import { user } from './../../__tests_constants__';
+import { authState0 } from './../../__tests_constants__';
 import authReducer from './../authReducer';
 import { actionTypes } from './../../actions/authAction';
 
 const initialState = {
-    name: undefined,
+    userId: undefined,
     signingIn: false,
     signedIn: false,
     signingOut: false,
@@ -35,13 +35,13 @@ describe('user signingIn', () => {
 describe('user signedIn', () => {
     it('should return user signedIn state', () => {
         const expectedState = Object.assign({}, initialState, {
-            name: 'name0',
+            userId: 'auth0userid',
             signingIn: false,
             signedIn: true,
         });
         const action = {
             type: actionTypes.USER_SIGNEDIN,
-            user,
+            auth: authState0,
         };
 
         expect(authReducer(initialState, action)).toEqual(expectedState);

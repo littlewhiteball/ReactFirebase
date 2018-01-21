@@ -26,9 +26,9 @@ export const userSigningInAction = () => ({
     type: USER_SIGNINGIN,
 });
 
-export const userSignedInAction = user => ({
+export const userSignedInAction = auth => ({
     type: USER_SIGNEDIN,
-    user,
+    auth,
 });
 
 export const userSignInFailedAction = () => ({
@@ -39,9 +39,9 @@ export const userSigningUpAction = () => ({
     type: USER_SIGNINGUP,
 });
 
-export const userSignedUpAction = user => ({
+export const userSignedUpAction = auth => ({
     type: USER_SIGNEDUP,
-    user,
+    auth,
 });
 
 export const userSignUpFailedAction = () => ({
@@ -64,22 +64,30 @@ export const signInEmailPassword = (email, password) =>
     (dispatch) => {
         dispatch(userSigningInAction());
 
-        return authDbAdapter.signInWithEmailAndPassword(email, password).then((user) => {
-            console.info(`${user.email} signed in`);
+        return authDbAdapter.signInWithEmailAndPassword(email, password).then((result) => {
+            const { emailUser } = result;
+            console.info(`${emailUser.email} signed in`);
 
-            dispatch(userSignedInAction(user));
+            const auth = {
+                userId: emailUser.uid,
+            };
+            dispatch(userSignedInAction(auth));
         }).catch((signInError) => {
             const { code } = signInError;
             if (code === ERROR_AUTH_USER_NOT_FOUND) {
                 // user not found. should create new user
                 dispatch(userSigningUpAction());
 
-                authDbAdapter.createUserWithEmailAndPassword(email, password).then((user) => {
-                    dispatch(userSignedUpAction(user));
+                authDbAdapter.createUserWithEmailAndPassword(email, password).then((result) => {
+                    const { emailUser } = result;
+                    const auth = {
+                        userId: emailUser.uid,
+                    };
+                    dispatch(userSignedUpAction(auth));
 
-                    console.info(`${user.email} created`);
+                    console.info(`${emailUser.email} created`);
 
-                    dispatch(userSignedInAction(user));
+                    dispatch(userSignedInAction(auth));
                 }).catch((signUpError) => {
                     console.error(signUpError);
 
@@ -96,12 +104,15 @@ export const signInGoogle = () =>
         dispatch(userSigningInAction());
 
         return authDbAdapter.signInWithGoogle().then((result) => {
-            const { user } = result;
+            const { googleUser } = result;
             const { accessToken } = result.credential;
-            console.info(user);
+            console.info(googleUser);
             console.info(accessToken);
 
-            dispatch(userSignedInAction(user));
+            const auth = {
+                userId: googleUser.uid,
+            };
+            dispatch(userSignedInAction(auth));
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
@@ -115,12 +126,15 @@ export const signInFacebook = () =>
         dispatch(userSigningInAction());
 
         return authDbAdapter.signInWithFacebook().then((result) => {
-            const { user } = result;
+            const { facebookUser } = result;
             const { accessToken } = result.credential;
-            console.info(user);
+            console.info(facebookUser);
             console.info(accessToken);
 
-            dispatch(userSignedInAction(user));
+            const auth = {
+                userId: facebookUser.uid,
+            };
+            dispatch(userSignedInAction(auth));
         }).catch((error) => {
             const { code, method } = error;
             console.error(code, method);
@@ -134,15 +148,21 @@ export const signInTwitter = () =>
         dispatch(userSigningInAction());
 
         return authDbAdapter.signInWithTwitter().then((result) => {
-            const { user } = result;
+            const { twitterUser } = result;
             const { accessToken, secret } = result.credential;
             console.info(accessToken);
             console.info(secret);
 
-            dispatch(userSignedInAction(user));
+            const auth = {
+                userId: twitterUser.uid,
+            };
+            dispatch(userSignedInAction(auth));
         }).catch((error) => {
             console.error(error);
-            // if(error.code == 'auth/account-exists-with-different-credential') {
+            // if (error.code == 'auth/account-exists-with-different-credential') {
+            //     const auth = {
+            //         userId: user.uid,
+            //     };
             //     dispatch(userSignedInAction(user))
             // }
 

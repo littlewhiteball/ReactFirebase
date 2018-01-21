@@ -20,9 +20,41 @@ export const competitions = [
 ];
 
 /**
+ * Auth
+ */
+export const authState0 = {
+    userId: 'auth0userid',
+};
+const authFromDb0 = {
+    uid: 'auth0userid',
+};
+export const emailResult = {
+    emailUser: authFromDb0,
+};
+export const googleResult = {
+    googleUser: authFromDb0,
+    credential: {
+        accessToken: 'googleaccesstoken',
+    },
+};
+export const facebookResult = {
+    facebookUser: authFromDb0,
+    credential: {
+        accessToken: 'facebookaccesstoken',
+    },
+};
+export const twitterResult = {
+    twitterUser: authFromDb0,
+    credential: {
+        accessToken: 'twitteraccesstoken',
+        secret: 'secret',
+    },
+};
+
+/**
  * Users
  */
-export const user = {
+export const user0 = {
     id: 'id0',
     name: 'name0',
     email: 'email0@me0.com',
@@ -38,7 +70,7 @@ export const user1 = {
     email: 'email1@me1.com',
 };
 export const users = [
-    user,
+    user0,
     user1,
 ];
 export const userWithoutId = {
@@ -49,25 +81,6 @@ export const userIdNotFound = {
     id: 'idnotfound',
     name: 'nameidnotfound',
     email: 'emailidnotfound@meidnotfound.com',
-};
-export const googleResult = {
-    user,
-    credential: {
-        accessToken: 'googleaccesstoken',
-    },
-};
-export const facebookResult = {
-    user,
-    credential: {
-        accessToken: 'facebookaccesstoken',
-    },
-};
-export const twitterResult = {
-    user,
-    credential: {
-        accessToken: 'twitteraccesstoken',
-        secret: 'secret',
-    },
 };
 
 /**

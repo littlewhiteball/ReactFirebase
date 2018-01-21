@@ -1,9 +1,9 @@
-import { user, googleResult, facebookResult, twitterResult } from './../../__tests_constants__';
+import { emailResult, googleResult, facebookResult, twitterResult } from './../../__tests_constants__';
 
 const createUserWithEmailAndPassword = (email, password) =>
     new Promise((resolve, reject) => {
         if (email === 'usernotfound@me.com' && password === 'usernotfoundpassword') {
-            resolve(user);
+            resolve(emailResult);
         } else {
             const error = new Error('sign up failed');
             // error.code = ...
@@ -14,7 +14,7 @@ const createUserWithEmailAndPassword = (email, password) =>
 const signInWithEmailAndPassword = (email, password) =>
     new Promise((resolve, reject) => {
         if (email === 'email@me.com' && password === 'password0') {
-            resolve(user);
+            resolve(emailResult);
         } else if (email === 'email@me.com' && password !== 'password0') {
             const error = new Error('wrong password');
             error.code = 'auth/wrong-password';

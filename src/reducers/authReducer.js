@@ -1,7 +1,7 @@
 import { actionTypes } from './../actions/authAction';
 
 const initialState = {
-    name: undefined,
+    userId: undefined,
     signingIn: false,
     signedIn: false,
     signingOut: false,
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
 
         case actionTypes.USER_SIGNEDIN:
             return Object.assign({}, state, {
-                name: action.user.name,
+                userId: action.auth.userId,
                 signingIn: false,
                 signedIn: true,
             });
@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
 
         case actionTypes.USER_SIGNEDOUT:
             return Object.assign({}, state, {
-                name: undefined,
+                userId: undefined,
                 signedIn: false,
                 signingOut: false,
                 signedOut: true,
