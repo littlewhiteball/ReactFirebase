@@ -1,0 +1,29 @@
+TODO: DbAdapters test, mock firebase. actions.test has some error messages that can be used for db failures
+
+TODO: User reducer
+
+TODO: Fix import * as actions, by encapsulating all fields that have Action in *Action.js
+
+TODO: Group test constant by auth, user, competition, etc. Auth group needs to split into firebase model and redux store model
+
+TODO: Unified model between DbAdapter (-> firebase) and redux store. DbAdapter should return the same schema as the state in redux store.
+
+TODO: In AuthDbAdapter, convert firebase model to redux store model
+
+TODO: EditProfile component
+
+TODO: Search bar in Header, left to profile drop down button
+
+TODO: Use Class for db model/redux store model?
+
+TODO: Header needs to check auth.signedIn
+
+TODO: Login/Logout spinner
+
+TODO: 404 NotFoundPage, refer to Twitter
+
+TODO: Remove CompetitionListAdd component after adding competition to database is implemented
+
+TODO: When Home page was redirected from another page, it is not required to pull competitions from db again. The list was already in redux store
+
+TODO: Create a util component for upload profile picture. Profile picture can be saved with auth user, not necessarily realtime db user
