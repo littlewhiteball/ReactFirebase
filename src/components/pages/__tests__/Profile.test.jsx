@@ -1,15 +1,40 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { Redirect } from 'react-router-dom';
 
-import Profile from './../Profile';
+import { user } from './../../../__tests_constants__';
+
+import { ProfileComponent } from './../Profile';
+import EditProfile from './../../users/EditProfile';
 
 configure({ adapter: new Adapter() });
 
-const wrapper = shallow(<Profile />);
+const setup = (signedIn) => {
+    const props = {
+        user: Object.assign({}, user, {
+            signedIn,
+        }),
+    };
+    const wrapper = shallow(<ProfileComponent {...props} />);
 
-describe('home component', () => {
-    it('should render self', () => {
-        expect(wrapper.find('div').exists()).toBe(true);
+    return {
+        props,
+        wrapper,
+    };
+};
+
+describe('profile component', () => {
+    it('should render edit profile when signed in', () => {
+        const { wrapper } = setup(true);
+
+        expect(wrapper.find(EditProfile).exists()).toBe(true);
+    });
+
+    it('should render redirect to auth when not signed in', () => {
+        const { wrapper } = setup(false);
+
+        expect(wrapper.find(Redirect).exists()).toBe(true);
+        expect(wrapper.find(Redirect).prop('to')).toBe('/auth');
     });
 });
