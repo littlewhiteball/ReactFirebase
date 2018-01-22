@@ -65,11 +65,10 @@ export const signInEmailPassword = (email, password) =>
     (dispatch) => {
         dispatch(userSigningInAction());
 
-        return authDbAdapter.signInWithEmailAndPassword(email, password).then((result) => {
-            const { emailUser } = result;
-            console.info(`${emailUser.email} signed in`);
+        return authDbAdapter.signInWithEmailAndPassword(email, password).then((user) => {
+            console.info(`${user.email} signed in`);
 
-            const auth = authReduxModel(emailUser.uid);
+            const auth = authReduxModel(user.uid);
             dispatch(userSignedInAction(auth));
         }).catch((signInError) => {
             const { code } = signInError;
@@ -77,12 +76,11 @@ export const signInEmailPassword = (email, password) =>
                 // user not found. should create new user
                 dispatch(userSigningUpAction());
 
-                authDbAdapter.createUserWithEmailAndPassword(email, password).then((result) => {
-                    const { emailUser } = result;
-                    const auth = authReduxModel(emailUser.uid);
+                authDbAdapter.createUserWithEmailAndPassword(email, password).then((user) => {
+                    const auth = authReduxModel(user.uid);
                     dispatch(userSignedUpAction(auth));
 
-                    console.info(`${emailUser.email} created`);
+                    console.info(`${user.email} created`);
 
                     dispatch(userSignedInAction(auth));
                 }).catch((signUpError) => {
@@ -91,6 +89,7 @@ export const signInEmailPassword = (email, password) =>
                     dispatch(userSignUpFailedAction());
                 });
             } else {
+                console.error(signInError);
                 dispatch(userSignInFailedAction());
             }
         });

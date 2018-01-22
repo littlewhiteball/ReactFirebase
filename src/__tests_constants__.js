@@ -25,26 +25,23 @@ export const competitions = [
 export const authState0 = {
     userId: 'auth0userid',
 };
-const authFromDb0 = {
+export const emailResult = {
     uid: 'auth0userid',
 };
-export const emailResult = {
-    emailUser: authFromDb0,
-};
 export const googleResult = {
-    googleUser: authFromDb0,
+    googleUser: emailResult,
     credential: {
         accessToken: 'googleaccesstoken',
     },
 };
 export const facebookResult = {
-    facebookUser: authFromDb0,
+    facebookUser: emailResult,
     credential: {
         accessToken: 'facebookaccesstoken',
     },
 };
 export const twitterResult = {
-    twitterUser: authFromDb0,
+    twitterUser: emailResult,
     credential: {
         accessToken: 'twitteraccesstoken',
         secret: 'secret',

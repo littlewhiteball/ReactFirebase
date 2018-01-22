@@ -30,8 +30,10 @@ TODO: Competition Redux model, Db model
 
 TODO: The current models folder is actually database model
 
-TODO: AuthDbAdapter should return authReduxModel
+TODO: AuthDbAdapter should return authReduxModel. authReduxModel might be merged to userReduxModel
 
-TODO: In DbAdapters, convert update model to db model
+TODO: In UserDbAdapters, convert update model to db model
 
 TODO: Create a PrivateRoute util component which requires authentication
+
+TODO: Auth reducer/action not needed. signedIn can be replaced by user != undefined. signingIn & singingOut is used for spinner, can be replaced by component state
