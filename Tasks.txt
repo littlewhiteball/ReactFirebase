@@ -12,8 +12,6 @@ TODO: EditProfile component
 
 TODO: Search bar in Header, left to profile drop down button
 
-TODO: Use Class for db model/redux store model?
-
 TODO: Header needs to check auth.signedIn
 
 TODO: Login/Logout spinner
@@ -25,3 +23,15 @@ TODO: Remove CompetitionListAdd component after adding competition to database i
 TODO: When Home page was redirected from another page, it is not required to pull competitions from db again. The list was already in redux store
 
 TODO: Create a util component for upload profile picture. Profile picture can be saved with auth user, not necessarily realtime db user
+
+TODO: Always use model for redux state and react component proptypes
+
+TODO: Competition Redux model, Db model
+
+TODO: The current models folder is actually database model
+
+TODO: AuthDbAdapter should return authReduxModel
+
+TODO: In DbAdapters, convert update model to db model
+
+TODO: Create a PrivateRoute util component which requires authentication

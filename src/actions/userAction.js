@@ -1,5 +1,5 @@
 import usersDbAdapter from './../database/usersDbAdapter';
-import userModel from './../models/usersModel';
+import userReduxModel from './../reduxModels/userReduxModel';
 
 const USER_ADDING = 'USER_ADDING';
 const USER_ADDED = 'USER_ADDED';
@@ -21,8 +21,9 @@ export const userAddingAction = () => ({
     type: USER_ADDING,
 });
 
-export const userAddedAction = () => ({
+export const userAddedAction = user => ({
     type: USER_ADDED,
+    user,
 });
 
 export const userAddFailedAction = () => ({
@@ -45,13 +46,13 @@ export const addUser = user =>
     (dispatch) => {
         dispatch(userAddingAction());
 
-        const model = userModel(
+        const model = userReduxModel(
             user.id,
             user.name,
             user.email,
         );
         return usersDbAdapter.addUserToDb(model).then(() => {
-            dispatch(userAddedAction());
+            dispatch(userAddedAction(model));
         }).catch((error) => {
             console.error(error);
 
@@ -64,7 +65,7 @@ export const updateUser = user =>
         dispatch(userUpdatingAction());
 
         // TODO: only updated fields
-        const updateModel = userModel(
+        const updateModel = userReduxModel(
             user.id,
             user.name,
             user.email,

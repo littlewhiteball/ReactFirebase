@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 
 import { user0, user0Update, userIdNotFound, userWithoutId } from './../../__tests_constants__';
 
-import * as actions from './../usersAction';
+import * as actions from './../userAction';
 
 jest.mock('./../../database/usersDbAdapter');
 
@@ -24,9 +24,14 @@ describe('userAddedAction', () => {
     it('should create action to indicate user is added', () => {
         const expectedAction = {
             type: 'USER_ADDED',
+            user: {
+                id: 'id0',
+                name: 'name0',
+                email: 'email0@me0.com',
+            },
         };
 
-        expect(actions.userAddedAction()).toEqual(expectedAction);
+        expect(actions.userAddedAction(user0)).toEqual(expectedAction);
     });
 });
 
@@ -74,7 +79,14 @@ describe('addUser', () => {
     it('should 1.create adding action 2.add user to database 3.create added action', () => {
         const expectedActions = [
             { type: 'USER_ADDING' },
-            { type: 'USER_ADDED' },
+            {
+                type: 'USER_ADDED',
+                user: {
+                    id: 'id0',
+                    name: 'name0',
+                    email: 'email0@me0.com',
+                },
+            },
         ];
 
         const store = mockStore({});
