@@ -1,12 +1,13 @@
 import { actionTypes } from './../actions/authAction';
+import authReduxModel from './../reduxModels/authReduxModel';
 
-const initialState = {
-    userId: undefined,
-    signingIn: false,
-    signedIn: false,
-    signingOut: false,
-    signedOut: false,
-};
+const initialState = authReduxModel(
+    undefined,
+    false,
+    false,
+    false,
+    false,
+);
 
 export default (state = initialState, action) => {
     switch (action.type) {

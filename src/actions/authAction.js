@@ -1,4 +1,5 @@
 import authDbAdapter from './../database/authDbAdapter';
+import authReduxModel from './../reduxModels/authReduxModel';
 
 const ERROR_AUTH_USER_NOT_FOUND = 'auth/user-not-found';
 
@@ -68,9 +69,7 @@ export const signInEmailPassword = (email, password) =>
             const { emailUser } = result;
             console.info(`${emailUser.email} signed in`);
 
-            const auth = {
-                userId: emailUser.uid,
-            };
+            const auth = authReduxModel(emailUser.uid);
             dispatch(userSignedInAction(auth));
         }).catch((signInError) => {
             const { code } = signInError;
@@ -80,9 +79,7 @@ export const signInEmailPassword = (email, password) =>
 
                 authDbAdapter.createUserWithEmailAndPassword(email, password).then((result) => {
                     const { emailUser } = result;
-                    const auth = {
-                        userId: emailUser.uid,
-                    };
+                    const auth = authReduxModel(emailUser.uid);
                     dispatch(userSignedUpAction(auth));
 
                     console.info(`${emailUser.email} created`);
@@ -109,9 +106,7 @@ export const signInGoogle = () =>
             console.info(googleUser);
             console.info(accessToken);
 
-            const auth = {
-                userId: googleUser.uid,
-            };
+            const auth = authReduxModel(googleUser.uid);
             dispatch(userSignedInAction(auth));
         }).catch((error) => {
             const { code, method } = error;
@@ -131,9 +126,7 @@ export const signInFacebook = () =>
             console.info(facebookUser);
             console.info(accessToken);
 
-            const auth = {
-                userId: facebookUser.uid,
-            };
+            const auth = authReduxModel(facebookUser.uid);
             dispatch(userSignedInAction(auth));
         }).catch((error) => {
             const { code, method } = error;
@@ -153,9 +146,7 @@ export const signInTwitter = () =>
             console.info(accessToken);
             console.info(secret);
 
-            const auth = {
-                userId: twitterUser.uid,
-            };
+            const auth = authReduxModel(twitterUser.uid);
             dispatch(userSignedInAction(auth));
         }).catch((error) => {
             console.error(error);

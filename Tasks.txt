@@ -6,9 +6,7 @@ TODO: Fix import * as actions, by encapsulating all fields that have Action in *
 
 TODO: Group test constant by auth, user, competition, etc. Auth group needs to split into firebase model and redux store model
 
-TODO: Unified model between DbAdapter (-> firebase) and redux store. DbAdapter should return the same schema as the state in redux store.
-
-TODO: In AuthDbAdapter, convert firebase model to redux store model
+TODO: In DbAdapter, convert firebase model to redux store model
 
 TODO: EditProfile component
 
