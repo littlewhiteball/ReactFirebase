@@ -10,6 +10,21 @@ jest.mock('./../../database/usersDbAdapter');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+describe('userGetAction', () => {
+    it('should create action to indicate get user is complete', () => {
+        const expectedAction = {
+            type: 'USER_GET',
+            user: {
+                id: 'id0',
+                name: 'name0',
+                email: 'email0@me0.com',
+            },
+        };
+
+        expect(actions.userGetAction(user0)).toEqual(expectedAction);
+    });
+});
+
 describe('userAddingAction', () => {
     it('should create action to indicate user is being added', () => {
         const expectedAction = {
@@ -72,6 +87,44 @@ describe('userUpdateFailedAction', () => {
         };
 
         expect(actions.userUpdateFailedAction()).toEqual(expectedAction);
+    });
+});
+
+describe('getUser', () => {
+    it('should 1.get user from database 2.create user get action', () => {
+        const expectedActions = [
+            {
+                type: 'USER_GET',
+                user: {
+                    id: 'id0',
+                    name: 'name0',
+                    email: 'email0@me0.com',
+                },
+            },
+        ];
+
+        const store = mockStore({});
+        return store.dispatch(actions.getUser('id0')).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+
+    it('should not create any action when user id is undefined', () => {
+        const expectedActions = [];
+
+        const store = mockStore({});
+        return store.dispatch(actions.getUser(undefined)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+
+    it('should not create any action when user id does not exist', () => {
+        const expectedActions = [];
+
+        const store = mockStore({});
+        return store.dispatch(actions.getUser('notexist')).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
     });
 });
 

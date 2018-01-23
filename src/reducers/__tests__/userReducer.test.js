@@ -16,6 +16,22 @@ describe('initial state', () => {
     });
 });
 
+describe('user get', () => {
+    it('should return user', () => {
+        const expectedState = {
+            id: 'id0',
+            name: 'name0',
+            email: 'email0@me0.com',
+        };
+        const action = {
+            type: actionTypes.USER_GET,
+            user: user0,
+        };
+
+        expect(userReducer(undefined, action)).toEqual(expectedState);
+    });
+});
+
 describe('user adding', () => {
     it('should return undefined user', () => {
         const expectedState = initialState;

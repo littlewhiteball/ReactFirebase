@@ -9,6 +9,11 @@ const initialState = userReduxModel(
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.USER_GET: {
+            const newUser = Object.assign({}, action.user);
+            return newUser;
+        }
+
         case actionTypes.USER_ADDING:
             return state;
 

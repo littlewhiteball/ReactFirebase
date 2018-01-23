@@ -9,8 +9,10 @@ const reduxModelToDbModel = reduxModel => usersDbModel(
 
 const getUserRef = key => firebaseApp.database().ref(`/users/${key}`);
 
-const addUserToDb = (userReduxModel) => {
-    const dbModel = reduxModelToDbModel(userReduxModel);
+const getUserOnceFromDb = userId => getUserRef(userId).once('value');
+
+const addUserToDb = (reduxModel) => {
+    const dbModel = reduxModelToDbModel(reduxModel);
     const { id } = dbModel;
     return getUserRef(id).set(dbModel);
 };
@@ -23,6 +25,7 @@ const updateUserToDb = (userUpdateModel) => {
 };
 
 export default {
+    getUserOnceFromDb,
     addUserToDb,
     updateUserToDb,
 };

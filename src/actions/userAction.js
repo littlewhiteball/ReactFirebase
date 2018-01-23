@@ -1,6 +1,13 @@
 import usersDbAdapter from './../database/usersDbAdapter';
 import userReduxModel from './../reduxModels/userReduxModel';
 
+const dbModelToReduxModel = dbModel => userReduxModel(
+    dbModel.id,
+    dbModel.name,
+    dbModel.email,
+);
+
+const USER_GET = 'USER_GET';
 const USER_ADDING = 'USER_ADDING';
 const USER_ADDED = 'USER_ADDED';
 const USER_ADD_FAILED = 'USER_ADD_FAILED';
@@ -9,6 +16,7 @@ const USER_UPDATED = 'USER_UPDATED';
 const USER_UPDATE_FAILED = 'USER_UPDATE_FAILED';
 
 export const actionTypes = {
+    USER_GET,
     USER_ADDING,
     USER_ADDED,
     USER_ADD_FAILED,
@@ -16,6 +24,11 @@ export const actionTypes = {
     USER_UPDATED,
     USER_UPDATE_FAILED,
 };
+
+export const userGetAction = user => ({
+    type: USER_GET,
+    user,
+});
 
 export const userAddingAction = () => ({
     type: USER_ADDING,
@@ -41,6 +54,16 @@ export const userUpdatedAction = () => ({
 export const userUpdateFailedAction = () => ({
     type: USER_UPDATE_FAILED,
 });
+
+export const getUser = userId =>
+    dispatch =>
+        usersDbAdapter.getUserOnceFromDb(userId).then((snapshot) => {
+            const user = dbModelToReduxModel(snapshot.val());
+
+            dispatch(userGetAction(user));
+        }).catch((error) => {
+            console.error(error);
+        });
 
 export const addUser = user =>
     (dispatch) => {

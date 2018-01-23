@@ -37,3 +37,7 @@ TODO: In UserDbAdapters, convert update model to db model
 TODO: Create a PrivateRoute util component which requires authentication
 
 TODO: Auth reducer/action not needed. signedIn can be replaced by user != undefined. signingIn & singingOut is used for spinner, can be replaced by component state
+
+TODO: Remove unnecessary dispatching actions in auth, user and competition action js
+
+TODO: Redux model to db model happens in db adapter, db model to redux model happens in actions before calling db adapter
