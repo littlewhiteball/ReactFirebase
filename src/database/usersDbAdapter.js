@@ -9,11 +9,13 @@ const reduxModelToDbModel = reduxModel => usersDbModel(
 
 const getUserRef = key => firebaseApp.database().ref(`/users/${key}`);
 
+// TODO: try catch on getUserRef, same for addUserToDb and updateUserToDb
 const getUserOnceFromDb = userId => getUserRef(userId).once('value');
 
 const addUserToDb = (reduxModel) => {
     const dbModel = reduxModelToDbModel(reduxModel);
     const { id } = dbModel;
+    // TODO: if id exists, should warn as set will overwrite
     return getUserRef(id).set(dbModel);
 };
 

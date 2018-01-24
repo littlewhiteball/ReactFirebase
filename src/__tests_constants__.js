@@ -1,4 +1,13 @@
 /**
+ * Database models
+ */
+export const user0FromDb = {
+    id: 'id0id0id0id0id0id0id0id0id0+',
+    name: 'name0',
+    email: 'email0@me0.com',
+};
+
+/**
  * Competitions
  */
 export const competition0 = {
