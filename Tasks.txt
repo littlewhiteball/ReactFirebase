@@ -1,12 +1,8 @@
-TODO: DbAdapters test, mock firebase. actions.test has some error messages that can be used for db failures
-
-TODO: User reducer
+TODO: DbAdapters mock may not be needed
 
 TODO: Fix import * as actions, by encapsulating all fields that have Action in *Action.js
 
 TODO: Group test constant by auth, user, competition, etc. Auth group needs to split into firebase model and redux store model
-
-TODO: In DbAdapter, convert firebase model to redux store model
 
 TODO: EditProfile component
 
@@ -24,15 +20,9 @@ TODO: When Home page was redirected from another page, it is not required to pul
 
 TODO: Create a util component for upload profile picture. Profile picture can be saved with auth user, not necessarily realtime db user
 
-TODO: Always use model for redux state and react component proptypes
-
-TODO: Competition Redux model, Db model
-
-TODO: The current models folder is actually database model
+TODO: Competition Redux model, Db model. Delete models folder after competitions db model is added inside database folder
 
 TODO: AuthDbAdapter should return authReduxModel. authReduxModel might be merged to userReduxModel
-
-TODO: In UserDbAdapters, convert update model to db model
 
 TODO: Create a PrivateRoute util component which requires authentication
 

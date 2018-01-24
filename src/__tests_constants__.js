@@ -68,7 +68,7 @@ export const user0 = {
 export const user0Update = {
     id: 'id0',
     name: 'name0update',
-    email: 'email0update@me0update.com',
+    email: 'email0@me0.com',
 };
 export const user1 = {
     id: 'id1',

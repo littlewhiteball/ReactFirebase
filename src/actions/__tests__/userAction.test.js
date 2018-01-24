@@ -25,6 +25,36 @@ describe('userGetAction', () => {
     });
 });
 
+describe('userAddAction', () => {
+    it('should create action to indicate get user is added', () => {
+        const expectedAction = {
+            type: 'USER_ADD',
+            user: {
+                id: 'id0',
+                name: 'name0',
+                email: 'email0@me0.com',
+            },
+        };
+
+        expect(actions.userAddAction(user0)).toEqual(expectedAction);
+    });
+});
+
+describe('userUpdateAction', () => {
+    it('should create action to indicate get user is updated', () => {
+        const expectedAction = {
+            type: 'USER_UPDATE',
+            userUpdate: {
+                id: 'id0',
+                name: 'name0update',
+                email: 'email0@me0.com',
+            },
+        };
+
+        expect(actions.userUpdateAction(user0Update)).toEqual(expectedAction);
+    });
+});
+
 describe('userAddingAction', () => {
     it('should create action to indicate user is being added', () => {
         const expectedAction = {
@@ -129,11 +159,10 @@ describe('getUser', () => {
 });
 
 describe('addUser', () => {
-    it('should 1.create adding action 2.add user to database 3.create added action', () => {
+    it('should 1.add user to database 3.create add action', () => {
         const expectedActions = [
-            { type: 'USER_ADDING' },
             {
-                type: 'USER_ADDED',
+                type: 'USER_ADD',
                 user: {
                     id: 'id0',
                     name: 'name0',
@@ -148,10 +177,8 @@ describe('addUser', () => {
         });
     });
 
-    it('should 1.create adding action 2.add user to database 3.add user should fail 4.create add failed action', () => {
+    it('should not create any action when user id is not valid', () => {
         const expectedActions = [
-            { type: 'USER_ADDING' },
-            { type: 'USER_ADD_FAILED' },
         ];
 
         const store = mockStore({});
@@ -162,10 +189,15 @@ describe('addUser', () => {
 });
 
 describe('updateUser', () => {
-    it('should 1.create updating action 2.update user to database 3.create updated action', () => {
+    it('should 1.update user to database 2.create update action', () => {
         const expectedActions = [
-            { type: 'USER_UPDATING' },
-            { type: 'USER_UPDATED' },
+            {
+                type: 'USER_UPDATE',
+                userUpdate: {
+                    id: 'id0',
+                    name: 'name0update',
+                },
+            },
         ];
 
         const store = mockStore({});
@@ -174,10 +206,8 @@ describe('updateUser', () => {
         });
     });
 
-    it('should 1.create updating action 2.update user to database 3.update should fail 4.create update failed action', () => {
+    it('should not create any action when user id is not found', () => {
         const expectedActions = [
-            { type: 'USER_UPDATING' },
-            { type: 'USER_UPDATE_FAILED' },
         ];
 
         const store = mockStore({});

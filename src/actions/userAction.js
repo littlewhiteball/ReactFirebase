@@ -8,6 +8,9 @@ const dbModelToReduxModel = dbModel => userReduxModel(
 );
 
 const USER_GET = 'USER_GET';
+const USER_ADD = 'USER_ADD';
+const USER_UPDATE = 'USER_UPDATE';
+
 const USER_ADDING = 'USER_ADDING';
 const USER_ADDED = 'USER_ADDED';
 const USER_ADD_FAILED = 'USER_ADD_FAILED';
@@ -17,6 +20,9 @@ const USER_UPDATE_FAILED = 'USER_UPDATE_FAILED';
 
 export const actionTypes = {
     USER_GET,
+    USER_ADD,
+    USER_UPDATE,
+
     USER_ADDING,
     USER_ADDED,
     USER_ADD_FAILED,
@@ -28,6 +34,16 @@ export const actionTypes = {
 export const userGetAction = user => ({
     type: USER_GET,
     user,
+});
+
+export const userAddAction = user => ({
+    type: USER_ADD,
+    user,
+});
+
+export const userUpdateAction = userUpdate => ({
+    type: USER_UPDATE,
+    userUpdate,
 });
 
 export const userAddingAction = () => ({
@@ -67,37 +83,28 @@ export const getUser = userId =>
 
 export const addUser = user =>
     (dispatch) => {
-        dispatch(userAddingAction());
-
         const model = userReduxModel(
             user.id,
             user.name,
             user.email,
         );
         return usersDbAdapter.addUserToDb(model).then(() => {
-            dispatch(userAddedAction(model));
+            dispatch(userAddAction(model));
         }).catch((error) => {
             console.error(error);
-
-            dispatch(userAddFailedAction());
         });
     };
 
 export const updateUser = user =>
     (dispatch) => {
-        dispatch(userUpdatingAction());
-
-        // TODO: only updated fields
-        const updateModel = userReduxModel(
-            user.id,
-            user.name,
-            user.email,
-        );
+        // TODO: right now it's only updating name field. Need to get update fields from user
+        const updateModel = {
+            id: user.id,
+            name: user.name,
+        };
         return usersDbAdapter.updateUserToDb(updateModel).then(() => {
-            dispatch(userUpdatedAction());
+            dispatch(userUpdateAction(updateModel));
         }).catch((error) => {
             console.error(error);
-
-            dispatch(userUpdateFailedAction());
         });
     };
