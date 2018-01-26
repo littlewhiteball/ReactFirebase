@@ -5,7 +5,7 @@ import { user0, user0Update, userIdNotFound, userWithoutId } from './../../__tes
 
 import * as actions from './../userAction';
 
-jest.mock('./../../database/usersDbAdapter');
+jest.mock('./../../firebase');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,7 +15,7 @@ describe('userGetAction', () => {
         const expectedAction = {
             type: 'USER_GET',
             user: {
-                id: 'id0',
+                id: 'id0id0id0id0id0id0id0id0id0+',
                 name: 'name0',
                 email: 'email0@me0.com',
             },
@@ -30,7 +30,7 @@ describe('userAddAction', () => {
         const expectedAction = {
             type: 'USER_ADD',
             user: {
-                id: 'id0',
+                id: 'id0id0id0id0id0id0id0id0id0+',
                 name: 'name0',
                 email: 'email0@me0.com',
             },
@@ -45,7 +45,7 @@ describe('userUpdateAction', () => {
         const expectedAction = {
             type: 'USER_UPDATE',
             userUpdate: {
-                id: 'id0',
+                id: 'id0id0id0id0id0id0id0id0id0+',
                 name: 'name0update',
                 email: 'email0@me0.com',
             },
@@ -66,7 +66,7 @@ describe('userAddingAction', () => {
 });
 
 describe('userAddedAction', () => {
-    it('should create action to indicate user is added', () => {
+    it.skip('should create action to indicate user is added', () => {
         const expectedAction = {
             type: 'USER_ADDED',
             user: {
@@ -126,7 +126,7 @@ describe('getUser', () => {
             {
                 type: 'USER_GET',
                 user: {
-                    id: 'id0',
+                    id: 'id0id0id0id0id0id0id0id0id0+',
                     name: 'name0',
                     email: 'email0@me0.com',
                 },
@@ -134,7 +134,7 @@ describe('getUser', () => {
         ];
 
         const store = mockStore({});
-        return store.dispatch(actions.getUser('id0')).then(() => {
+        return store.dispatch(actions.getUser(user0.id)).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
@@ -164,7 +164,7 @@ describe('addUser', () => {
             {
                 type: 'USER_ADD',
                 user: {
-                    id: 'id0',
+                    id: 'id0id0id0id0id0id0id0id0id0+',
                     name: 'name0',
                     email: 'email0@me0.com',
                 },
@@ -194,7 +194,7 @@ describe('updateUser', () => {
             {
                 type: 'USER_UPDATE',
                 userUpdate: {
-                    id: 'id0',
+                    id: 'id0id0id0id0id0id0id0id0id0+',
                     name: 'name0update',
                 },
             },

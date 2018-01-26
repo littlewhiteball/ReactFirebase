@@ -1,3 +1,7 @@
+/**
+ * error messages in this mock class are mocking firebase database errors
+ */
+
 import { user0FromDb } from './../../__tests_constants__';
 
 const usersRefFuncs = key => ({
@@ -8,10 +12,16 @@ const usersRefFuncs = key => ({
                     if (key === 'id0id0id0id0id0id0id0id0id0+') {
                         const snapshot = ({
                             val: () => user0FromDb,
+                            exists: () => true,
+                        });
+                        resolve(snapshot);
+                    } else if (key === 'idnotfoundidnotfound----++++') {
+                        const snapshot = ({
+                            exists: () => false,
                         });
                         resolve(snapshot);
                     } else {
-                        const error = new Error(`${key} does not exist in users database`);
+                        const error = new Error('get user has failed on firebase database');
                         reject(error);
                     }
                     break;
@@ -25,19 +35,19 @@ const usersRefFuncs = key => ({
         }),
     set: value =>
         new Promise((resolve, reject) => {
-            if (value.id) {
+            if (value.id === 'id0id0id0id0id0id0id0id0id0+') {
                 resolve();
             } else {
-                const error = new Error('input model must have a valid id');
+                const error = new Error('set user has failed on firebase database');
                 reject(error);
             }
         }),
     update: values =>
         new Promise((resolve, reject) => {
-            if (values.id) {
+            if (values.id === 'id0id0id0id0id0id0id0id0id0+' && values.name !== 'name0') {
                 resolve();
             } else {
-                const error = new Error('update model must have a valid id');
+                const error = new Error('update user has failed on firebase database');
                 reject(error);
             }
         }),
@@ -52,7 +62,7 @@ const competitionsRefFunc = key => ({
                 });
                 resolve(snapshot);
             } else {
-                const error = new Error('model must have a valid id');
+                const error = new Error('set competition has failed on firebase database');
                 reject(error);
             }
         }),

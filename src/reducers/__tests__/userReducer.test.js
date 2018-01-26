@@ -19,7 +19,7 @@ describe('initial state', () => {
 describe('user get', () => {
     it('should return user', () => {
         const expectedState = {
-            id: 'id0',
+            id: 'id0id0id0id0id0id0id0id0id0+',
             name: 'name0',
             email: 'email0@me0.com',
         };
@@ -46,7 +46,7 @@ describe('user adding', () => {
 describe('user added', () => {
     it('should return added user', () => {
         const expectedState = {
-            id: 'id0',
+            id: 'id0id0id0id0id0id0id0id0id0+',
             name: 'name0',
             email: 'email0@me0.com',
         };
@@ -95,7 +95,7 @@ describe('user updating', () => {
 describe('user updated', () => {
     it('should return updated user', () => {
         const expectedState = {
-            id: 'id0',
+            id: 'id0id0id0id0id0id0id0id0id0+',
             name: 'name0update',
             email: 'email0@me0.com',
         };
