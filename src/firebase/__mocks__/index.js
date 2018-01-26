@@ -2,7 +2,7 @@
  * error messages in this mock class are mocking firebase database errors
  */
 
-import { user0FromDb } from './../../__tests_constants__';
+import { user0FromDb, emailUser0 } from './../../__tests_constants__';
 
 const usersRefFuncs = key => ({
     once: eventType =>
@@ -84,6 +84,33 @@ export const firebaseApp = {
     }),
 };
 
-const firebase = {};
+const firebase = {
+    auth: () => ({
+        createUserWithEmailAndPassword: (email, password) =>
+            new Promise((resolve, reject) => {
+                if (email === emailUser0.email && password === emailUser0.password) {
+                    resolve(emailUser0);
+                } else {
+                    const error = new Error('create user failed on firebase');
+                    reject(error);
+                }
+            }),
+        signInWithEmailAndPassword: (email, password) =>
+            new Promise((resolve, reject) => {
+                if (email === emailUser0.email && password === emailUser0.password) {
+                    resolve(emailUser0);
+                } else {
+                    const error = new Error('sign in failed on firebase. email and password does not match a user');
+                    reject(error);
+                }
+            }),
+        signOut: () =>
+            new Promise((resolve, reject) => {
+                resolve();
+
+                // TODO: figure out a way to mock reject
+            }),
+    }),
+};
 
 export default firebase;

@@ -7,6 +7,19 @@ export const user0FromDb = {
     email: 'email0@me0.com',
 };
 
+export const emailUser0 = {
+    uid: 'emailuser0emailuser0----++++',
+    email: 'emailemailuser0@meemailuser0.com',
+    password: 'emailuser0password',
+};
+
+export const emailUser1 = {
+    uid: 'emailuser0emailuser1----++++',
+    email: 'emailemailuser1@meemailuser1.com',
+    password: 'emailuser1password',
+};
+
+/**
 /**
  * Competitions
  */
