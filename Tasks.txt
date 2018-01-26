@@ -1,4 +1,4 @@
-TODO: DbAdapters mock may not be needed
+TODO: DbAdapters mock not needed. remove competition, auth
 
 TODO: Fix import * as actions, by encapsulating all fields that have Action in *Action.js
 
