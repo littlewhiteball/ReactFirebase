@@ -32,6 +32,41 @@ describe('user get', () => {
     });
 });
 
+describe('user add', () => {
+    it('should return user', () => {
+        const expectedState = {
+            id: 'id0id0id0id0id0id0id0id0id0+',
+            name: 'name0',
+            email: 'email0@me0.com',
+        };
+        const action = {
+            type: actionTypes.USER_ADD,
+            user: user0,
+        };
+
+        expect(userReducer(undefined, action)).toEqual(expectedState);
+    });
+});
+
+describe('user update', () => {
+    it('should return updated user', () => {
+        const expectedState = {
+            id: 'id0id0id0id0id0id0id0id0id0+',
+            name: 'name0update',
+            email: 'email0@me0.com',
+        };
+        const action = {
+            type: actionTypes.USER_UPDATE,
+            userUpdate: {
+                id: 'id0id0id0id0id0id0id0id0id0+',
+                name: 'name0update',
+            },
+        };
+
+        expect(userReducer(user0, action)).toEqual(expectedState);
+    });
+});
+
 describe('user adding', () => {
     it('should return undefined user', () => {
         const expectedState = initialState;
