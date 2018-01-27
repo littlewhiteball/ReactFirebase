@@ -1,5 +1,7 @@
 import firebase from './../firebase';
 
+export const ERROR_AUTH_USER_NOT_FOUND = 'auth/user-not-found';
+
 const signInWithPopup = provider => firebase.auth().signInWithPopup(provider);
 
 const createUserWithEmailAndPassword = (email, password) =>

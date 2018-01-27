@@ -1,4 +1,4 @@
-import { emailUser0 } from './../../__tests_constants__';
+import { emailUser0, emailUserNotExisting0 } from './../../__tests_constants__';
 
 import authDbAdapter from './../authDbAdapter';
 
@@ -34,6 +34,15 @@ describe('sign in user with email and password', () => {
 
         return authDbAdapter.signInWithEmailAndPassword(email, password).then((user) => {
             expect(user).toBe(expected);
+        });
+    });
+
+    it('should fail on firebase when email does not match any record in firebase', () => {
+        const expectedError = new Error('There is no user record corresponding to this identifier. The User may have been deleted');
+        const { email, password } = emailUserNotExisting0;
+
+        return authDbAdapter.signInWithEmailAndPassword(email, password).catch((error) => {
+            expect(error).toMatchObject(expectedError);
         });
     });
 
