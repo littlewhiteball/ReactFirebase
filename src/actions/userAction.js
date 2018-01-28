@@ -83,9 +83,11 @@ export const getUser = userId =>
 
 export const addUser = firebaseUser =>
     (dispatch) => {
+        console.info('firebaseUser', firebaseUser);
         const model = userReduxModel(
             firebaseUser.uid,
-            firebaseUser.name,
+            // use email as name before user updates it
+            firebaseUser.email,
             firebaseUser.email,
         );
         return usersDbAdapter.addUserToDb(model).then(() => {
