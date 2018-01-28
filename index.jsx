@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
+import 'babel-polyfill';
 import * as functions from 'firebase-functions';
 import express from 'express';
 import parser from 'body-parser';
