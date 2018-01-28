@@ -2,7 +2,7 @@
  * error messages in this mock class are mocking firebase database errors
  */
 
-import { user0FromDb, emailUser0, emailUserNotExisting0 } from './../../__tests_constants__';
+import { user0FromDb, emailUser0, emailUserNotFound0, emailUserNotFoundSignUp0 } from './../../__tests_constants__';
 
 const usersRefFuncs = key => ({
     once: eventType =>
@@ -90,6 +90,10 @@ const firebase = {
             new Promise((resolve, reject) => {
                 if (email === emailUser0.email && password === emailUser0.password) {
                     resolve(emailUser0);
+                    // eslint-disable-next-line max-len
+                } else if (email === emailUserNotFound0.email && password === emailUserNotFound0.password) {
+                    // This is to cover sign in with not found email then sign up
+                    resolve(emailUserNotFoundSignUp0);
                 } else {
                     const error = new Error('create user failed on firebase');
                     reject(error);
@@ -99,7 +103,7 @@ const firebase = {
             new Promise((resolve, reject) => {
                 if (email === emailUser0.email && password === emailUser0.password) {
                     resolve(emailUser0);
-                } else if (email === emailUserNotExisting0.email) {
+                } else if (email === emailUserNotFound0.email) {
                     const error = new Error('There is no user record corresponding to this identifier. The User may have been deleted');
                     error.code = 'auth/user-not-found';
                     reject(error);
