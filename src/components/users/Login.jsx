@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-import { signInEmailPassword, signInGoogle, signInFacebook, signInTwitter } from './../../actions/authAction';
+import authDbAdapter, { ERROR_AUTH_USER_NOT_FOUND } from './../../database/authDbAdapter';
+import { getUser, addUser } from './../../actions/userAction';
 
 const PLEASE_SIGN_IN = 'Please sign in';
 const SIGN_IN_OR_REGISTERING_WARNING = 'If you do not have an account already. This will create your account';
@@ -36,23 +37,52 @@ export class LoginComponent extends Component {
 
     signInWithEmailPassword = () => {
         // TODO: validation on empty email or empty password, plus other validations
-        this.props.signInWithEmailPassword(this.state.email, this.state.password);
+        authDbAdapter.signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then((emailUser) => {
+                this.props.getSignedInUser(emailUser.uid);
+            }).catch((signInError) => {
+                const { code } = signInError;
+                if (code === ERROR_AUTH_USER_NOT_FOUND) {
+                    // user not found. should create new user
+                    // eslint-disable-next-line max-len
+                    authDbAdapter.createUserWithEmailAndPassword(this.state.email, this.state.password)
+                        .then((emailUser) => {
+                            this.props.addSignedUpUser(emailUser);
+                        }).catch((signUpError) => {
+                            console.error(signUpError);
+                        });
+                } else {
+                    console.error(signInError);
+                }
+            });
     }
 
     signInWithGoogle = () => {
-        this.props.signInWithGoogle();
+        authDbAdapter.signInWithGoogle().then((user) => {
+            this.props.getSignedInUser(user.uid);
+        }).catch((signInWithGoogleError) => {
+            console.error(signInWithGoogleError);
+        });
     }
 
     signInWithFacebook = () => {
-        this.props.signInWithFacebook();
+        authDbAdapter.signInWithFacebook().then((user) => {
+            this.props.getSignedInUser(user.uid);
+        }).catch((signInWithFacebookError) => {
+            console.error(signInWithFacebookError);
+        });
     }
 
     signInWithTwitter = () => {
-        this.props.signInWithTwitter();
+        authDbAdapter.signInWithTwitter().then((user) => {
+            this.props.getSignedInUser(user.uid);
+        }).catch((signInWithTwitterError) => {
+            console.error(signInWithTwitterError);
+        });
     }
 
     render() {
-        if (this.props.auth.signedIn) {
+        if (this.props.user.id !== undefined) {
             return (
                 <Redirect to={{
                     pathname: '/',
@@ -105,26 +135,22 @@ export class LoginComponent extends Component {
 }
 
 LoginComponent.propTypes = {
-    auth: PropTypes.object.isRequired,
-    signInWithEmailPassword: PropTypes.func.isRequired,
-    signInWithGoogle: PropTypes.func.isRequired,
-    signInWithFacebook: PropTypes.func.isRequired,
-    signInWithTwitter: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        email: PropTypes.string,
+    }).isRequired,
+    getSignedInUser: PropTypes.func.isRequired,
+    addSignedUpUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth,
+    user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
-    signInWithEmailPassword:
-        (email, password) => dispatch(signInEmailPassword(email, password)),
-    signInWithGoogle:
-        () => dispatch(signInGoogle()),
-    signInWithFacebook:
-        () => dispatch(signInFacebook()),
-    signInWithTwitter:
-        () => dispatch(signInTwitter()),
+    getSignedInUser: userId => dispatch(getUser(userId)),
+    addSignedUpUser: user => dispatch(addUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
