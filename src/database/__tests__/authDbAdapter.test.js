@@ -7,8 +7,7 @@ jest.mock('./../../firebase');
 describe('create user with email and password', () => {
     it('should return created user if email and password are valid', () => {
         const expected = emailUser0;
-        const email = 'emailemailuser0@meemailuser0.com';
-        const password = 'emailuser0password';
+        const { email, password } = emailUser0;
 
         return authDbAdapter.createUserWithEmailAndPassword(email, password).then((user) => {
             expect(user).toBe(expected);
@@ -29,8 +28,7 @@ describe('create user with email and password', () => {
 describe('sign in user with email and password', () => {
     it('should return signed in user if email and password are valid', () => {
         const expected = emailUser0;
-        const email = 'emailemailuser0@meemailuser0.com';
-        const password = 'emailuser0password';
+        const { email, password } = emailUser0;
 
         return authDbAdapter.signInWithEmailAndPassword(email, password).then((user) => {
             expect(user).toBe(expected);
