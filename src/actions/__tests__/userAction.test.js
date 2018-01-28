@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { user0, user0Update, userIdNotFound, userWithoutId } from './../../__tests_constants__';
+import { emailUser0, user0FromDb, user0, user0Update, userIdNotFound, userWithoutId } from './../../__tests_constants__';
 
 import * as actions from './../userAction';
 
@@ -159,20 +159,16 @@ describe('getUser', () => {
 });
 
 describe('addUser', () => {
-    it('should 1.add user to database 3.create add action', () => {
+    it('should 1.add user to database 2.create add action', () => {
         const expectedActions = [
             {
                 type: 'USER_ADD',
-                user: {
-                    id: 'id0id0id0id0id0id0id0id0id0+',
-                    name: 'name0',
-                    email: 'email0@me0.com',
-                },
+                user: user0FromDb,
             },
         ];
 
         const store = mockStore({});
-        return store.dispatch(actions.addUser(user0)).then(() => {
+        return store.dispatch(actions.addUser(emailUser0)).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         });
     });

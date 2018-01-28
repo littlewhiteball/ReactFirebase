@@ -1,4 +1,27 @@
 /**
+ * firebase returned models
+ */
+export const emailUser0 = {
+    uid: 'id0id0id0id0id0id0id0id0id0+',
+    email: 'email0@me0.com',
+    password: 'emailuser0password',
+    name: 'name0',
+};
+
+export const emailUserNotFound0 = {
+    email: 'emailemailusernotfound0@meemailusernotfound0.com',
+    password: 'emailusernotfound0password',
+    name: 'emailusernotfound0name',
+};
+
+export const emailUserNotFoundSignUp0 = {
+    uid: 'emailusernotfoundsignup0--++',
+    email: 'emailemailusernotfound0@meemailusernotfound0.com',
+    password: 'emailusernotfound0password',
+    name: 'emailusernotfound0name',
+};
+
+/**
  * Database models
  */
 export const user0FromDb = {
@@ -7,19 +30,6 @@ export const user0FromDb = {
     email: 'email0@me0.com',
 };
 
-export const emailUser0 = {
-    uid: 'emailuser0emailuser0----++++',
-    email: 'emailemailuser0@meemailuser0.com',
-    password: 'emailuser0password',
-};
-
-export const emailUser1 = {
-    uid: 'emailuser0emailuser1----++++',
-    email: 'emailemailuser1@meemailuser1.com',
-    password: 'emailuser1password',
-};
-
-/**
 /**
  * Competitions
  */

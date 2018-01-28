@@ -81,12 +81,12 @@ export const getUser = userId =>
             console.error(error);
         });
 
-export const addUser = user =>
+export const addUser = firebaseUser =>
     (dispatch) => {
         const model = userReduxModel(
-            user.id,
-            user.name,
-            user.email,
+            firebaseUser.uid,
+            firebaseUser.name,
+            firebaseUser.email,
         );
         return usersDbAdapter.addUserToDb(model).then(() => {
             dispatch(userAddAction(model));
