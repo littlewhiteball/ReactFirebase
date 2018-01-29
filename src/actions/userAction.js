@@ -13,25 +13,11 @@ const USER_ADD = 'USER_ADD';
 const USER_UPDATE = 'USER_UPDATE';
 const USER_SIGN_OUT = 'USER_SIGN_OUT';
 
-const USER_ADDING = 'USER_ADDING';
-const USER_ADDED = 'USER_ADDED';
-const USER_ADD_FAILED = 'USER_ADD_FAILED';
-const USER_UPDATING = 'USER_UPDATING';
-const USER_UPDATED = 'USER_UPDATED';
-const USER_UPDATE_FAILED = 'USER_UPDATE_FAILED';
-
 export const actionTypes = {
     USER_GET,
     USER_ADD,
     USER_UPDATE,
     USER_SIGN_OUT,
-
-    USER_ADDING,
-    USER_ADDED,
-    USER_ADD_FAILED,
-    USER_UPDATING,
-    USER_UPDATED,
-    USER_UPDATE_FAILED,
 };
 
 export const userGetAction = user => ({
@@ -51,31 +37,6 @@ export const userUpdateAction = userUpdate => ({
 
 export const userSignOutAction = () => ({
     type: USER_SIGN_OUT,
-});
-
-export const userAddingAction = () => ({
-    type: USER_ADDING,
-});
-
-export const userAddedAction = user => ({
-    type: USER_ADDED,
-    user,
-});
-
-export const userAddFailedAction = () => ({
-    type: USER_ADD_FAILED,
-});
-
-export const userUpdatingAction = () => ({
-    type: USER_UPDATING,
-});
-
-export const userUpdatedAction = () => ({
-    type: USER_UPDATED,
-});
-
-export const userUpdateFailedAction = () => ({
-    type: USER_UPDATE_FAILED,
 });
 
 export const getUser = userId =>
