@@ -82,7 +82,7 @@ export class LoginComponent extends Component {
     }
 
     render() {
-        if (this.props.user.id !== undefined) {
+        if (this.props.userId !== undefined) {
             return (
                 <Redirect to={{
                     pathname: '/',
@@ -135,17 +135,13 @@ export class LoginComponent extends Component {
 }
 
 LoginComponent.propTypes = {
-    user: PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        email: PropTypes.string,
-    }).isRequired,
+    userId: PropTypes.string.isRequired,
     getSignedInUser: PropTypes.func.isRequired,
     addSignedUpUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    user: state.user,
+    user: state.user.id,
 });
 
 const mapDispatchToProps = dispatch => ({
