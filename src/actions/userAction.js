@@ -1,3 +1,4 @@
+import authDbAdapter from './../database/authDbAdapter';
 import usersDbAdapter from './../database/usersDbAdapter';
 import userReduxModel from './../reduxModels/userReduxModel';
 
@@ -10,6 +11,7 @@ const dbModelToReduxModel = dbModel => userReduxModel(
 const USER_GET = 'USER_GET';
 const USER_ADD = 'USER_ADD';
 const USER_UPDATE = 'USER_UPDATE';
+const USER_SIGN_OUT = 'USER_SIGN_OUT';
 
 const USER_ADDING = 'USER_ADDING';
 const USER_ADDED = 'USER_ADDED';
@@ -22,6 +24,7 @@ export const actionTypes = {
     USER_GET,
     USER_ADD,
     USER_UPDATE,
+    USER_SIGN_OUT,
 
     USER_ADDING,
     USER_ADDED,
@@ -44,6 +47,10 @@ export const userAddAction = user => ({
 export const userUpdateAction = userUpdate => ({
     type: USER_UPDATE,
     userUpdate,
+});
+
+export const userSignOutAction = () => ({
+    type: USER_SIGN_OUT,
 });
 
 export const userAddingAction = () => ({
@@ -110,3 +117,11 @@ export const updateUser = user =>
             console.error(error);
         });
     };
+
+export const signOutUser = () =>
+    dispatch =>
+        authDbAdapter.signOut().then(() => {
+            dispatch(userSignOutAction());
+        }).catch((error) => {
+            console.error(error);
+        });

@@ -24,6 +24,10 @@ export default (state = initialState, action) => {
             return userUpdate;
         }
 
+        case actionTypes.USER_SIGN_OUT: {
+            return initialState;
+        }
+
         case actionTypes.USER_ADDING:
             return state;
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
-import { signOutUser } from './../../actions/authAction';
+import { signOutUser } from './../../actions/userAction';
 
 const PROFILE = 'Profile';
 const EDIT_PROFILE = 'Edit profile';

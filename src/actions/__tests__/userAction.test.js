@@ -55,6 +55,16 @@ describe('userUpdateAction', () => {
     });
 });
 
+describe('userSignOutAction', () => {
+    it('should create action to indicate user has signed out', () => {
+        const expectedAction = {
+            type: 'USER_SIGN_OUT',
+        };
+
+        expect(actions.userSignOutAction()).toEqual(expectedAction);
+    });
+});
+
 describe('userAddingAction', () => {
     it('should create action to indicate user is being added', () => {
         const expectedAction = {
@@ -210,6 +220,21 @@ describe('updateUser', () => {
 
         const store = mockStore({});
         return store.dispatch(actions.updateUser(userIdNotFound)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+});
+
+describe('signOutUser', () => {
+    it('should 1.sign out user 2.create sign out action', () => {
+        const expectedActions = [
+            {
+                type: 'USER_SIGN_OUT',
+            },
+        ];
+
+        const store = mockStore({});
+        return store.dispatch(actions.signOutUser()).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         });
     });

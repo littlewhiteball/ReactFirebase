@@ -67,6 +67,17 @@ describe('user update', () => {
     });
 });
 
+describe('user sign out', () => {
+    it('should return initial user with empty id', () => {
+        const expectedState = initialState;
+        const action = {
+            type: actionTypes.USER_SIGN_OUT,
+        };
+
+        expect(userReducer(user0, action)).toEqual(expectedState);
+    });
+});
+
 describe('user adding', () => {
     it('should return undefined user', () => {
         const expectedState = initialState;
