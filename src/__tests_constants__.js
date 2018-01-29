@@ -30,11 +30,28 @@ export const user0FromDb = {
     email: 'email0@me0.com',
 };
 
+export const competition0FromDb = {
+    id: 'competition0idcompetition0id',
+    title: 'MLB world series 2017',
+    start: new Date('2017-11-02T09:00:00z'),
+    closing: new Date('2017-11-12T09:00:00z'),
+    options: ['Houston Astros', 'LA Dodgers'],
+};
+export const competition1FromDb = {
+    id: 'id1',
+    title: 'UEFA champions league final',
+    start: new Date('2017-05-03T09:00:00z'),
+    closing: new Date('2017-05-17T09:00:00z'),
+    options: ['Real Madrid', 'Juventus'],
+};
+
+export const competitionIdNotFoundFromDb = 'competitionidnotfoundfromdb+';
+
 /**
  * Competitions
  */
 export const competition0 = {
-    id: 'id0',
+    id: 'competition0idcompetition0id',
     title: 'MLB world series 2017',
     start: new Date('2017-11-02T09:00:00z'),
     closing: new Date('2017-11-12T09:00:00z'),
@@ -50,6 +67,19 @@ export const competition1 = {
 export const competitions = [
     competition0, competition1,
 ];
+export const competitionWithoutId = {
+    title: 'competition without id',
+};
+export const competition0Update = {
+    id: competition0.id,
+    title: 'update title',
+    start: competition0.start,
+    closing: competition0.closing,
+    options: competition0.options,
+};
+export const competitionIdNotFound0 = {
+    id: competitionIdNotFoundFromDb,
+};
 
 /**
  * Auth

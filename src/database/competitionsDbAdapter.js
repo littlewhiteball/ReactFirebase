@@ -1,4 +1,13 @@
 import { firebaseApp } from './../firebase';
+import competitionsDbModel from './../database/models/competitionsDbModel';
+
+const reduxModelToDbModel = reduxModel => competitionsDbModel(
+    reduxModel.id,
+    reduxModel.title,
+    reduxModel.start,
+    reduxModel.closing,
+    reduxModel.options,
+);
 
 const getCompetitionsRef = () => firebaseApp.database().ref('/competitions');
 
@@ -15,8 +24,30 @@ const getCompetitionsOnceFromDb = (limitToLast = 0) => {
 const generateKeyForCompetitionFromDb = () => getCompetitionsRef().push().key;
 
 const addCompetitionToDb = (competitionModel) => {
-    const { id } = competitionModel;
-    return getCompetitionRef(id).set(competitionModel);
+    const dbModel = reduxModelToDbModel(competitionModel);
+    const { id } = dbModel;
+    return getCompetitionRef(id).set(dbModel);
+};
+
+const updateCompetitionToDb = async (competitionUpdateModel) => {
+    const { id } = competitionUpdateModel;
+
+    try {
+        const snapshot = await getCompetitionRef(id).once('value');
+        // Check if id already exists in database
+        if (snapshot.exists()) {
+            return getCompetitionRef(id).update(competitionUpdateModel);
+        }
+
+        return new Promise((resolve, reject) => {
+            const error = new Error(`provided competition id: ${id} does not exist in database. cannot update`);
+            reject(error);
+        });
+    } catch (error) {
+        console.error(error);
+        // TODO: should throw
+        throw error;
+    }
 };
 
 const removeCompetitionFromDb = id => getCompetitionRef(id).remove();
@@ -25,5 +56,6 @@ export default {
     getCompetitionsOnceFromDb,
     generateKeyForCompetitionFromDb,
     addCompetitionToDb,
+    updateCompetitionToDb,
     removeCompetitionFromDb,
 };

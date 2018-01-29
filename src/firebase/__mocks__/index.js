@@ -2,7 +2,7 @@
  * error messages in this mock class are mocking firebase database errors
  */
 
-import { user0FromDb, emailUser0, emailUserNotFound0, emailUserNotFoundSignUp0 } from './../../__tests_constants__';
+import * as testConstants from './../../__tests_constants__';
 
 const usersRefFuncs = key => ({
     once: eventType =>
@@ -11,7 +11,7 @@ const usersRefFuncs = key => ({
                 case 'value': {
                     if (key === 'id0id0id0id0id0id0id0id0id0+') {
                         const snapshot = ({
-                            val: () => user0FromDb,
+                            val: () => testConstants.user0FromDb,
                             exists: () => true,
                         });
                         resolve(snapshot);
@@ -53,20 +53,128 @@ const usersRefFuncs = key => ({
         }),
 });
 
-const competitionsRefFunc = key => ({
-    set: model =>
-        new Promise((resolve, reject) => {
-            if (model.id) {
-                const snapshot = ({
-                    val: () => undefined,
-                });
-                resolve(snapshot);
-            } else {
-                const error = new Error('set competition has failed on firebase database');
-                reject(error);
-            }
+const competitionsRefFunc = (key) => {
+    if (key) {
+        // single competition
+        return ({
+            once: eventType =>
+                new Promise((resolve, reject) => {
+                    switch (eventType) {
+                        case 'value': {
+                            if (key === testConstants.competition0FromDb.id) {
+                                const snapshot = ({
+                                    val: () => testConstants.competition0FromDb,
+                                    exists: () => true,
+                                });
+                                resolve(snapshot);
+                            } else if (key === testConstants.competitionIdNotFoundFromDb) {
+                                const snapshot = ({
+                                    exists: () => false,
+                                });
+                                resolve(snapshot);
+                            } else {
+                                const error = new Error('get competition has failed on firebase database');
+                                reject(error);
+                            }
+
+                            break;
+                        }
+
+                        default: {
+                            const error = new Error(`${eventType} is not a supported eventType by once method`);
+                            reject(error);
+                        }
+                    }
+                }),
+            set: value =>
+                new Promise((resolve, reject) => {
+                    if (value.id === testConstants.competition0FromDb.id) {
+                        resolve();
+                    } else {
+                        const error = new Error('set competition has failed on firebase database');
+                        reject(error);
+                    }
+                }),
+            update: values =>
+                new Promise((resolve, reject) => {
+                    // eslint-disable-next-line max-len
+                    if (values.id === testConstants.competition0FromDb.id && values.title !== testConstants.competition0FromDb.title) {
+                        resolve();
+                    } else {
+                        const error = new Error('update competition has failed on firebase database');
+                        reject(error);
+                    }
+                }),
+            remove: () =>
+                new Promise((resolve, reject) => {
+                    if (key === testConstants.competition0FromDb.id) {
+                        resolve();
+                    } else if (key === testConstants.competitionIdNotFoundFromDb) {
+                        const error = new Error(`cannot remove competition with id: ${key} as it does not exist in database`);
+                        reject(error);
+                    } else {
+                        const error = new Error('remove competition has failed on firebase database');
+                        reject(error);
+                    }
+                }),
+        });
+    }
+    // competitions
+    return ({
+        push: () => ({
+            key: testConstants.competition0FromDb.id,
         }),
-});
+        limitToLast: () => ({
+            // TODO: this is not tested
+            once: eventType =>
+                new Promise((resolve, reject) => {
+                    switch (eventType) {
+                        case 'value': {
+                            const snapshot = ({
+                                val: () => [
+                                    testConstants.competition0FromDb,
+                                    testConstants.competition1FromDb,
+                                ],
+                                exists: () => true,
+                            });
+                            resolve(snapshot);
+
+                            // TODO: figure out how to mock reject
+                            break;
+                        }
+
+                        default: {
+                            const error = new Error(`${eventType} is not a supported eventType by once method`);
+                            reject(error);
+                        }
+                    }
+                }),
+        }),
+        once: eventType =>
+            new Promise((resolve, reject) => {
+                switch (eventType) {
+                    case 'value': {
+                        const snapshot = ({
+                            val: () => [
+                                testConstants.competition0FromDb,
+                                testConstants.competition1FromDb,
+                            ],
+                            exists: () => true,
+                        });
+                        resolve(snapshot);
+
+                        // TODO: figure out how to reject
+                        break;
+                    }
+
+                    default: {
+                        const error = new Error(`${eventType} is not a supported eventType by once method`);
+                        reject(error);
+                    }
+                }
+            }),
+    });
+};
 
 export const firebaseApp = {
     database: () => ({
@@ -88,12 +196,13 @@ const firebase = {
     auth: () => ({
         createUserWithEmailAndPassword: (email, password) =>
             new Promise((resolve, reject) => {
-                if (email === emailUser0.email && password === emailUser0.password) {
-                    resolve(emailUser0);
+                // eslint-disable-next-line max-len
+                if (email === testConstants.emailUser0.email && password === testConstants.emailUser0.password) {
+                    resolve(testConstants.emailUser0);
                     // eslint-disable-next-line max-len
-                } else if (email === emailUserNotFound0.email && password === emailUserNotFound0.password) {
+                } else if (email === testConstants.emailUserNotFound0.email && password === testConstants.emailUserNotFound0.password) {
                     // This is to cover sign in with not found email then sign up
-                    resolve(emailUserNotFoundSignUp0);
+                    resolve(testConstants.emailUserNotFoundSignUp0);
                 } else {
                     const error = new Error('create user failed on firebase');
                     reject(error);
@@ -101,9 +210,10 @@ const firebase = {
             }),
         signInWithEmailAndPassword: (email, password) =>
             new Promise((resolve, reject) => {
-                if (email === emailUser0.email && password === emailUser0.password) {
-                    resolve(emailUser0);
-                } else if (email === emailUserNotFound0.email) {
+                // eslint-disable-next-line max-len
+                if (email === testConstants.emailUser0.email && password === testConstants.emailUser0.password) {
+                    resolve(testConstants.emailUser0);
+                } else if (email === testConstants.emailUserNotFound0.email) {
                     const error = new Error('There is no user record corresponding to this identifier. The User may have been deleted');
                     error.code = 'auth/user-not-found';
                     reject(error);
