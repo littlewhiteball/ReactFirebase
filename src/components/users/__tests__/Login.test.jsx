@@ -12,7 +12,7 @@ jest.mock('./../../../firebase');
 
 const setup = (isShallow = false, signedIn = false) => {
     const props = {
-        userId: signedIn ? user0.id : undefined,
+        userId: signedIn ? user0.id : '',
         getSignedInUser: jest.fn(),
         addSignedUpUser: jest.fn(),
     };
