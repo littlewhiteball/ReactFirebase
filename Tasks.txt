@@ -1,4 +1,4 @@
-TODO: DbAdapters mock not needed. remove competition, auth
+TODO: DbAdapters mock not needed. remove competition
 
 TODO: Fix import * as actions, by encapsulating all fields that have Action in *Action.js
 
@@ -7,8 +7,6 @@ TODO: Group test constant by auth, user, competition, etc. Auth group needs to s
 TODO: EditProfile component
 
 TODO: Search bar in Header, left to profile drop down button
-
-TODO: Header needs to check auth.signedIn
 
 TODO: Login/Logout spinner
 
@@ -35,3 +33,5 @@ TODO: Redux model to db model happens in db adapter, db model to redux model hap
 TODO: Rename auth db adapter to firebase auth adapter
 
 TODO: Signin/signup failure handling in Login component
+
+TODO: Persist redux store after browser refresh

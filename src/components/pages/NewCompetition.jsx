@@ -7,18 +7,22 @@ import AddCompetitionForm from './../competitions/AddCompetitionForm';
 
 export class NewCompetitionComponent extends PureComponent {
     render() {
-        return this.props.auth.signedIn
+        return this.props.user.id
             ? (<AddCompetitionForm />)
             : (<Redirect to="/auth" />);
     }
 }
 
 NewCompetitionComponent.propTypes = {
-    auth: PropTypes.object.isRequired,
+    user: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        email: PropTypes.string,
+    }).isRequired,
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth,
+    user: state.user,
 });
 
 export default connect(mapStateToProps, null)(NewCompetitionComponent);
