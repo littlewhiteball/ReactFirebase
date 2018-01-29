@@ -159,11 +159,13 @@ describe('getUser', () => {
 });
 
 describe('addUser', () => {
-    it('should 1.add user to database 2.create add action', () => {
+    it('should 1.add user which has email as name to database 2.create add action', () => {
         const expectedActions = [
             {
                 type: 'USER_ADD',
-                user: user0FromDb,
+                user: Object.assign({}, user0FromDb, {
+                    name: user0FromDb.email,
+                }),
             },
         ];
 
