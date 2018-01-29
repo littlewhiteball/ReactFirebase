@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { updateUser } from './../../actions/userAction';
+
 const EDIT_PROFILE = 'Edit Profile';
 const PROFILE_PHOTO = 'Profile Photo';
 const NAME = 'Name';
@@ -15,7 +17,7 @@ const CANCEL = 'Cancel';
 
 export class EditProfileComponent extends Component {
     saveProfile = () => {
-
+        this.props.saveChange();
     }
 
     cancelChange = () => {
@@ -23,6 +25,7 @@ export class EditProfileComponent extends Component {
     }
 
     render() {
+        const formTitle = `${EDIT_PROFILE} - ${this.props.user.name}`;
         return (
             <div className="col-md-12">
                 <div className="row">
@@ -33,7 +36,7 @@ export class EditProfileComponent extends Component {
                                 <hr className="my-2" />
                                 <div className="card-outline-secondary">
                                     <div className="card-header mb-2">
-                                        <h3>{EDIT_PROFILE}</h3>
+                                        <h3>{formTitle}</h3>
                                     </div>
                                     <div className="card-block">
                                         <form className="form" autoComplete="off">
@@ -79,6 +82,7 @@ EditProfileComponent.propTypes = {
         name: PropTypes.string,
         email: PropTypes.string,
     }).isRequired,
+    saveChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -86,6 +90,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    saveChange: () => dispatch(updateUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfileComponent);
