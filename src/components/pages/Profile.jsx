@@ -8,18 +8,18 @@ import EditProfile from './../users/EditProfile';
 // eslint-disable-next-line react/prefer-stateless-function
 export class ProfileComponent extends Component {
     render() {
-        return this.props.auth.signedIn
+        return this.props.userId
             ? (<EditProfile />)
             : (<Redirect to="/auth" />);
     }
 }
 
 ProfileComponent.propTypes = {
-    auth: PropTypes.object.isRequired,
+    userId: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth,
+    userId: state.user.id,
 });
 
 export default connect(mapStateToProps, null)(ProfileComponent);

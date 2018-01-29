@@ -16,7 +16,7 @@ export class ProfileDropDownComponent extends Component {
     signOut = () => this.props.signOut();
 
     render() {
-        if (!this.props.auth.signedIn) {
+        if (!this.props.user.id) {
             return (
                 <Redirect to={{
                     pathname: '/',
@@ -43,13 +43,17 @@ export class ProfileDropDownComponent extends Component {
 }
 
 ProfileDropDownComponent.propTypes = {
-    auth: PropTypes.object.isRequired,
+    user: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        email: PropTypes.string,
+    }).isRequired,
     signOut: PropTypes.func.isRequired,
     navToPath: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth,
+    user: state.user,
 });
 
 const mapDispatchToProps = dispatch => (

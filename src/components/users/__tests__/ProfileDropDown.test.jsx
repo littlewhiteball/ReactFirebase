@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { auth } from './../../../__tests_constants__';
+import { user0 } from './../../../__tests_constants__';
 
 import { ProfileDropDownComponent } from './../ProfileDropDown';
 
@@ -10,9 +10,9 @@ configure({ adapter: new Adapter() });
 
 const setup = (signedIn, isShallow) => {
     const props = {
-        auth: Object.assign({}, auth, {
-            signedIn,
-        }),
+        user: signedIn ? user0 : {
+            id: '',
+        },
         navToPath: jest.fn(),
         signOut: jest.fn(),
     };
