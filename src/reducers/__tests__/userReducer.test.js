@@ -3,7 +3,7 @@ import { actionTypes } from './../../actions/userAction';
 import { user0, user0Update } from './../../__tests_constants__';
 
 const initialState = {
-    id: undefined,
+    id: '',
     name: undefined,
     email: undefined,
 };

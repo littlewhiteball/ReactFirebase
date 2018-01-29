@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 
 const setup = (signedIn) => {
     const props = {
-        userId: signedIn ? user0.id : undefined,
+        userId: signedIn ? user0.id : '',
         categoryList,
         navToPath: jest.fn(),
     };
