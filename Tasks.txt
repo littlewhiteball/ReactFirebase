@@ -31,3 +31,7 @@ TODO: Auth reducer/action not needed. signedIn can be replaced by user != undefi
 TODO: Remove unnecessary dispatching actions in auth, user and competition action js
 
 TODO: Redux model to db model happens in db adapter, db model to redux model happens in actions before calling db adapter
+
+TODO: Rename auth db adapter to firebase auth adapter
+
+TODO: Signin/signup failure handling in Login component

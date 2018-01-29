@@ -2,7 +2,7 @@ import { actionTypes } from './../actions/userAction';
 import userReduxModel from './../reduxModels/userReduxModel';
 
 const initialState = userReduxModel(
-    undefined,
+    '',
     undefined,
     undefined,
 );

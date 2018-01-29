@@ -82,7 +82,7 @@ export class LoginComponent extends Component {
     }
 
     render() {
-        if (this.props.userId !== undefined) {
+        if (this.props.userId) {
             return (
                 <Redirect to={{
                     pathname: '/',
@@ -141,7 +141,7 @@ LoginComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    user: state.user.id,
+    userId: state.user.id,
 });
 
 const mapDispatchToProps = dispatch => ({

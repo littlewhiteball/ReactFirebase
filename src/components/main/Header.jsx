@@ -16,7 +16,7 @@ export class HeaderComponent extends Component {
     navToNewCompetition = () => this.props.navToPath('/competition');
 
     render() {
-        const userElement = this.props.auth.signedIn ?
+        const userElement = this.props.userId ?
             // TODO: Call Logout component
             (
                 <div className="nav right-actions">
@@ -55,7 +55,7 @@ export class HeaderComponent extends Component {
 
 // TODO: create a class for category, and use it as isRequired
 HeaderComponent.propTypes = {
-    auth: PropTypes.object.isRequired,
+    userId: PropTypes.string.isRequired,
     categoryList: PropTypes.arrayOf(PropTypes.object),
     navToPath: PropTypes.func.isRequired,
 };
@@ -74,7 +74,7 @@ HeaderComponent.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth,
+    userId: state.user.id,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { auth, categoryList } from './../../../__tests_constants__';
+import { user0, categoryList } from './../../../__tests_constants__';
 
 import { HeaderComponent } from './../Header';
 import ProfileDropDown from './../../users/ProfileDropDown';
@@ -11,9 +11,7 @@ configure({ adapter: new Adapter() });
 
 const setup = (signedIn) => {
     const props = {
-        auth: Object.assign({}, auth, {
-            signedIn,
-        }),
+        userId: signedIn ? user0.id : undefined,
         categoryList,
         navToPath: jest.fn(),
     };
