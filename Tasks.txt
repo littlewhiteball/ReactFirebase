@@ -10,10 +10,6 @@ TODO: When Home page was redirected from another page, it is not required to pul
 
 TODO: Create a util component for upload profile picture. Profile picture can be saved with auth user, not necessarily realtime db user
 
-TODO: Competition Redux model, Db model. Delete models folder after competitions db model is added inside database folder
-
-TODO: AuthDbAdapter should return authReduxModel. authReduxModel might be merged to userReduxModel
-
 TODO: Create a PrivateRoute util component which requires authentication
 
 TODO: Redux model to db model happens in db adapter, db model to redux model happens in actions before calling db adapter

@@ -57,7 +57,10 @@ export const addCompetition = competition =>
 
 export const updateCompetition = competition =>
     (dispatch) => {
-        dispatch(updateCompetitionAction(competition));
+        const updateModel = Object.assign({}, competition);
+        return competitionsDbAdapter.updateCompetitionToDb(updateModel).then(() => {
+            dispatch(updateCompetitionAction(competition));
+        });
     };
 
 export const deleteCompetition = competition =>
