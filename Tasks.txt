@@ -1,5 +1,3 @@
-TODO: DbAdapters mock not needed. remove competition
-
 TODO: Search bar in Header, left to profile drop down button
 
 TODO: Login/Logout spinner
@@ -29,5 +27,3 @@ TODO: Firebase Log Events and/or Analytics
 TODO: DbAdapters, in update and set method, needs to check if id that is used by get*Ref is equal to the id field of function argument
 
 TODO: Util for raising errors
-
-TODO: Competition db adapter tests

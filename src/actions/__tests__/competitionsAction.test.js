@@ -5,30 +5,10 @@ import { competition0, competition1 } from './../../__tests_constants__';
 
 import * as actions from './../competitionsAction';
 
-jest.mock('./../../database/competitionsDbAdapter');
+jest.mock('./../../firebase');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-describe('gettingCompetitionsAction', () => {
-    it('should create action to indicate getting competitions', () => {
-        const expectedAction = {
-            type: 'GETTING_COMPETITIONS',
-        };
-
-        expect(actions.gettingCompetitionsAction()).toEqual(expectedAction);
-    });
-});
-
-describe('receivedCompetitionsAction', () => {
-    it('should create action to indicated received competitions', () => {
-        const expectedAction = {
-            type: 'RECEIVED_COMPETITIONS',
-        };
-
-        expect(actions.receivedCompetitionsAction()).toEqual(expectedAction);
-    });
-});
 
 describe('addCompetitionAction', () => {
     it('should create action to add competition', () => {
@@ -64,16 +44,8 @@ describe('deleteCompetitionAction', () => {
 });
 
 describe('getCompetitions', () => {
-    const testName = `
-        should:
-        1. create action to indicate getting competitions
-        2. get competitions from database
-        3. create action to add competition for each competition
-        4. create action to indicate received competitions`;
-
-    it(testName, () => {
+    it('should 1.get competitions from database 2.create action to add competition for each competition', () => {
         const expectedActions = [
-            { type: 'GETTING_COMPETITIONS' },
             {
                 type: 'ADD_COMPETITION',
                 competition: competition0,
@@ -82,7 +54,6 @@ describe('getCompetitions', () => {
                 type: 'ADD_COMPETITION',
                 competition: competition1,
             },
-            { type: 'RECEIVED_COMPETITIONS' },
         ];
 
         const store = mockStore({});
@@ -98,7 +69,7 @@ describe('addCompetition', () => {
             {
                 type: 'ADD_COMPETITION',
                 competition: {
-                    id: '-0123456789abcdefghi',
+                    id: competition0.id,
                     title: competition0.title,
                     start: competition0.start,
                     closing: competition0.closing,

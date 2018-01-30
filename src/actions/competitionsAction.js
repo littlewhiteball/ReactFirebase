@@ -1,27 +1,15 @@
 import competitionsDbAdapter from './../database/competitionsDbAdapter';
 import competitionModel from './../models/competitionsModel';
 
-const GETTING_COMPETITIONS = 'GETTING_COMPETITIONS';
-const RECEIVED_COMPETITIONS = 'RECEIVED_COMPETITIONS';
 const ADD_COMPETITION = 'ADD_COMPETITION';
 const UPDATE_COMPETITION = 'UPDATE_COMPETITION';
 const DELETE_COMPETITION = 'DELETE_COMPETITION';
 
 export const actionTypes = {
-    GETTING_COMPETITIONS,
-    RECEIVED_COMPETITIONS,
     ADD_COMPETITION,
     UPDATE_COMPETITION,
     DELETE_COMPETITION,
 };
-
-export const gettingCompetitionsAction = () => ({
-    type: GETTING_COMPETITIONS,
-});
-
-export const receivedCompetitionsAction = () => ({
-    type: RECEIVED_COMPETITIONS,
-});
 
 export const addCompetitionAction = competition => ({
     type: ADD_COMPETITION,
@@ -41,8 +29,6 @@ export const deleteCompetitionAction = competition => ({
 export const getCompetitions = () =>
     dispatch =>
         competitionsDbAdapter.getCompetitionsOnceFromDb().then((snapshot) => {
-            dispatch(gettingCompetitionsAction());
-
             // TODO: get around Redux panicking about actions in reducers
             // setTimeout(() => {
             const competitions = snapshot.val() || [];
@@ -50,8 +36,6 @@ export const getCompetitions = () =>
             Object.keys(competitions).forEach((key) => {
                 dispatch(addCompetitionAction(competitions[key]));
             });
-
-            dispatch(receivedCompetitionsAction());
             // }, 0);
         });
 
