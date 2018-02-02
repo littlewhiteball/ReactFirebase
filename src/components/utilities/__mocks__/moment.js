@@ -1,3 +1,5 @@
-const moment = () => '01/12/2018 11:30 PM';
+const moment = () => ({
+    toDate: () => new Date('2018-02-18T11:30:00.000Z'),
+});
 
 export default moment;

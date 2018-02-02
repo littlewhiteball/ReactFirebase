@@ -1,17 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment from 'moment';
 import Datetime from 'react-datetime';
+import PropType from 'prop-types';
 
-export default class DateTimePicker extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dateTimeValue: moment(),
-        };
-    }
+const DateTimePicker = props => (
+    <Datetime defaultValue={props.defaultDateTimeValue} onChange={props.onChange} />
+);
 
-    render() {
-        const { dateTimeValue } = this.state;
-        return <Datetime value={dateTimeValue} />;
-    }
-}
+DateTimePicker.propTypes = {
+    defaultDateTimeValue: PropType.instanceOf(Date),
+    onChange: PropType.func.isRequired,
+};
+
+DateTimePicker.defaultProps = {
+    defaultDateTimeValue: moment().toDate(),
+};
+
+
+export default DateTimePicker;
