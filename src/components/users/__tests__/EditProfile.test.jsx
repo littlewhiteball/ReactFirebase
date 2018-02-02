@@ -36,7 +36,7 @@ describe('edit profile component', () => {
 
     it('should call props save change when clicked', () => {
         const { props, wrapper } = setup(false, true);
-        wrapper.find('button').at(0).simulate('click', { prevendDefault() { } });
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
         expect(props.saveChange.mock.calls.length).toBe(1);
     });
