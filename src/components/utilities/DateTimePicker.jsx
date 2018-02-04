@@ -4,7 +4,7 @@ import Datetime from 'react-datetime';
 import PropType from 'prop-types';
 
 const DateTimePicker = props => (
-    <Datetime defaultValue={props.defaultDateTimeValue} onChange={props.onChange} />
+    <Datetime defaultValue={props.defaultDateTimeValue} onBlur={props.onChange} />
 );
 
 DateTimePicker.propTypes = {
