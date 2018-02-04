@@ -1,5 +1,4 @@
 import competitionsDbAdapter from './../database/competitionsDbAdapter';
-import competitionModel from './../models/competitionsModel';
 
 const ADD_COMPETITION = 'ADD_COMPETITION';
 const UPDATE_COMPETITION = 'UPDATE_COMPETITION';
@@ -41,14 +40,10 @@ export const getCompetitions = () =>
 
 export const addCompetition = competition =>
     (dispatch) => {
-        const key = competitionsDbAdapter.generateKeyForCompetitionFromDb();
-        const model = competitionModel(
-            key,
-            competition.title,
-            competition.start,
-            competition.closing,
-            competition.options,
-        );
+        const id = competitionsDbAdapter.generateKeyForCompetitionFromDb();
+        const model = Object.assign({}, competition, {
+            id,
+        });
         return competitionsDbAdapter.addCompetitionToDb(model).then(() => {
             console.info('added competition to database');
             dispatch(addCompetitionAction(model));

@@ -33,15 +33,19 @@ export const user0FromDb = {
 export const competition0FromDb = {
     id: 'competition0idcompetition0id',
     title: 'MLB world series 2017',
+    description: 'MLB world series 2017 champion',
     start: new Date('2017-11-02T09:00:00z'),
     closing: new Date('2017-11-12T09:00:00z'),
+    fulfillment: new Date('2017-11-15T10:00:00z'),
     options: ['Houston Astros', 'LA Dodgers'],
 };
 export const competition1FromDb = {
     id: 'id1',
     title: 'UEFA champions league final',
+    description: 'UEFA champions league final 2017',
     start: new Date('2017-05-03T09:00:00z'),
     closing: new Date('2017-05-17T09:00:00z'),
+    fulfillment: new Date('2017-05-18T10:00:00z'),
     options: ['Real Madrid', 'Juventus'],
 };
 
@@ -53,15 +57,19 @@ export const competitionIdNotFoundFromDb = 'competitionidnotfoundfromdb+';
 export const competition0 = {
     id: 'competition0idcompetition0id',
     title: 'MLB world series 2017',
+    description: 'MLB world series 2017 champion',
     start: new Date('2017-11-02T09:00:00z'),
     closing: new Date('2017-11-12T09:00:00z'),
+    fulfillment: new Date('2017-11-15T10:00:00z'),
     options: ['Houston Astros', 'LA Dodgers'],
 };
 export const competition1 = {
     id: 'id1',
     title: 'UEFA champions league final',
+    description: 'UEFA champions league final 2017',
     start: new Date('2017-05-03T09:00:00z'),
     closing: new Date('2017-05-17T09:00:00z'),
+    fulfillment: new Date('2017-05-18T10:00:00z'),
     options: ['Real Madrid', 'Juventus'],
 };
 export const competitions = [
