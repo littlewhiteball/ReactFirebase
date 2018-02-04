@@ -4,8 +4,10 @@ import competitionsDbModel from './../database/models/competitionsDbModel';
 const reduxModelToDbModel = reduxModel => competitionsDbModel(
     reduxModel.id,
     reduxModel.title,
+    reduxModel.description,
     reduxModel.start,
     reduxModel.closing,
+    reduxModel.fulfillment,
     reduxModel.options,
 );
 
