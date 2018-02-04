@@ -1,16 +1,26 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import DateTimePicker from './../../utilities/DateTimePicker';
+import * as testConstants from './../../../__tests_constants__';
+
 import { AddCompetitionFormComponent } from './../AddCompetitionForm';
+
+// DateTimePicker component has to be mocked as it can't be mount rendered.
+jest.mock('./../../utilities/DateTimePicker', () => ('datetimepicker'));
 
 configure({ adapter: new Adapter() });
 
 const setup = () => {
-    const wrapper = shallow(<AddCompetitionFormComponent />);
+    const props = {
+        user: testConstants.user0,
+        saveChange: jest.fn(),
+    };
+
+    const wrapper = mount(<AddCompetitionFormComponent {...props} />);
 
     return {
+        props,
         wrapper,
     };
 };
@@ -75,13 +85,13 @@ describe('add competition form component', () => {
         expect(wrapper.find('label').at(5).prop('htmlFor')).toBe('EntriesClose');
         expect(wrapper.find('label').at(5).text()).toBe('Entries Close');
         expect(wrapper.find('div').at(15).hasClass('col-lg-9')).toBe(true);
-        expect(wrapper.find(DateTimePicker).exists()).toBe(true);
+        expect(wrapper.find('datetimepicker').exists()).toBe(true);
         expect(wrapper.find('div').at(16).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('label').at(6).hasClass('col-lg-3 col-form-label form-control-label')).toBe(true);
         expect(wrapper.find('label').at(6).prop('htmlFor')).toBe('FulfillmentDate');
         expect(wrapper.find('label').at(6).text()).toBe('Fulfillment Date');
         expect(wrapper.find('div').at(17).hasClass('col-lg-9')).toBe(true);
-        expect(wrapper.find(DateTimePicker).exists()).toBe(true);
+        expect(wrapper.find('datetimepicker').exists()).toBe(true);
         expect(wrapper.find('div').at(18).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('label').at(7).hasClass('col-lg-3 col-form-label form-control-label')).toBe(true);
         expect(wrapper.find('label').at(7).prop('htmlFor')).toBe('Options');
@@ -91,5 +101,94 @@ describe('add competition form component', () => {
         expect(wrapper.find('input').at(4).prop('type')).toBe('text');
         expect(wrapper.find('input').at(4).prop('id')).toBe('Options');
         expect(wrapper.find('input').at(4).prop('placeholder')).toBe('Option1,Option2');
+        expect(wrapper.find('div').at(20).hasClass('form-group row')).toBe(true);
+        expect(wrapper.find('div').at(21).hasClass('col-lg-4 offset-lg-8 row')).toBe(true);
+        expect(wrapper.find('button').at(0).hasClass('col-lg-6 form-control btn btn-primary')).toBe(true);
+        expect(wrapper.find('button').at(0).prop('type')).toBe('button');
+        expect(wrapper.find('button').at(0).text()).toBe('Save');
+        expect(wrapper.find('button').at(1).hasClass('col-lg-6 form-control btn btn-default')).toBe(true);
+        expect(wrapper.find('button').at(1).prop('type')).toBe('button');
+        expect(wrapper.find('button').at(1).text()).toBe('Cancel');
+    });
+
+    it('initial state', () => {
+        const { wrapper } = setup();
+
+        expect(wrapper.state('title')).toEqual('');
+        expect(wrapper.state('description')).toEqual('');
+        expect(wrapper.state('start')).toEqual(testConstants.dateTimeNow);
+        expect(wrapper.state('entriesClose')).toEqual(testConstants.dateTimeAddOneDay);
+        expect(wrapper.state('fulfillment')).toEqual(testConstants.dateTimeAddTwoDays);
+        expect(wrapper.state('options')).toEqual([]);
+    });
+
+    it('should handle title change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(0).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'competition 0',
+            },
+        });
+
+        expect(wrapper.state('title')).toEqual('competition 0');
+    });
+
+    it('should handle description change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'competition 0 description',
+            },
+        });
+
+        expect(wrapper.state('description')).toEqual('competition 0 description');
+    });
+
+    it('should handle options change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(4).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'option1,option2',
+            },
+        });
+
+        expect(wrapper.state('options')).toEqual(['option1', 'option2']);
+    });
+
+    it('should call props save change when save is clicked', () => {
+        const expectedArgument = {
+            title: 'competition 0',
+            description: 'competition 0 description',
+            start: testConstants.dateTimeNow.getTime(),
+            closing: testConstants.dateTimeAddOneDay.getTime(),
+            fulfillment: testConstants.dateTimeAddTwoDays.getTime(),
+            options: ['option1', 'option2'],
+        };
+        const { props, wrapper } = setup();
+        wrapper.find('input').at(0).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'competition 0',
+            },
+        });
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'competition 0 description',
+            },
+        });
+        wrapper.find('input').at(4).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'option1,option2',
+            },
+        });
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        expect(props.saveChange.mock.calls.length).toBe(1);
+        expect(props.saveChange.mock.calls[0][0]).toEqual(expectedArgument);
     });
 });

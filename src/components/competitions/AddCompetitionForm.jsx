@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import DateTimePicker from './../utilities/DateTimePicker';
+
+import { addCompetition } from './../../actions/competitionsAction';
 
 const COMPETITION_INFORMATION = 'Competition Information';
 const TITLE = 'Title';
@@ -25,12 +28,72 @@ const OPTIONS = 'Options';
 // TODO: Temporarily using comma separated text as list of options
 const OPTIONS_PLACEHOLDER = 'Option1,Option2';
 const OPTIONS_ID = 'Options';
+const SAVE = 'Save';
+const CANCEL = 'Cancel';
 
 export class AddCompetitionFormComponent extends Component {
-    delete = () => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            description: '',
+            start: moment().toDate(),
+            entriesClose: moment().add(1, 'days').toDate(),
+            fulfillment: moment().add(2, 'days').toDate(),
+            options: [],
+        };
+    }
+
+    updateTitle = (e) => {
+        e.preventDefault();
+        this.setState({
+            title: e.target.value,
+        });
+    }
+
+    updateDescription = (e) => {
+        e.preventDefault();
+        this.setState({
+            description: e.target.value,
+        });
+    }
+
+    updateEntriesClose = (e) => {
+        this.setState({
+            entriesClose: e.toDate(),
+        });
+    }
+
+    updateFulfillmentDate = (e) => {
+        this.setState({
+            fulfillment: e.toDate(),
+        });
+    }
+
+    updateOptions = (e) => {
+        this.setState({
+            options: e.target.value.split(','),
+        });
+    }
+
+    saveCompetition = () => {
+        // TODO: validation
+        const competition = {
+            title: this.state.title,
+            description: this.state.description,
+            start: this.state.start.getTime(),
+            closing: this.state.entriesClose.getTime(),
+            fulfillment: this.state.fulfillment.getTime(),
+            options: this.state.options,
+        };
+        this.props.saveChange(competition);
+    }
+
+    cancelChanges = () => {
 
     }
 
+    /* eslint-disable max-len */
     render() {
         return (
             <div className="col-md-12">
@@ -49,13 +112,13 @@ export class AddCompetitionFormComponent extends Component {
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={TITLE_ID}>{TITLE}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={TITLE_ID} placeholder={TITLE_PLACEHOLDER} />
+                                                    <input className="form-control" type="text" id={TITLE_ID} placeholder={TITLE_PLACEHOLDER} onChange={this.updateTitle} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={DESCRIPTION_ID}>{DESCRIPTION}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={DESCRIPTION_ID} placeholder={DESCRIPTION_PLACEHOLDER} />
+                                                    <input className="form-control" type="text" id={DESCRIPTION_ID} placeholder={DESCRIPTION_PLACEHOLDER} onChange={this.updateDescription} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
@@ -70,19 +133,25 @@ export class AddCompetitionFormComponent extends Component {
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={ENTRIES_CLOSE_ID}>{ENTRIES_CLOSE}</label>
                                                 <div className="col-lg-9" id={ENTRIES_CLOSE_ID}>
-                                                    <DateTimePicker />
+                                                    <DateTimePicker defaultDateTimeValue={this.state.entriesClose} onChange={this.updateEntriesClose} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={FULFILLMENT_DATE_ID}>{FULFILLMENT_DATE}</label>
                                                 <div className="col-lg-9" id={FULFILLMENT_DATE_ID}>
-                                                    <DateTimePicker />
+                                                    <DateTimePicker defaultDateTimeValue={this.state.fulfillment} onChange={this.updateFulfillmentDate} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={OPTIONS_ID}>{OPTIONS}</label>
                                                 <div className="col-lg-9" id={OPTIONS_ID}>
-                                                    <input className="form-control" type="text" id={OPTIONS_ID} placeholder={OPTIONS_PLACEHOLDER} />
+                                                    <input className="form-control" type="text" id={OPTIONS_ID} placeholder={OPTIONS_PLACEHOLDER} onChange={this.updateOptions} />
+                                                </div>
+                                            </div>
+                                            <div className="form-group row">
+                                                <div className="col-lg-4 offset-lg-8 row">
+                                                    <button className="col-lg-6 form-control btn btn-primary" type="button" onClick={this.saveCompetition}>{SAVE}</button>
+                                                    <button className="col-lg-6 form-control btn btn-default" type="button" onClick={this.cancelChanges}>{CANCEL}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -97,4 +166,16 @@ export class AddCompetitionFormComponent extends Component {
     }
 }
 
-export default connect()(AddCompetitionFormComponent);
+AddCompetitionFormComponent.propTypes = {
+    saveChange: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+    saveChange: competition => dispatch(addCompetition(competition)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddCompetitionFormComponent);
