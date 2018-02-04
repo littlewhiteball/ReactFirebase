@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CompetitionListItem from './CompetitionListItem';
-import CompetitionListAdd from './CompetitionListAdd';
 
 class CompetitionList extends PureComponent {
     render() {
@@ -15,7 +14,6 @@ class CompetitionList extends PureComponent {
                         <CompetitionListItem competition={competition} key={competition.id} />
                     ))
                 }
-                <CompetitionListAdd />
             </div>
         );
     }
