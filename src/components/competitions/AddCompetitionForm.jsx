@@ -37,6 +37,7 @@ export class AddCompetitionFormComponent extends Component {
         this.state = {
             title: '',
             description: '',
+            visibility: 'Public',
             start: moment().toDate(),
             entriesClose: moment().add(1, 'days').toDate(),
             fulfillment: moment().add(2, 'days').toDate(),
@@ -55,6 +56,13 @@ export class AddCompetitionFormComponent extends Component {
         e.preventDefault();
         this.setState({
             description: e.target.value,
+        });
+    }
+
+    updateVisibility = (e) => {
+        e.preventDefault();
+        this.setState({
+            visibility: e.target.value,
         });
     }
 
@@ -81,6 +89,7 @@ export class AddCompetitionFormComponent extends Component {
         const competition = {
             title: this.state.title,
             description: this.state.description,
+            visibility: this.state.visibility,
             start: this.state.start.getTime(),
             closing: this.state.entriesClose.getTime(),
             fulfillment: this.state.fulfillment.getTime(),
@@ -124,9 +133,9 @@ export class AddCompetitionFormComponent extends Component {
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={VISIBILITY_ID}>{VISIBILITY}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="mr-1" name={VISIBILITY} type="radio" id={PUBLIC_ID} value={PUBLIC} defaultChecked />
+                                                    <input className="mr-1" name={VISIBILITY} type="radio" id={PUBLIC_ID} value={PUBLIC} onChange={this.updateVisibility} defaultChecked />
                                                     <label className="mr-2" htmlFor={PUBLIC_ID}>{PUBLIC}</label>
-                                                    <input className="mr-1" name={VISIBILITY} type="radio" id={PRIVATE_ID} value={PRIVATE} />
+                                                    <input className="mr-1" name={VISIBILITY} type="radio" id={PRIVATE_ID} value={PRIVATE} onChange={this.updateVisibility} />
                                                     <label htmlFor={PRIVATE_ID}>{PRIVATE}</label>
                                                 </div>
                                             </div>

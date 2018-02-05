@@ -68,15 +68,7 @@ describe('addCompetition', () => {
         const expectedAction = [
             {
                 type: 'ADD_COMPETITION',
-                competition: {
-                    id: testConstants.competition0.id,
-                    title: testConstants.competition0.title,
-                    description: testConstants.competition0.description,
-                    start: testConstants.competition0.start,
-                    closing: testConstants.competition0.closing,
-                    fulfillment: testConstants.competition0.fulfillment,
-                    options: testConstants.competition0.options,
-                },
+                competition: testConstants.competition0,
             },
         ];
 

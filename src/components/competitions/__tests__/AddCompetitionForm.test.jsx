@@ -116,6 +116,7 @@ describe('add competition form component', () => {
 
         expect(wrapper.state('title')).toEqual('');
         expect(wrapper.state('description')).toEqual('');
+        expect(wrapper.state('visibility')).toEqual('Public');
         expect(wrapper.state('start')).toEqual(testConstants.dateTimeNow);
         expect(wrapper.state('entriesClose')).toEqual(testConstants.dateTimeAddOneDay);
         expect(wrapper.state('fulfillment')).toEqual(testConstants.dateTimeAddTwoDays);
@@ -146,6 +147,18 @@ describe('add competition form component', () => {
         expect(wrapper.state('description')).toEqual('competition 0 description');
     });
 
+    it('should handle visibility change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(3).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'Private',
+            },
+        });
+
+        expect(wrapper.state('visibility')).toEqual('Private');
+    });
+
     it('should handle options change', () => {
         const { wrapper } = setup();
         wrapper.find('input').at(4).simulate('change', {
@@ -159,9 +172,10 @@ describe('add competition form component', () => {
     });
 
     it('should call props save change when save is clicked', () => {
-        const expectedArgument = {
+        const expectedArguments = {
             title: 'competition 0',
             description: 'competition 0 description',
+            visibility: 'Public',
             start: testConstants.dateTimeNow.getTime(),
             closing: testConstants.dateTimeAddOneDay.getTime(),
             fulfillment: testConstants.dateTimeAddTwoDays.getTime(),
@@ -189,6 +203,6 @@ describe('add competition form component', () => {
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
         expect(props.saveChange.mock.calls.length).toBe(1);
-        expect(props.saveChange.mock.calls[0][0]).toEqual(expectedArgument);
+        expect(props.saveChange.mock.calls[0][0]).toEqual(expectedArguments);
     });
 });

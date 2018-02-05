@@ -23,3 +23,7 @@ TODO: DbAdapters, in update and set method, needs to check if id that is used by
 TODO: Util for raising errors
 
 TODO: Add new competition form UI validations
+
+TODO: Use enum for competition visibility
+
+TODO: competitions model not used

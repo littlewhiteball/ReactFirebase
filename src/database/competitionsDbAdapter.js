@@ -5,6 +5,7 @@ const reduxModelToDbModel = reduxModel => competitionsDbModel(
     reduxModel.id,
     reduxModel.title,
     reduxModel.description,
+    reduxModel.visibility,
     reduxModel.start,
     reduxModel.closing,
     reduxModel.fulfillment,
