@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { push } from 'react-router-redux';
 
 import DateTimePicker from './../utilities/DateTimePicker';
 
@@ -96,6 +97,9 @@ export class AddCompetitionFormComponent extends Component {
             options: this.state.options,
         };
         this.props.saveChange(competition);
+
+        // TODO: if save succeeded
+        this.props.navToPath('/');
     }
 
     cancelChanges = () => {
@@ -177,6 +181,7 @@ export class AddCompetitionFormComponent extends Component {
 
 AddCompetitionFormComponent.propTypes = {
     saveChange: PropTypes.func.isRequired,
+    navToPath: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -185,6 +190,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     saveChange: competition => dispatch(addCompetition(competition)),
+    navToPath: pathName => dispatch(push(pathName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCompetitionFormComponent);

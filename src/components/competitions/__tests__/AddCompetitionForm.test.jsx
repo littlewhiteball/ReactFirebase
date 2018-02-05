@@ -15,6 +15,7 @@ const setup = () => {
     const props = {
         user: testConstants.user0,
         saveChange: jest.fn(),
+        navToPath: jest.fn(),
     };
 
     const wrapper = mount(<AddCompetitionFormComponent {...props} />);
@@ -204,5 +205,14 @@ describe('add competition form component', () => {
 
         expect(props.saveChange.mock.calls.length).toBe(1);
         expect(props.saveChange.mock.calls[0][0]).toEqual(expectedArguments);
+    });
+
+    it('should call props nav after save succeeded', () => {
+        const { props, wrapper } = setup();
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        expect(props.saveChange.mock.calls.length).toBe(1);
+        expect(props.navToPath.mock.calls.length).toBe(1);
+        expect(props.navToPath.mock.calls[0][0]).toBe('/');
     });
 });
