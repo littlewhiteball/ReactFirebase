@@ -103,7 +103,8 @@ export class AddCompetitionFormComponent extends Component {
     }
 
     cancelChanges = () => {
-
+        // TODO: discard changes?
+        this.props.navToPath('/');
     }
 
     /* eslint-disable max-len */
@@ -186,6 +187,7 @@ AddCompetitionFormComponent.propTypes = {
 
 const mapStateToProps = state => ({
     user: state.user,
+    location: state.routing.location,
 });
 
 const mapDispatchToProps = dispatch => ({
