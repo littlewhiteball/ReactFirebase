@@ -29,3 +29,5 @@ TODO: Use enum for competition visibility
 TODO: competitions model not used
 
 TODO: Nav to previous route
+
+TODO: Competition created by

@@ -88,6 +88,7 @@ export class AddCompetitionFormComponent extends Component {
     saveCompetition = () => {
         // TODO: validation
         const competition = {
+            ownerId: this.props.userId,
             title: this.state.title,
             description: this.state.description,
             visibility: this.state.visibility,
@@ -181,12 +182,13 @@ export class AddCompetitionFormComponent extends Component {
 }
 
 AddCompetitionFormComponent.propTypes = {
+    userId: PropTypes.string.isRequired,
     saveChange: PropTypes.func.isRequired,
     navToPath: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    user: state.user,
+    userId: state.user.id,
     location: state.routing.location,
 });
 

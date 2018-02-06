@@ -13,7 +13,7 @@ configure({ adapter: new Adapter() });
 
 const setup = () => {
     const props = {
-        user: testConstants.user0,
+        userId: testConstants.user0.id,
         saveChange: jest.fn(),
         navToPath: jest.fn(),
     };
@@ -174,6 +174,7 @@ describe('add competition form component', () => {
 
     it('should call props save change when save is clicked', () => {
         const expectedArguments = {
+            ownerId: testConstants.user0.id,
             title: 'competition 0',
             description: 'competition 0 description',
             visibility: 'Public',

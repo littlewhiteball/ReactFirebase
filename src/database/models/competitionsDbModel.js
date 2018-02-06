@@ -1,5 +1,16 @@
-export default (id, title, description, visibility, start, closing, fulfillment, options) => ({
+export default (
     id,
+    ownerId,
+    title,
+    description,
+    visibility,
+    start,
+    closing,
+    fulfillment,
+    options,
+) => ({
+    id,
+    ownerId,
     title,
     description,
     visibility,

@@ -30,8 +30,15 @@ export const user0FromDb = {
     email: 'email0@me0.com',
 };
 
+export const user1FromDb = {
+    id: 'id1id1id1id1id1id1id1id1id1+',
+    name: 'name1',
+    email: 'email1@me1.com',
+};
+
 export const competition0FromDb = {
     id: 'competition0idcompetition0id',
+    ownerId: user0FromDb.id,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
     visibility: 'Public',
@@ -41,7 +48,8 @@ export const competition0FromDb = {
     options: ['Houston Astros', 'LA Dodgers'],
 };
 export const competition1FromDb = {
-    id: 'id1',
+    id: 'competition1idcompetition1id',
+    ownerId: user1FromDb.id,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
     visibility: 'Private',
@@ -54,10 +62,43 @@ export const competition1FromDb = {
 export const competitionIdNotFoundFromDb = 'competitionidnotfoundfromdb+';
 
 /**
+ * Users
+ */
+export const user0 = {
+    id: 'id0id0id0id0id0id0id0id0id0+',
+    name: 'name0',
+    email: 'email0@me0.com',
+};
+export const user0Update = {
+    id: 'id0id0id0id0id0id0id0id0id0+',
+    name: 'name0update',
+    email: 'email0@me0.com',
+};
+export const user1 = {
+    id: 'id1id1id1id1id1id1id1id1id1+',
+    name: 'name1',
+    email: 'email1@me1.com',
+};
+export const users = [
+    user0,
+    user1,
+];
+export const userWithoutId = {
+    name: 'namex',
+    email: 'emailx@mex.com',
+};
+export const userIdNotFound = {
+    id: 'idnotfoundidnotfound----++++',
+    name: 'nameidnotfound',
+    email: 'emailidnotfound@meidnotfound.com',
+};
+
+/**
  * Competitions
  */
 export const competition0 = {
     id: 'competition0idcompetition0id',
+    ownerId: user0.id,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
     visibility: 'Public',
@@ -67,7 +108,8 @@ export const competition0 = {
     options: ['Houston Astros', 'LA Dodgers'],
 };
 export const competition1 = {
-    id: 'id1',
+    id: 'competition1idcompetition1id',
+    ownerId: user1.id,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
     visibility: 'Private',
@@ -120,38 +162,6 @@ export const twitterResult = {
         accessToken: 'twitteraccesstoken',
         secret: 'secret',
     },
-};
-
-/**
- * Users
- */
-export const user0 = {
-    id: 'id0id0id0id0id0id0id0id0id0+',
-    name: 'name0',
-    email: 'email0@me0.com',
-};
-export const user0Update = {
-    id: 'id0id0id0id0id0id0id0id0id0+',
-    name: 'name0update',
-    email: 'email0@me0.com',
-};
-export const user1 = {
-    id: 'id1',
-    name: 'name1',
-    email: 'email1@me1.com',
-};
-export const users = [
-    user0,
-    user1,
-];
-export const userWithoutId = {
-    name: 'namex',
-    email: 'emailx@mex.com',
-};
-export const userIdNotFound = {
-    id: 'idnotfoundidnotfound----++++',
-    name: 'nameidnotfound',
-    email: 'emailidnotfound@meidnotfound.com',
 };
 
 /**

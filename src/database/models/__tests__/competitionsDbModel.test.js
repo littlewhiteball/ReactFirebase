@@ -4,6 +4,7 @@ describe('competitions db model', () => {
     it('should return an object of competitions db model', () => {
         const expected = {
             id: 'competitiondbmodelid',
+            ownerId: 'competitionmodelownerid',
             title: 'competition db model',
             description: 'competition db model description',
             visibility: 'Public',
@@ -18,6 +19,7 @@ describe('competitions db model', () => {
 
         expect(competitionsDbModel(
             'competitiondbmodelid',
+            'competitionmodelownerid',
             'competition db model',
             'competition db model description',
             'Public',
