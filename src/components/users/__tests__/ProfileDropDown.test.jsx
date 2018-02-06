@@ -46,6 +46,8 @@ describe('profile component', () => {
         expect(wrapper.find('div').at(3).hasClass('dropdown-item')).toBe(true);
         expect(wrapper.find('button').at(2).hasClass('btn btn-outline-warning')).toBe(true);
         expect(wrapper.find('button').at(2).text()).toBe('Sign out');
+        expect(wrapper.find('i').at(0).hasClass('fa fa-edit')).toBe(true);
+        expect(wrapper.find('i').at(1).hasClass('fa fa-sign-out')).toBe(true);
     });
 
     it('should handle nav to edit profile on click', () => {

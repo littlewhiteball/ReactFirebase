@@ -1,7 +1,5 @@
 TODO: Search bar in Header, left to profile drop down button
 
-TODO: Login/Logout spinner
-
 TODO: 404 NotFoundPage, refer to Twitter
 
 TODO: When Home page was redirected from another page, it is not required to pull competitions from db again. The list was already in redux store
@@ -29,5 +27,3 @@ TODO: Use enum for competition visibility
 TODO: competitions model not used
 
 TODO: Nav to previous route
-
-TODO: Competition created by

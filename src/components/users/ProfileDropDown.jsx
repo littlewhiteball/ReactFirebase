@@ -31,10 +31,16 @@ export class ProfileDropDownComponent extends Component {
                     <img src="./favicon.ico" width="28" height="28" alt={PROFILE} />
                 </button>
                 <div className="dropdown-menu">
-                    <button className="dropdown-item" onClick={this.navToEditProfile}>{EDIT_PROFILE}</button>
+                    <button className="dropdown-item" onClick={this.navToEditProfile}>
+                        <i className="fa fa-edit" />
+                        {EDIT_PROFILE}
+                    </button>
                     <div className="dropdown-divider" />
                     <div className="dropdown-item">
-                        <button className="btn btn-outline-warning" onClick={this.signOut}>{SIGN_OUT}</button>
+                        <button className="btn btn-outline-warning" onClick={this.signOut}>
+                            <i className="fa fa-sign-out" />
+                            {SIGN_OUT}
+                        </button>
                     </div>
                 </div>
             </div>
