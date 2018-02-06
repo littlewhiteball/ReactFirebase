@@ -42,7 +42,7 @@ export class EditProfileComponent extends Component {
                                         <form className="form" autoComplete="off">
                                             <div className="form-group row col-lg-6 offset-lg-3">
                                                 <div className="text-center ">
-                                                    <img className="rounded-circle" src="favicon.ico" height="40" weight="40" alt={PROFILE_PHOTO} />
+                                                    <img className="rounded-circle" src="favicon.ico" height="40" width="40" alt={PROFILE_PHOTO} />
                                                     <input className="form-control" type="file" />
                                                 </div>
                                             </div>
