@@ -18,6 +18,7 @@ export class LoginComponent extends Component {
         this.state = {
             email: '',
             password: '',
+            signingIn: false,
         };
     }
 
@@ -36,6 +37,8 @@ export class LoginComponent extends Component {
     }
 
     signInWithEmailPassword = () => {
+        this.setState({ signingIn: true });
+
         // TODO: validation on empty email or empty password, plus other validations
         authDbAdapter.signInWithEmailAndPassword(this.state.email, this.state.password)
             .then((emailUser) => {
@@ -115,7 +118,14 @@ export class LoginComponent extends Component {
                             </label>
                         </div>
                         <a href="/" className="float-right">{FORGOT_PASSWORD}</a>
-                        <button className="btn btn-primary btn-block mb-2" onClick={this.signInWithEmailPassword}>{SIGN_IN}</button>
+                        <button className="btn btn-primary btn-block mb-2" onClick={this.signInWithEmailPassword}>
+                            {
+                                this.state.signingIn ?
+                                    <i className="fa fa-spinner fa-spin" /> :
+                                    null
+                            }
+                            {SIGN_IN}
+                        </button>
                     </div>
                     <div className="text-center">
                         <button className="btn btn-social-icon btn-google ml-1 mr-1" onClick={this.signInWithGoogle}>

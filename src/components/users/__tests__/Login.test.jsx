@@ -71,6 +71,7 @@ describe('login component', () => {
 
         expect(wrapper.state('email')).toEqual('');
         expect(wrapper.state('password')).toEqual('');
+        expect(wrapper.state('signingIn')).toEqual(false);
     });
 
     it('should handle email change', () => {
@@ -99,6 +100,26 @@ describe('login component', () => {
 
     it.skip('should validate email and password', () => {
 
+    });
+
+    it('should change signingIn state and add spinner to sign in button', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(0).simulate('change', {
+            target: {
+                name: 'email',
+                value: emailUser0.email,
+            },
+        });
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'password',
+                value: emailUser0.password,
+            },
+        });
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        expect(wrapper.state('signingIn')).toBe(true);
+        expect(wrapper.find('i').at(1).hasClass('fa fa-spinner fa-spin'));
     });
 
     it('should call props get signed in user when signed in with email and password', () => {
