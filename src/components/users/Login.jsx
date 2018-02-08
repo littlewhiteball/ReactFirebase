@@ -53,9 +53,11 @@ export class LoginComponent extends Component {
                             this.props.addSignedUpUser(emailUser);
                         }).catch((signUpError) => {
                             console.error(signUpError);
+                            this.setState({ signingIn: false });
                         });
                 } else {
                     console.error(signInError);
+                    this.setState({ signingIn: false });
                 }
             });
     }

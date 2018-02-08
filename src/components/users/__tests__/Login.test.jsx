@@ -171,11 +171,11 @@ describe('login component', () => {
         });
     });
 
-    it.skip('should fail sign in with email and password', () => {
+    it.skip('should fail sign in with email and password, reset signing in state and remove spinner', () => {
 
     });
 
-    it.skip('should fail sign up with not found email', () => {
+    it.skip('should fail sign up with not found email, reset signing in state and remove spinner', () => {
 
     });
 
