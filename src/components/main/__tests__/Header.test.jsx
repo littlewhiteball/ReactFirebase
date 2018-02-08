@@ -55,20 +55,32 @@ describe('header component', () => {
         expect(wrapper.find('a').at(2).hasClass('nav-link active')).toBe(true);
         expect(wrapper.find('a').at(2).prop('href')).toBe('/epl');
         expect(wrapper.find('a').at(2).text()).toBe('EPL');
+        expect(wrapper.find('div').at(2).hasClass('nav right-actions')).toBe(true);
+        expect(wrapper.find('div').at(3).hasClass('')).toBe(true);
+        expect(wrapper.find('input').hasClass('search-box pl-2')).toBe(true);
+        expect(wrapper.find('input').prop('placeholder')).toBe('Search');
+        expect(wrapper.find('input').prop('type')).toBe('text');
+        expect(wrapper.find('button').at(1).hasClass('btn btn-primary search-btn mr-2')).toBe(true);
+        expect(wrapper.find('button').at(1).prop('type')).toBe('button');
+        expect(wrapper.find('i').hasClass('fa fa-search')).toBe(true);
     });
 
     it('should render profile component when signed in', () => {
         const { wrapper } = setup(true);
 
-        expect(wrapper.find('div').at(2).hasClass('nav right-actions')).toBe(true);
+        expect(wrapper.find('div').at(3).hasClass('nav right-actions')).toBe(true);
         expect(wrapper.find(ProfileDropDown).exists()).toBe(true);
-        expect(wrapper.find('button').at(1).hasClass('btn btn-outline-info')).toBe(true);
-        expect(wrapper.find('button').at(1).text()).toBe('New Competition');
+        expect(wrapper.find('button').at(2).hasClass('btn btn-outline-info')).toBe(true);
+        expect(wrapper.find('button').at(2).text()).toBe('New Competition');
+    });
+
+    it.skip('should handle search', () => {
+
     });
 
     it('should handle new competition button when signed in', () => {
         const { props, wrapper } = setup(true);
-        wrapper.find('button').at(1).simulate('click');
+        wrapper.find('button').at(2).simulate('click');
 
         expect(props.navToPath.mock.calls.length).toBe(1);
         expect(props.navToPath.mock.calls[0][0]).toBe('/competition');
@@ -77,13 +89,13 @@ describe('header component', () => {
     it('should render login/register button when not signed in', () => {
         const { wrapper } = setup(false);
 
-        expect(wrapper.find('button').at(1).hasClass('btn btn-outline-info')).toBe(true);
-        expect(wrapper.find('button').at(1).text()).toBe('Login/Register');
+        expect(wrapper.find('button').at(2).hasClass('btn btn-outline-info')).toBe(true);
+        expect(wrapper.find('button').at(2).text()).toBe('Login/Register');
     });
 
     it('should handle login/register button when not signed in', () => {
         const { props, wrapper } = setup(false);
-        wrapper.find('button').at(1).simulate('click');
+        wrapper.find('button').at(2).simulate('click');
 
         expect(props.navToPath.mock.calls.length).toBe(1);
         expect(props.navToPath.mock.calls[0][0]).toBe('/auth');

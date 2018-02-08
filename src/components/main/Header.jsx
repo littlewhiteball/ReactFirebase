@@ -15,6 +15,9 @@ export class HeaderComponent extends Component {
 
     navToNewCompetition = () => this.props.navToPath('/competition');
 
+    // TODO: search user and/or competition
+    search = () => { };
+
     render() {
         const userElement = this.props.userId ?
             // TODO: Call Logout component
@@ -45,7 +48,13 @@ export class HeaderComponent extends Component {
                                     </li>))
                             }
                         </ul>
-                        {userElement}
+                        <div className="nav right-actions">
+                            <input className="search-box pl-2" placeholder="Search" type="text" />
+                            <button className="btn btn-primary search-btn mr-2" type="button" onChange={this.search}>
+                                <i className="fa fa-search" />
+                            </button>
+                            {userElement}
+                        </div>
                     </div>
                 </header>
             </div>
