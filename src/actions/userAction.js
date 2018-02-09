@@ -46,7 +46,7 @@ export const getUser = userId =>
 
             dispatch(userGetAction(user));
         }).catch((error) => {
-            console.error(error);
+            console.error(error.message);
         });
 
 export const addUser = firebaseUser =>
@@ -61,7 +61,7 @@ export const addUser = firebaseUser =>
         return usersDbAdapter.addUserToDb(model).then(() => {
             dispatch(userAddAction(model));
         }).catch((error) => {
-            console.error(error);
+            console.error(error.message);
         });
     };
 
@@ -76,7 +76,7 @@ export const updateUser = user =>
         return usersDbAdapter.updateUserToDb(updateModel).then(() => {
             dispatch(userUpdateAction(updateModel));
         }).catch((error) => {
-            console.error(error);
+            console.error(error.message);
         });
     };
 
@@ -85,5 +85,5 @@ export const signOutUser = () =>
         authDbAdapter.signOut().then(() => {
             dispatch(userSignOutAction());
         }).catch((error) => {
-            console.error(error);
+            console.error(error.message);
         });

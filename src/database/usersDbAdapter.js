@@ -36,7 +36,7 @@ const updateUserToDb = async (userUpdateModel) => {
             reject(error);
         });
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
         // TODO: should throw
         throw error;
     }

@@ -52,11 +52,11 @@ export class LoginComponent extends Component {
                         .then((emailUser) => {
                             this.props.addSignedUpUser(emailUser);
                         }).catch((signUpError) => {
-                            console.error(signUpError);
+                            console.error(signUpError.message);
                             this.setState({ signingIn: false });
                         });
                 } else {
-                    console.error(signInError);
+                    console.error(signInError.message);
                     this.setState({ signingIn: false });
                 }
             });
@@ -66,7 +66,7 @@ export class LoginComponent extends Component {
         authDbAdapter.signInWithGoogle().then((user) => {
             this.props.getSignedInUser(user.uid);
         }).catch((signInWithGoogleError) => {
-            console.error(signInWithGoogleError);
+            console.error(signInWithGoogleError.message);
         });
     }
 
@@ -74,7 +74,7 @@ export class LoginComponent extends Component {
         authDbAdapter.signInWithFacebook().then((user) => {
             this.props.getSignedInUser(user.uid);
         }).catch((signInWithFacebookError) => {
-            console.error(signInWithFacebookError);
+            console.error(signInWithFacebookError.message);
         });
     }
 
@@ -82,7 +82,7 @@ export class LoginComponent extends Component {
         authDbAdapter.signInWithTwitter().then((user) => {
             this.props.getSignedInUser(user.uid);
         }).catch((signInWithTwitterError) => {
-            console.error(signInWithTwitterError);
+            console.error(signInWithTwitterError.message);
         });
     }
 
