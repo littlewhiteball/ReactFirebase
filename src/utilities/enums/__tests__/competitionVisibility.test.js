@@ -1,4 +1,4 @@
-import { CompetitionVisibilityEnum, getText } from './../competitionVisibility';
+import { CompetitionVisibilityEnum, getText, getKey } from './../competitionVisibility';
 
 describe('competition visibility enum', () => {
     it('should return enum keys', () => {
@@ -18,9 +18,16 @@ describe('competition visibility enum', () => {
     it('should throw when enum key is not supported', () => {
         expect(() => getText(Symbol('NotSupported'))).toThrowError('Specified enum value Symbol(NotSupported) is not supported by CompetitionVisibilityEnum');
         expect(() => getText(Symbol('NotSupported'))).toThrowError(Error);
-        // expect(() => {
-        //     throw new Error();
-        // }).toThrowError(Error);
+    });
+
+    it('should return enum key by getKey', () => {
+        expect(getKey('Private')).toBe(CompetitionVisibilityEnum.PRIVATE);
+        expect(getKey('Public')).toBe(CompetitionVisibilityEnum.PUBLIC);
+    });
+
+    it('should throw when enum text is not supported', () => {
+        expect(() => getKey('NotSupported')).toThrowError('Specified enum text NotSupported is not supported by CompetitionVisibilityEnum');
+        expect(() => getKey('NotSupported')).toThrowError(Error);
     });
 
     it('should match when enum key is equal', () => {

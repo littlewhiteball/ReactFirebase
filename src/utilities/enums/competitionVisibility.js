@@ -18,3 +18,19 @@ export const getText = (enumValue) => {
         }
     }
 };
+
+export const getKey = (enumText) => {
+    switch (enumText) {
+        case 'Private': {
+            return CompetitionVisibilityEnum.PRIVATE;
+        }
+
+        case 'Public': {
+            return CompetitionVisibilityEnum.PUBLIC;
+        }
+
+        default: {
+            throw new Error(`Specified enum text ${enumText} is not supported by CompetitionVisibilityEnum`);
+        }
+    }
+};
