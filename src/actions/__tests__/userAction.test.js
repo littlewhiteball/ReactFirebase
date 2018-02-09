@@ -139,6 +139,7 @@ describe('updateUser', () => {
                 userUpdate: {
                     id: 'id0id0id0id0id0id0id0id0id0+',
                     name: 'name0update',
+                    email: 'email0@me0.com',
                 },
             },
         ];

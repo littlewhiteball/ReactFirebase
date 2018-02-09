@@ -67,10 +67,11 @@ export const addUser = firebaseUser =>
 
 export const updateUser = user =>
     (dispatch) => {
-        // TODO: right now it's only updating name field. Need to get update fields from user
+        // TODO: decide on whether update all props or figure out how to update only changed props
         const updateModel = {
             id: user.id,
             name: user.name,
+            email: user.email,
         };
         return usersDbAdapter.updateUserToDb(updateModel).then(() => {
             dispatch(userUpdateAction(updateModel));
