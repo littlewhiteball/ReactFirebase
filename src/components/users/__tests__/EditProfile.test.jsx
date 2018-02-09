@@ -10,14 +10,18 @@ configure({ adapter: new Adapter() });
 
 jest.mock('./../../../firebase');
 
-const setup = (isShallow = false, signedIn = false) => {
+const setup = (isShallow = false, saveChangeSucceeds = true) => {
     const props = {
-        user: signedIn ? user0 : {
-            id: '',
-            name: undefined,
-            email: undefined,
-        },
-        saveChange: jest.fn(),
+        user: user0,
+        saveChange: jest.fn(() =>
+            new Promise((resolve, reject) => {
+                if (saveChangeSucceeds) {
+                    resolve();
+                } else {
+                    const error = new Error('save changes failed on firebase');
+                    reject(error);
+                }
+            })),
     };
     const wrapper = isShallow
         ? shallow(<EditProfileComponent {...props} />)
@@ -31,7 +35,7 @@ const setup = (isShallow = false, signedIn = false) => {
 
 describe('edit profile component', () => {
     it('should render self', () => {
-        const { wrapper } = setup(false, true);
+        const { wrapper } = setup();
 
         expect(wrapper.find('div').at(0).hasClass('col-md-12')).toBe(true);
         expect(wrapper.find('div').at(1).hasClass('row')).toBe(true);
@@ -63,7 +67,7 @@ describe('edit profile component', () => {
         expect(wrapper.find('input').at(1).hasClass('form-control')).toBe(true);
         expect(wrapper.find('input').at(1).prop('type')).toBe('text');
         expect(wrapper.find('input').at(1).prop('id')).toBe('Name');
-        expect(wrapper.find('input').at(1).prop('placeholder')).toBe('Your name');
+        expect(wrapper.find('input').at(1).prop('placeholder')).toBe('name0');
         expect(wrapper.find('div').at(12).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('label').at(1).hasClass('col-lg-3 col-form-label form-control-label')).toBe(true);
         expect(wrapper.find('label').at(1).prop('htmlFor')).toBe('Email');
@@ -72,19 +76,134 @@ describe('edit profile component', () => {
         expect(wrapper.find('input').at(2).hasClass('form-control')).toBe(true);
         expect(wrapper.find('input').at(2).prop('type')).toBe('text');
         expect(wrapper.find('input').at(2).prop('id')).toBe('Email');
-        expect(wrapper.find('input').at(2).prop('placeholder')).toBe('Your email');
+        expect(wrapper.find('input').at(2).prop('placeholder')).toBe('email0@me0.com');
         expect(wrapper.find('div').at(14).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('div').at(15).hasClass('col-lg-4 offset-lg-8 row')).toBe(true);
-        expect(wrapper.find('button').at(0).hasClass('col-lg-6 form-control btn btn-primary')).toBe(true);
+        expect(wrapper.find('button').at(0).hasClass('col-lg-6 btn btn-primary')).toBe(true);
+        expect(wrapper.find('button').at(0).prop('type')).toBe('button');
         expect(wrapper.find('button').at(0).text()).toBe('Save');
-        expect(wrapper.find('button').at(1).hasClass('col-lg-6 form-control btn btn-default')).toBe(true);
+        expect(wrapper.find('button').at(1).hasClass('col-lg-6 btn btn-default')).toBe(true);
+        expect(wrapper.find('button').at(1).prop('type')).toBe('button');
         expect(wrapper.find('button').at(1).text()).toBe('Cancel');
+        expect(wrapper.find('i').exists()).toBe(false);
     });
 
-    it('should call props save change when clicked', () => {
-        const { props, wrapper } = setup(false, true);
+    it('initial state', () => {
+        const { wrapper } = setup();
+
+        expect(wrapper.state('saving')).toBe(false);
+        expect(wrapper.state('name')).toBe('name0');
+        expect(wrapper.state('email')).toBe('email0@me0.com');
+    });
+
+    it('should handle name change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'new name',
+            },
+        });
+
+        expect(wrapper.state('name')).toBe('new name');
+    });
+
+    it('should handle email change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(2).simulate('change', {
+            target: {
+                name: 'email',
+                value: 'newemail@me.com',
+            },
+        });
+
+        expect(wrapper.state('email')).toBe('newemail@me.com');
+    });
+
+    it('should add spinner when saving state is true', () => {
+        const { wrapper } = setup();
+        wrapper.setState({
+            saving: true,
+        });
+
+        expect(wrapper.state('saving')).toBe(true);
+        expect(wrapper.find('i').hasClass('fa fa-spinner fa-spin')).toBe(true);
+    });
+
+    it('should remove spinner when saving state is false', () => {
+        const { wrapper } = setup();
+        wrapper.setState({
+            saving: false,
+        });
+
+        expect(wrapper.state('saving')).toBe(false);
+        expect(wrapper.find('i').exists()).toBe(false);
+    });
+
+    it('should call props save change with updated user name when save clicked', () => {
+        const expectedArg = Object.assign({}, user0, {
+            name: 'new name',
+        });
+        const { props, wrapper } = setup();
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'new name',
+            },
+        });
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
         expect(props.saveChange.mock.calls.length).toBe(1);
+        expect(props.saveChange.mock.calls[0][0]).toEqual(expectedArg);
+    });
+
+    it('should set saving state and add spinner when save is clicked, then reset saving state and remove spinner after save completes', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'new name',
+            },
+        });
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        expect(wrapper.state('saving')).toBe(true);
+        expect(wrapper.find('i').hasClass('fa fa-spinner fa-spin'));
+
+        // wait for save change to complete asynchronously
+        setImmediate(() => {
+            expect(wrapper.state('saving')).toBe(false);
+            // wait for dom update to complete asynchronously
+            setImmediate(() => {
+                expect(wrapper.find('i').exists()).toBe(false);
+            });
+        });
+    });
+
+    it('should fail on save changes, reset saving state and remove spinner', () => {
+        const { wrapper } = setup(false, false);
+        wrapper.find('input').at(1).simulate('change', {
+            target: {
+                name: 'text',
+                value: 'new name',
+            },
+        });
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        expect(wrapper.state('saving')).toBe(true);
+        expect(wrapper.find('i').hasClass('fa fa-spinner fa-spin'));
+
+        // wait for save change to complete asynchronously
+        setImmediate(() => {
+            expect(wrapper.state('saving')).toBe(false);
+            // wait for dom update to complete asynchronously
+            setImmediate(() => {
+                expect(wrapper.find('i').exists()).toBe(false);
+            });
+        });
+    });
+
+    it.skip('should cancel changes', () => {
+
     });
 });

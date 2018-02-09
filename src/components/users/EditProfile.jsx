@@ -8,16 +8,56 @@ const EDIT_PROFILE = 'Edit Profile';
 const PROFILE_PHOTO = 'Profile Photo';
 const NAME = 'Name';
 const NAME_ID = 'Name';
-const NAME_PLACEHOLDER = 'Your name';
 const EMAIL = 'Email';
 const EMAIL_ID = 'Email';
-const EMAIL_PLACEHOLDER = 'Your email';
 const SAVE = 'Save';
 const CANCEL = 'Cancel';
 
 export class EditProfileComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            saving: false,
+            name: this.props.user.name,
+            email: this.props.user.email,
+        };
+    }
+
+    updateName = (e) => {
+        e.preventDefault();
+        this.setState({
+            name: e.target.value,
+        });
+    }
+
+    updateEmail = (e) => {
+        e.preventDefault();
+        this.setState({
+            email: e.target.value,
+        });
+    }
+
     saveProfile = () => {
-        this.props.saveChange();
+        this.setState({
+            saving: true,
+        });
+
+        const userUpdate = Object.assign({}, this.props.user, {
+            name: this.state.name,
+            email: this.state.email,
+        });
+        this.props.saveChange(userUpdate)
+            .then(() => {
+                this.setState({
+                    saving: false,
+                });
+            })
+            .catch((error) => {
+                console.error(error.message);
+                this.setState({
+                    saving: false,
+                });
+            });
     }
 
     cancelChange = () => {
@@ -49,19 +89,26 @@ export class EditProfileComponent extends Component {
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={NAME_ID}>{NAME}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={NAME_ID} placeholder={NAME_PLACEHOLDER} />
+                                                    <input className="form-control" type="text" id={NAME_ID} placeholder={this.props.user.name} onChange={this.updateName} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={EMAIL_ID}>{EMAIL}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={EMAIL_ID} placeholder={EMAIL_PLACEHOLDER} />
+                                                    <input className="form-control" type="text" id={EMAIL_ID} placeholder={this.props.user.email} onChange={this.updateEmail} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <div className="col-lg-4 offset-lg-8 row">
-                                                    <button className="col-lg-6 form-control btn btn-primary" onClick={this.saveProfile}>{SAVE}</button>
-                                                    <button className="col-lg-6 form-control btn btn-default" onClick={this.cancelChanges}>{CANCEL}</button>
+                                                    <button className="col-lg-6 btn btn-primary" onClick={this.saveProfile} type="button">
+                                                        {
+                                                            this.state.saving ?
+                                                                <i className="fa fa-spinner fa-spin" /> :
+                                                                null
+                                                        }
+                                                        {SAVE}
+                                                    </button>
+                                                    <button className="col-lg-6 btn btn-default" onClick={this.cancelChanges} type="button">{CANCEL}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -90,7 +137,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    saveChange: () => dispatch(updateUser()),
+    saveChange: userUpdate => dispatch(updateUser(userUpdate)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfileComponent);
