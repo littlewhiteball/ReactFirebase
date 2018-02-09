@@ -1,3 +1,5 @@
+import { CompetitionVisibilityEnum } from './utilities/enums/competitionVisibility';
+
 /**
  * firebase returned models
  */
@@ -41,7 +43,7 @@ export const competition0FromDb = {
     ownerId: user0FromDb.id,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
-    visibility: 'Public',
+    visibility: CompetitionVisibilityEnum.PUBLIC,
     start: new Date('2017-11-02T09:00:00z'),
     closing: new Date('2017-11-12T09:00:00z'),
     fulfillment: new Date('2017-11-15T10:00:00z'),
@@ -52,7 +54,7 @@ export const competition1FromDb = {
     ownerId: user1FromDb.id,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
-    visibility: 'Private',
+    visibility: CompetitionVisibilityEnum.PRIVATE,
     start: new Date('2017-05-03T09:00:00z'),
     closing: new Date('2017-05-17T09:00:00z'),
     fulfillment: new Date('2017-05-18T10:00:00z'),
@@ -101,7 +103,7 @@ export const competition0 = {
     ownerId: user0.id,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
-    visibility: 'Public',
+    visibility: CompetitionVisibilityEnum.PUBLIC,
     start: new Date('2017-11-02T09:00:00z'),
     closing: new Date('2017-11-12T09:00:00z'),
     fulfillment: new Date('2017-11-15T10:00:00z'),
@@ -112,7 +114,7 @@ export const competition1 = {
     ownerId: user1.id,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
-    visibility: 'Private',
+    visibility: CompetitionVisibilityEnum.PRIVATE,
     start: new Date('2017-05-03T09:00:00z'),
     closing: new Date('2017-05-17T09:00:00z'),
     fulfillment: new Date('2017-05-18T10:00:00z'),

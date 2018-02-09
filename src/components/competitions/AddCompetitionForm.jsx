@@ -7,6 +7,7 @@ import { push } from 'react-router-redux';
 import DateTimePicker from './../utilities/DateTimePicker';
 
 import { addCompetition } from './../../actions/competitionsAction';
+import { CompetitionVisibilityEnum, getText, getKey } from './../../utilities/enums/competitionVisibility';
 
 const COMPETITION_INFORMATION = 'Competition Information';
 const TITLE = 'Title';
@@ -15,10 +16,10 @@ const TITLE_ID = 'Title';
 const DESCRIPTION = 'Description';
 const DESCRIPTION_PLACEHOLDER = 'Competition description';
 const DESCRIPTION_ID = 'Description';
-const PUBLIC = 'Public';
-const PUBLIC_ID = 'Public';
-const PRIVATE = 'Private';
-const PRIVATE_ID = 'Private';
+const PUBLIC = getText(CompetitionVisibilityEnum.PUBLIC);
+const PUBLIC_ID = getText(CompetitionVisibilityEnum.PUBLIC);
+const PRIVATE = getText(CompetitionVisibilityEnum.PRIVATE);
+const PRIVATE_ID = getText(CompetitionVisibilityEnum.PRIVATE);
 const VISIBILITY = 'Visibility';
 const VISIBILITY_ID = 'Visibility';
 const ENTRIES_CLOSE = 'Entries Close';
@@ -38,7 +39,7 @@ export class AddCompetitionFormComponent extends Component {
         this.state = {
             title: '',
             description: '',
-            visibility: 'Public',
+            visibility: CompetitionVisibilityEnum.PUBLIC,
             start: moment().toDate(),
             entriesClose: moment().add(1, 'days').toDate(),
             fulfillment: moment().add(2, 'days').toDate(),
@@ -63,7 +64,7 @@ export class AddCompetitionFormComponent extends Component {
     updateVisibility = (e) => {
         e.preventDefault();
         this.setState({
-            visibility: e.target.value,
+            visibility: getKey(e.target.value),
         });
     }
 
@@ -91,7 +92,7 @@ export class AddCompetitionFormComponent extends Component {
             ownerId: this.props.userId,
             title: this.state.title,
             description: this.state.description,
-            visibility: this.state.visibility,
+            visibility: getText(this.state.visibility),
             start: this.state.start.getTime(),
             closing: this.state.entriesClose.getTime(),
             fulfillment: this.state.fulfillment.getTime(),

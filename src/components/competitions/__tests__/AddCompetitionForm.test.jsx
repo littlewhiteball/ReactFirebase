@@ -3,6 +3,7 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import * as testConstants from './../../../__tests_constants__';
+import { CompetitionVisibilityEnum, getText } from './../../../utilities/enums/competitionVisibility';
 
 import { AddCompetitionFormComponent } from './../AddCompetitionForm';
 
@@ -117,7 +118,7 @@ describe('add competition form component', () => {
 
         expect(wrapper.state('title')).toEqual('');
         expect(wrapper.state('description')).toEqual('');
-        expect(wrapper.state('visibility')).toEqual('Public');
+        expect(wrapper.state('visibility')).toEqual(CompetitionVisibilityEnum.PUBLIC);
         expect(wrapper.state('start')).toEqual(testConstants.dateTimeNow);
         expect(wrapper.state('entriesClose')).toEqual(testConstants.dateTimeAddOneDay);
         expect(wrapper.state('fulfillment')).toEqual(testConstants.dateTimeAddTwoDays);
@@ -157,7 +158,7 @@ describe('add competition form component', () => {
             },
         });
 
-        expect(wrapper.state('visibility')).toEqual('Private');
+        expect(wrapper.state('visibility')).toEqual(CompetitionVisibilityEnum.PRIVATE);
     });
 
     it('should handle options change', () => {
@@ -177,7 +178,7 @@ describe('add competition form component', () => {
             ownerId: testConstants.user0.id,
             title: 'competition 0',
             description: 'competition 0 description',
-            visibility: 'Public',
+            visibility: getText(CompetitionVisibilityEnum.PUBLIC),
             start: testConstants.dateTimeNow.getTime(),
             closing: testConstants.dateTimeAddOneDay.getTime(),
             fulfillment: testConstants.dateTimeAddTwoDays.getTime(),

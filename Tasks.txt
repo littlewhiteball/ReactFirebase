@@ -1,5 +1,3 @@
-TODO: 404 NotFoundPage, refer to Twitter
-
 TODO: When Home page was redirected from another page, it is not required to pull competitions from db again. The list was already in redux store
 
 TODO: Create a util component for upload profile picture. Profile picture can be saved with auth user, not necessarily realtime db user
@@ -20,10 +18,16 @@ TODO: Util for raising errors
 
 TODO: Add new competition form UI validations
 
-TODO: Use enum for competition visibility
-
 TODO: competitions model not used
 
 TODO: Nav to previous route
 
 TODO: Auth persistent
+
+TODO: Save profile
+
+TODO: Profile drop down -> friends
+
+TODO: Show only competitions from friends
+
+TODO: Public page for all public competitions
