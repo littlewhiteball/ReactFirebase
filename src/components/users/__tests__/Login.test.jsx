@@ -72,6 +72,31 @@ describe('login component', () => {
         expect(wrapper.state('email')).toEqual('');
         expect(wrapper.state('password')).toEqual('');
         expect(wrapper.state('signingIn')).toEqual(false);
+        expect(wrapper.state('signInFailed')).toEqual(false);
+    });
+
+    it('should render alert message when signInFailed state is true', () => {
+        const { wrapper } = setup();
+        wrapper.setState({
+            signInFailed: true,
+        });
+
+        expect(wrapper.find('div').at(1).hasClass('alert alert-warning alert-dismissible fade show mt-2')).toBe(true);
+        expect(wrapper.find('div').at(1).prop('role')).toBe('alert');
+        expect(wrapper.find('button').at(0).hasClass('close')).toBe(true);
+        expect(wrapper.find('button').at(0).prop('type')).toBe('button');
+        expect(wrapper.find('span').at(0).text()).toBe('×');
+        expect(wrapper.find('p').text()).toBe('The username and password you entered did not match our records. Please double-check and try again.');
+    });
+
+    it('should reset signInFailed state when close button is clicked', () => {
+        const { wrapper } = setup();
+        wrapper.setState({
+            signInFailed: true,
+        });
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        expect(wrapper.state('signInFailed')).toBe(false);
     });
 
     it('should handle email change', () => {
@@ -102,7 +127,7 @@ describe('login component', () => {
 
     });
 
-    it('should change signingIn state and add spinner to sign in button', () => {
+    it('should set signingIn state, add spinner and reset signInFailed state when sign in button is clicked', () => {
         const { wrapper } = setup();
         wrapper.find('input').at(0).simulate('change', {
             target: {
@@ -120,6 +145,7 @@ describe('login component', () => {
 
         expect(wrapper.state('signingIn')).toBe(true);
         expect(wrapper.find('i').at(1).hasClass('fa fa-spinner fa-spin'));
+        expect(wrapper.state('signInFailed')).toBe(false);
     });
 
     it('should call props get signed in user when signed in with email and password', () => {
@@ -171,11 +197,11 @@ describe('login component', () => {
         });
     });
 
-    it.skip('should fail sign in with email and password, reset signing in state and remove spinner', () => {
+    it.skip('should fail sign in with email and password, reset signing in state, remove spinner and show alert', () => {
 
     });
 
-    it.skip('should fail sign up with not found email, reset signing in state and remove spinner', () => {
+    it.skip('should fail sign up with not found email, reset signing in state, remove spinner, and show alert', () => {
 
     });
 

@@ -11,6 +11,7 @@ const SIGN_IN_OR_REGISTERING_WARNING = 'If you do not have an account already. T
 const SIGN_IN = 'Sign in';
 const REMEMBER_ME = 'Remember me';
 const FORGOT_PASSWORD = 'Forgot password?';
+const LOGIN_FAILED_ALERT = 'The username and password you entered did not match our records. Please double-check and try again.';
 
 export class LoginComponent extends Component {
     constructor(props) {
@@ -19,7 +20,15 @@ export class LoginComponent extends Component {
             email: '',
             password: '',
             signingIn: false,
+            signInFailed: false,
         };
+    }
+
+    closeSignInFailedAlert = (e) => {
+        e.preventDefault();
+        this.setState({
+            signInFailed: false,
+        });
     }
 
     updateEmail = (e) => {
@@ -37,7 +46,10 @@ export class LoginComponent extends Component {
     }
 
     signInWithEmailPassword = () => {
-        this.setState({ signingIn: true });
+        this.setState({
+            signingIn: true,
+            signInFailed: false,
+        });
 
         // TODO: validation on empty email or empty password, plus other validations
         authDbAdapter.signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -53,11 +65,17 @@ export class LoginComponent extends Component {
                             this.props.addSignedUpUser(emailUser);
                         }).catch((signUpError) => {
                             console.error(signUpError.message);
-                            this.setState({ signingIn: false });
+                            this.setState({
+                                signingIn: false,
+                                signInFailed: true,
+                            });
                         });
                 } else {
                     console.error(signInError.message);
-                    this.setState({ signingIn: false });
+                    this.setState({
+                        signingIn: false,
+                        signInFailed: true,
+                    });
                 }
             });
     }
@@ -100,6 +118,16 @@ export class LoginComponent extends Component {
         // TODO: group email, password, remember me, forgot password, and sign in button to one form
         return (
             <div className="container">
+                {this.state.signInFailed ?
+                    (
+                        <div className="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+                            <button className="close" type="button" onClick={this.closeSignInFailedAlert}>
+                                <span>&times;</span>
+                            </button>
+                            <p>{LOGIN_FAILED_ALERT}</p>
+                        </div>
+                    ) :
+                    null}
                 <div className="form-signin">
                     <div className="form-group">
                         <h2 className="form-signin-heading">{PLEASE_SIGN_IN}</h2>
