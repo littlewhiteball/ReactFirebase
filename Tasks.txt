@@ -4,30 +4,22 @@ TODO: Create a util component for upload profile picture. Profile picture can be
 
 TODO: Create a PrivateRoute util component which requires authentication
 
-TODO: Redux model to db model happens in db adapter, db model to redux model happens in actions before calling db adapter
-
-TODO: Signin/signup failure handling in Login component
-
 TODO: Persist redux store after browser refresh
 
 TODO: Firebase Log Events and/or Analytics
 
-TODO: DbAdapters, in update and set method, needs to check if id that is used by get*Ref is equal to the id field of function argument
-
 TODO: Util for raising errors
 
-TODO: Add new competition form UI validations
-
-TODO: competitions model not used
+TODO: Add validations on all UI components and before save action
 
 TODO: Nav to previous route
 
 TODO: Auth persistent
-
-TODO: Save profile
 
 TODO: Profile drop down -> friends
 
 TODO: Show only competitions from friends
 
 TODO: Public page for all public competitions
+
+TODO: Navbar does not collapse in medium size

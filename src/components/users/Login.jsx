@@ -45,7 +45,9 @@ export class LoginComponent extends Component {
         });
     }
 
-    signInWithEmailPassword = () => {
+    signInWithEmailPassword = (e) => {
+        e.preventDefault();
+
         this.setState({
             signingIn: true,
             signInFailed: false,
@@ -128,14 +130,14 @@ export class LoginComponent extends Component {
                         </div>
                     ) :
                     null}
-                <div className="form-signin">
+                <form className="form-signin">
                     <div className="form-group">
                         <h2 className="form-signin-heading">{PLEASE_SIGN_IN}</h2>
                         <i className="fa fa-exclamation-triangle fa-3" />
                         <small>{SIGN_IN_OR_REGISTERING_WARNING}</small>
                     </div>
                     <div className="form-group">
-                        <input type="email" className="form-control" placeholder="Email" onChange={this.updateEmail} />
+                        <input type="email" className="form-control" placeholder="Email" onChange={this.updateEmail} ref={input => input && input.focus()} />
                     </div>
                     <div className="form-group">
                         <input type="password" className="form-control" placeholder="Password" onChange={this.updatePassword} />
@@ -168,7 +170,7 @@ export class LoginComponent extends Component {
                             <span className="fa fa-twitter" />
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         );
     }
