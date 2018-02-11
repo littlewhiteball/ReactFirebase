@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
 import { signOutUser } from './../../actions/userAction';
@@ -13,18 +12,13 @@ const SIGN_OUT = 'Sign out';
 export class ProfileDropDownComponent extends Component {
     navToEditProfile = () => this.props.navToPath('/profile');
 
-    signOut = () => this.props.signOut();
+    signOut = (e) => {
+        e.preventDefault();
+        this.props.signOut();
+        this.props.navToPath('/');
+    }
 
     render() {
-        if (!this.props.user.id) {
-            return (
-                <Redirect to={{
-                    pathname: '/',
-                }}
-                />
-            );
-        }
-
         return (
             <div className="dropdown show">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -37,7 +31,7 @@ export class ProfileDropDownComponent extends Component {
                     </button>
                     <div className="dropdown-divider" />
                     <div className="dropdown-item">
-                        <button className="btn btn-outline-warning" onClick={this.signOut}>
+                        <button className="btn btn-outline-warning" onClick={this.signOut} type="button">
                             <i className="fa fa-sign-out" />
                             {SIGN_OUT}
                         </button>

@@ -57,16 +57,12 @@ describe('profile component', () => {
         expect(props.navToPath.mock.calls.length).toBe(1);
     });
 
-    it('should handle sign out button', () => {
+    it('should handle sign out button, sign out and nav to home', () => {
         const { props, wrapper } = setup(true);
         wrapper.find('button').at(2).simulate('click');
 
         expect(props.signOut.mock.calls.length).toBe(1);
-    });
-
-    it('should render redirect home when not signed in', () => {
-        const { wrapper } = setup(false, true);
-
-        expect(wrapper.find('Redirect').prop('to')).toEqual({ pathname: '/' });
+        expect(props.navToPath.mock.calls.length).toBe(1);
+        expect(props.navToPath.mock.calls[0][0]).toBe('/');
     });
 });
