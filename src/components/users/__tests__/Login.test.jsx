@@ -40,7 +40,6 @@ describe('login component', () => {
         expect(wrapper.find('input').at(0).hasClass('form-control')).toBe(true);
         expect(wrapper.find('input').at(0).prop('type')).toBe('email');
         expect(wrapper.find('input').at(0).prop('placeholder')).toBe('Email');
-        // TOOD: test email input is focused
         expect(wrapper.find('div').at(3).hasClass('form-group')).toBe(true);
         expect(wrapper.find('input').at(1).hasClass('form-control')).toBe(true);
         expect(wrapper.find('input').at(1).prop('type')).toBe('password');

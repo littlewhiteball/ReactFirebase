@@ -61,6 +61,7 @@ export class LoginComponent extends Component {
                 const { code } = signInError;
                 if (code === ERROR_AUTH_USER_NOT_FOUND) {
                     // user not found. should create new user
+                    // TODO: sign up page
                     // eslint-disable-next-line max-len
                     authDbAdapter.createUserWithEmailAndPassword(this.state.email, this.state.password)
                         .then((emailUser) => {
@@ -117,7 +118,6 @@ export class LoginComponent extends Component {
         }
 
         const chkRememberMeId = 'chkRememberMe';
-        // TODO: group email, password, remember me, forgot password, and sign in button to one form
         return (
             <div className="container">
                 {this.state.signInFailed ?
@@ -137,7 +137,7 @@ export class LoginComponent extends Component {
                         <small>{SIGN_IN_OR_REGISTERING_WARNING}</small>
                     </div>
                     <div className="form-group">
-                        <input type="email" className="form-control" placeholder="Email" onChange={this.updateEmail} ref={input => input && input.focus()} />
+                        <input type="email" className="form-control" placeholder="Email" onChange={this.updateEmail} />
                     </div>
                     <div className="form-group">
                         <input type="password" className="form-control" placeholder="Password" onChange={this.updatePassword} />
