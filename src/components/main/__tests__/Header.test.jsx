@@ -2,18 +2,18 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { user0, categoryList } from './../../../__tests_constants__';
+import { categoryList } from './../../../__tests_constants__';
 
 import { HeaderComponent } from './../Header';
 import ProfileDropDown from './../../users/ProfileDropDown';
 
 configure({ adapter: new Adapter() });
 
-const setup = (signedIn) => {
+const setup = () => {
     const props = {
-        userId: signedIn ? user0.id : '',
         categoryList,
         navToPath: jest.fn(),
+        getSignedInUser: jest.fn(),
     };
     const wrapper = shallow(<HeaderComponent {...props} />);
 
@@ -25,7 +25,7 @@ const setup = (signedIn) => {
 
 describe('header component', () => {
     it('should render self', () => {
-        const { wrapper } = setup(false);
+        const { wrapper } = setup();
 
         expect(wrapper.find('div').at(0).hasClass('container')).toBe(true);
         expect(wrapper.find('header').hasClass('navbar navbar-expand-md navbar-dark bg-dark')).toBe(true);
@@ -67,8 +67,20 @@ describe('header component', () => {
         expect(wrapper.find('i').hasClass('fa fa-search')).toBe(true);
     });
 
+    it('initial state', () => {
+        const expectedInitialState = {
+            signedIn: false,
+        };
+        const { wrapper } = setup();
+
+        expect(wrapper.state()).toEqual(expectedInitialState);
+    });
+
     it('should render profile component when signed in', () => {
-        const { wrapper } = setup(true);
+        const { wrapper } = setup();
+        wrapper.setState({
+            signedIn: true,
+        });
 
         expect(wrapper.find('div').at(3).hasClass('nav right-actions')).toBe(true);
         expect(wrapper.find(ProfileDropDown).exists()).toBe(true);
@@ -81,7 +93,10 @@ describe('header component', () => {
     });
 
     it('should handle new competition button when signed in', () => {
-        const { props, wrapper } = setup(true);
+        const { props, wrapper } = setup();
+        wrapper.setState({
+            signedIn: true,
+        });
         wrapper.find('button').at(2).simulate('click');
 
         expect(props.navToPath.mock.calls.length).toBe(1);
@@ -89,14 +104,20 @@ describe('header component', () => {
     });
 
     it('should render login/register button when not signed in', () => {
-        const { wrapper } = setup(false);
+        const { wrapper } = setup();
+        wrapper.setState({
+            signedIn: false,
+        });
 
         expect(wrapper.find('button').at(2).hasClass('btn btn-outline-info')).toBe(true);
         expect(wrapper.find('button').at(2).text()).toBe('Login/Register');
     });
 
     it('should handle login/register button when not signed in', () => {
-        const { props, wrapper } = setup(false);
+        const { props, wrapper } = setup();
+        wrapper.setState({
+            signedIn: false,
+        });
         wrapper.find('button').at(2).simulate('click');
 
         expect(props.navToPath.mock.calls.length).toBe(1);

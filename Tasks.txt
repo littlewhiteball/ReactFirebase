@@ -20,4 +20,6 @@ TODO: Public page for all public competitions
 
 Bug: Navbar does not collapse in medium size
 
+TODO: PrivateRoute component componentWillMount not tested
+
 TODO: react error boundaries

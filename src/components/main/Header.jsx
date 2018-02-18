@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 
+import firebase from './../../firebase';
+import { getUser } from './../../actions/userAction';
 import ProfileDropDown from './../users/ProfileDropDown';
 
 const LOGIN_REGISTER = 'Login/Register';
@@ -12,6 +14,32 @@ const NAV_CATEGORY_LIST_ID = 'navCategoryList';
 const NEW_COMPETITION = 'New Competition';
 
 export class HeaderComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            signedIn: false,
+        };
+    }
+
+    componentWillMount() {
+        this.removeAuthListener = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    signedIn: true,
+                });
+                this.props.getSignedInUser(user.uid);
+            } else {
+                this.setState({
+                    signedIn: false,
+                });
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.removeAuthListener();
+    }
+
     navToAuth = () => this.props.navToPath('/auth');
 
     navToNewCompetition = () => this.props.navToPath('/competition');
@@ -20,7 +48,7 @@ export class HeaderComponent extends Component {
     search = () => { };
 
     render() {
-        const userElement = this.props.userId ?
+        const userElement = this.state.signedIn ?
             // TODO: Call Logout component
             (
                 <div className="nav right-actions">
@@ -67,9 +95,9 @@ export class HeaderComponent extends Component {
 
 // TODO: create a class for category, and use it as isRequired
 HeaderComponent.propTypes = {
-    userId: PropTypes.string.isRequired,
     categoryList: PropTypes.arrayOf(PropTypes.object),
     navToPath: PropTypes.func.isRequired,
+    getSignedInUser: PropTypes.func.isRequired,
 };
 
 HeaderComponent.defaultProps = {
@@ -85,12 +113,9 @@ HeaderComponent.defaultProps = {
     ],
 };
 
-const mapStateToProps = state => ({
-    userId: state.user.id,
-});
-
 const mapDispatchToProps = dispatch => ({
     navToPath: pathname => dispatch(push(pathname)),
+    getSignedInUser: userId => dispatch(getUser(userId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);
+export default connect(null, mapDispatchToProps)(HeaderComponent);
