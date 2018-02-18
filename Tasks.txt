@@ -2,9 +2,7 @@ TODO: When Home page was redirected from another page, it is not required to pul
 
 TODO: Create a util component for upload profile picture. Profile picture can be saved with auth user, not necessarily realtime db user
 
-TODO: Create a PrivateRoute util component which requires authentication
-
-TODO: Persist redux store after browser refresh
+TODO: Persist redux store after browser refresh. Use local storage?
 
 TODO: Firebase Log Events and/or Analytics
 
@@ -14,12 +12,12 @@ TODO: Add validations on all UI components and before save action
 
 TODO: Nav to previous route
 
-TODO: Auth persistent
-
 TODO: Profile drop down -> friends
 
 TODO: Show only competitions from friends
 
 TODO: Public page for all public competitions
 
-TODO: Navbar does not collapse in medium size
+Bug: Navbar does not collapse in medium size
+
+TODO: react error boundaries

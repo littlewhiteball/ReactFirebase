@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 
 import ProfileDropDown from './../users/ProfileDropDown';
 
@@ -32,10 +33,10 @@ export class HeaderComponent extends Component {
         return (
             <div className="container">
                 <header className="navbar navbar-expand-md navbar-dark bg-dark" role="banner">
-                    <a href="/" className="navbar-brand">
+                    <Link to="/" href="/" className="navbar-brand">
                         <img src="/favicon.ico" alt="Ga" width="36" height="36" />
                         <span>{HOME}</span>
-                    </a>
+                    </Link>
                     <button className="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target={`#${NAV_CATEGORY_LIST_ID}`}>
                         <span className="navbar-toggler-icon" />
                     </button>
@@ -44,7 +45,9 @@ export class HeaderComponent extends Component {
                             {
                                 this.props.categoryList.map(category => (
                                     <li className="nav-item" key={category.name}>
-                                        <a className="nav-link active" href={category.link}>{category.name}</a>
+                                        <Link to={category.link} className="nav-link active" href={category.link}>
+                                            <span>{category.name}</span>
+                                        </Link>
                                     </li>))
                             }
                         </ul>
