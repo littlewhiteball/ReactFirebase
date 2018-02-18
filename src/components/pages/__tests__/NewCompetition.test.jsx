@@ -24,15 +24,9 @@ const setup = (signedIn) => {
 };
 
 describe('new competition component', () => {
-    it('should render add competition form when signed in', () => {
+    it('should render self', () => {
         const { wrapper } = setup(true);
 
         expect(wrapper.find(AddCompetitionForm).exists()).toBe(true);
-    });
-
-    it('should render redirect to auth page when not signed in', () => {
-        const { wrapper } = setup(false);
-
-        expect(wrapper.find('Redirect').prop('to')).toBe('/auth');
     });
 });

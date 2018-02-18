@@ -21,7 +21,7 @@ export class AppComponent extends Component {
                 <Switch>
                     <Route path="/" exact component={Home} />
                     <Route path="/auth" exact component={Auth} />
-                    <Route path="/competition" exact component={NewCompetition} />
+                    <PrivateRoute path="/competition" exact component={NewCompetition} />
                     <PrivateRoute path="/profile" exact component={Profile} />
                     <Route path="*" component={NotFound} />
                 </Switch>
