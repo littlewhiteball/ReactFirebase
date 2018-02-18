@@ -41,6 +41,7 @@ describe('profile component', () => {
         expect(wrapper.find('img').prop('alt')).toBe('Profile');
         expect(wrapper.find('div').at(1).hasClass('dropdown-menu')).toBe(true);
         expect(wrapper.find('button').at(1).hasClass('dropdown-item')).toBe(true);
+        expect(wrapper.find('button').at(1).prop('type')).toBe('button');
         expect(wrapper.find('button').at(1).text()).toBe('Edit profile');
         expect(wrapper.find('div').at(2).hasClass('dropdown-divider')).toBe(true);
         expect(wrapper.find('div').at(3).hasClass('dropdown-item')).toBe(true);

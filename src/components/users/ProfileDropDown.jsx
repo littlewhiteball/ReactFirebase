@@ -25,7 +25,7 @@ export class ProfileDropDownComponent extends Component {
                     <img src="./favicon.ico" width="28" height="28" alt={PROFILE} />
                 </button>
                 <div className="dropdown-menu">
-                    <button className="dropdown-item" onClick={this.navToEditProfile}>
+                    <button className="dropdown-item" type="button" onClick={this.navToEditProfile}>
                         <i className="fa fa-edit" />
                         {EDIT_PROFILE}
                     </button>
