@@ -194,6 +194,8 @@ export const firebaseApp = {
 
 const firebase = {
     auth: () => ({
+        // TODO: figure out how to return undefined currentUser
+        currentUser: testConstants.emailUser0,
         createUserWithEmailAndPassword: (email, password) =>
             new Promise((resolve, reject) => {
                 // eslint-disable-next-line max-len
@@ -228,6 +230,22 @@ const firebase = {
 
                 // TODO: figure out a way to mock reject
             }),
+    }),
+    storage: () => ({
+        ref: () => ({
+            child: filePath => ({
+                put: file =>
+                    new Promise((resolve, reject) => {
+                        if (filePath === `user/profilePhotos/${testConstants.user0.id}.jpg` &&
+                            file.name === testConstants.profilePhoto.name) {
+                            resolve(testConstants.profilePhotoFromStorage);
+                        } else {
+                            const error = new Error('failed to upload file to firebase storage');
+                            reject(error);
+                        }
+                    }),
+            }),
+        }),
     }),
 };
 

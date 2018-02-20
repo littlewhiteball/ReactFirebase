@@ -8,6 +8,15 @@ export const emailUser0 = {
     email: 'email0@me0.com',
     password: 'emailuser0password',
     name: 'name0',
+    updateProfile: profile =>
+        new Promise((resolve, reject) => {
+            if (profile.displayName === 'display name0' && profile.photoURL === 'https://photourl0.com') {
+                resolve();
+            } else {
+                const error = new Error('update profile failed on firebase');
+                reject(error);
+            }
+        }),
 };
 
 export const emailUserNotFound0 = {
@@ -186,3 +195,22 @@ export const categoryList = [
 export const dateTimeNow = new Date('2018-02-18T11:30:00.000Z');
 export const dateTimeAddOneDay = new Date('2018-02-19T11:30:00.000Z');
 export const dateTimeAddTwoDays = new Date('2018-02-20T11:30:00.000Z');
+
+/**
+ * File
+ */
+export const profilePhotoFile = {
+    name: 'profilePhoto1.jpg',
+    size: 1000,
+    type: 'image/jpeg',
+};
+
+/**
+ * Storage
+ */
+export const profilePhotoFromStorage = {
+    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto1.jpg?token=token1',
+    metadata: {
+        name: 'profilePhoto1.jpg',
+    },
+};
