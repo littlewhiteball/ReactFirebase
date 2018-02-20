@@ -229,6 +229,10 @@ const firebase = {
                 resolve();
 
                 // TODO: figure out a way to mock reject
+                // eslint-disable-next-line no-constant-condition
+                if (false) {
+                    reject();
+                }
             }),
     }),
     storage: () => ({
@@ -237,7 +241,7 @@ const firebase = {
                 put: file =>
                     new Promise((resolve, reject) => {
                         if (filePath === `user/profilePhotos/${testConstants.user0.id}.jpg` &&
-                            file.name === testConstants.profilePhoto.name) {
+                            file.name === testConstants.profilePhotoFile.name) {
                             resolve(testConstants.profilePhotoFromStorage);
                         } else {
                             const error = new Error('failed to upload file to firebase storage');

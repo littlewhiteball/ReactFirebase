@@ -27,11 +27,8 @@ const signInWithTwitter = () => {
     return signInWithPopup(provider);
 };
 
-const signOut = () => {
-    // TODO: throw if not signed in
-    console.info('signed out');
-    return firebase.auth().signOut();
-};
+// TODO: throw if not signed in
+const signOut = () => firebase.auth().signOut();
 
 const updateUserProfile = (userId, displayName, photoUrl) => {
     const user = firebase.auth().currentUser;
