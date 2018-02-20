@@ -33,6 +33,23 @@ const signOut = () => {
     return firebase.auth().signOut();
 };
 
+const updateUserProfile = (userId, displayName, photoUrl) => {
+    const user = firebase.auth().currentUser;
+
+    if (!user) {
+        throw new Error('there is no signed in user');
+    }
+
+    if (user.uid !== userId) {
+        throw new Error(`the current user with id: ${userId} does not match the firebase signed in user with uid: ${user.uid}`);
+    }
+
+    return user.updateProfile({
+        displayName,
+        photoUrl,
+    });
+};
+
 export default {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -40,4 +57,5 @@ export default {
     signInWithFacebook,
     signInWithTwitter,
     signOut,
+    updateUserProfile,
 };
