@@ -33,18 +33,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _server = require('react-dom/server');
 
-var _reactRouterDom = require('react-router-dom');
-
-var _reactRedux = require('react-redux');
-
-var _stores = require('./src/stores');
-
-var _stores2 = _interopRequireDefault(_stores);
-
-var _App = require('./src/components/App');
-
-var _App2 = _interopRequireDefault(_App);
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -54,62 +42,42 @@ var app = (0, _express2.default)();
 app.set('view engine', 'ejs');
 
 var index = _fs2.default.readFileSync(_path2.default.join(__dirname, '/public/index.ejs'), 'utf-8');
-var login = _fs2.default.readFileSync(_path2.default.join(__dirname, '/public/login.ejs'), 'utf-8');
-var logout = _fs2.default.readFileSync(_path2.default.join(__dirname, '/public/logout.ejs'), 'utf-8');
+var profile = _fs2.default.readFileSync(_path2.default.join(__dirname, '/public/profile.ejs'), 'utf-8');
 
-app.route('*').get(function (req, res) {
-    var context = {};
+app.route('/').get(function (req, res) {
+    // const context = {};
+    // const element = () => (
+    //     <Provider store={store([])}>
+    //         <StaticRouter location={req.url} context={context}>
+    //             <App />
+    //         </StaticRouter>
+    //     </Provider>
+    // );
+    // const content = renderToStaticMarkup(element());
+    // const html = index.replace('<!-- ::APP:: -->', content);
+    // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
+    // res.send(html);
+    res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
+    res.send(index);
+});
+
+app.route('/profile').get(function (req, res) {
     var element = function element() {
         return _react2.default.createElement(
-            _reactRedux.Provider,
-            { store: (0, _stores2.default)([]) },
-            _react2.default.createElement(
-                _reactRouterDom.StaticRouter,
-                { location: req.url, context: context },
-                _react2.default.createElement(_App2.default, null)
-            )
+            'h1',
+            null,
+            'Temp profile'
         );
     };
     var content = (0, _server.renderToStaticMarkup)(element());
-    var html = index.replace('<!-- ::APP:: -->', content);
+    var html = profile.replace('<!-- ::APP:: -->', content);
     res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
     res.send(html);
 });
-
-// app.route('/')
-//     .get((req, res) => {
-//         const context = {};
-//         const element = () => (
-//             <StaticRouter location={req.url} context={context}>
-//                 <Routes />
-//             </StaticRouter>
-//         );
-//         const content = renderToString(element());
-//         const html = index.replace('<!-- ::APP:: -->', content);
-//         res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
-//         res.send(html);
-//     });
-
-// app.route('/login')
-//     .get((req, res) => {
-//         const html = login.replace('<!-- ::APP:: -->', renderToString(<h3>TODO: Login server side rendering</h3>));
-//         res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
-//         res.send(html);
-//     });
-
-// app.route('/logout')
-//     .get((req, res) => {
-//         const html = logout.replace('<!-- ::APP:: -->', renderToString(<h3>TODO: Logout server side rendering</h3>));
-//         res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
-//         res.send(html);
-//     });
 
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 
 // TODO: default export does not work
+// eslint-disable-next-line import/prefer-default-export
 var rfapp = exports.rfapp = functions.https.onRequest(app);
-
-// const rfapp = functions.https.onRequest(app);
-
-// export default rfapp;
