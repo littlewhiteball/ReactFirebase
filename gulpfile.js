@@ -13,7 +13,7 @@ gulp.task('copyejs', () =>
         .pipe(gulp.dest('./functions/public')));
 
 gulp.task('buildserver', () =>
-    gulp.src(['index.jsx'], { base: './' })
+    gulp.src(['App.jsx', 'index.jsx'], { base: './' })
         .pipe(babel())
         .pipe(gulp.dest('./functions/')));
 
