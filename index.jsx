@@ -5,8 +5,8 @@ import 'babel-polyfill';
 import * as functions from 'firebase-functions';
 import express from 'express';
 import parser from 'body-parser';
-import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+// import React from 'react';
+// import { renderToStaticMarkup } from 'react-dom/server';
 
 const app = express();
 
@@ -35,13 +35,8 @@ app.route('/')
 
 app.route('/profile')
     .get((req, res) => {
-        const element = () => (
-            <h1>Temp profile</h1>
-        );
-        const content = renderToStaticMarkup(element());
-        const html = profile.replace('<!-- ::APP:: -->', content);
         res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
-        res.send(html);
+        res.send(profile);
     });
 
 app.use(parser.json());

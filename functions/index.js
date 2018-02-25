@@ -27,15 +27,12 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _server = require('react-dom/server');
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import React from 'react';
+// import { renderToStaticMarkup } from 'react-dom/server';
 
 var app = (0, _express2.default)();
 
@@ -62,17 +59,8 @@ app.route('/').get(function (req, res) {
 });
 
 app.route('/profile').get(function (req, res) {
-    var element = function element() {
-        return _react2.default.createElement(
-            'h1',
-            null,
-            'Temp profile'
-        );
-    };
-    var content = (0, _server.renderToStaticMarkup)(element());
-    var html = profile.replace('<!-- ::APP:: -->', content);
     res.set('Cache-Control', 'public, max-age=600, s-maxage=1200');
-    res.send(html);
+    res.send(profile);
 });
 
 app.use(_bodyParser2.default.json());

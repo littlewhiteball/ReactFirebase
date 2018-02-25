@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+    <link href="/css/bootstrap-social.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="root">
+        <div class="container">
+            <header class="navbar navbar-expand-md navbar-dark bg-dark" role="banner">
+                <Link to="/" href="/" class="navbar-brand">
+                <img src="/favicon.ico" alt="Ga" width="36" height="36" />
+                <span>Home</span>
+                </Link>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#NAV_CATEGORY_LIST_ID">
+                    <span class="navbar-toggler-icon" />
+                </button>
+                <div class="collapse navbar-collapse" id="NAV_CATEGORY_LIST_ID">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item" key="NFL">
+                            <Link to="/nfl" class="nav-link active" href="/nfl">
+                            <span>NFL</span>
+                            </Link>
+                        </li>
+                        <li class="nav-item" key="EPL">
+                            <Link to="/epl" class="nav-link active" href="/epl">
+                            <span>EPL</span>
+                            </Link>
+                        </li>
+                    </ul>
+                    <div class="nav right-actions">
+                        <input class="search-box pl-2" placeholder="Search" type="text" />
+                        <button class="btn btn-primary search-btn mr-2" type="button">
+                            <!-- <i class="fa fa-search" /> -->
+                        </button>
+                        <div class="nav right-actions">
+                            <div class="dropdown show">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <img src="./favicon.ico" width="28" height="28" alt="Profile" />
+                                </button>
+                            </div>
+                            <button class="btn btn-outline-info ml-2">New Competition</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <!-- ::APP:: -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+        crossorigin="anonymous"></script>
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
