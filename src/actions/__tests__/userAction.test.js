@@ -5,6 +5,8 @@ import { emailUser0, user0FromDb, user0, user0Update, userIdNotFound, userWithou
 
 import * as actions from './../userAction';
 
+import authDbAdapter from './../../database/authDbAdapter';
+
 jest.mock('./../../firebase');
 
 const middlewares = [thunk];
@@ -144,9 +146,17 @@ describe('updateUser', () => {
             },
         ];
 
+        // Without mockImplementation, the actual function will be called
+        const spy = jest.spyOn(authDbAdapter, 'updateUserProfile')
+            .mockImplementation(() =>
+                new Promise((resolve) => {
+                    resolve();
+                }));
+
         const store = mockStore({});
         return store.dispatch(actions.updateUser(user0Update)).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
+            expect(spy).toHaveBeenCalled();
         });
     });
 

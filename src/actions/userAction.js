@@ -6,6 +6,7 @@ const dbModelToReduxModel = dbModel => userReduxModel(
     dbModel.id,
     dbModel.name,
     dbModel.email,
+    dbModel.photoUrl,
 );
 
 const USER_GET = 'USER_GET';
@@ -72,7 +73,16 @@ export const updateUser = user =>
             id: user.id,
             name: user.name,
             email: user.email,
+            photoUrl: user.photoUrl,
         };
+
+        authDbAdapter.updateUserProfile(user.id, user.photoUrl)
+            .then(() => {
+                console.log('user profile photo updated');
+                // TODO: Update user to db
+            });
+
+        // TODO: The following can only happen when updateUserProfile succeeded
         return usersDbAdapter.updateUserToDb(updateModel).then(() => {
             dispatch(userUpdateAction(updateModel));
         }).catch((error) => {
