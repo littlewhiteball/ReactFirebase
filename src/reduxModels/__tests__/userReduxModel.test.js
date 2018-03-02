@@ -6,9 +6,10 @@ describe('user redux model', () => {
             id: 'id0',
             name: 'name0',
             email: 'email0@me0.com',
+            photoUrl: 'https://photoUrl.com/photo0',
         };
 
-        expect(userReduxModel('id0', 'name0', 'email0@me0.com')).toEqual(expected);
+        expect(userReduxModel('id0', 'name0', 'email0@me0.com', 'https://photoUrl.com/photo0')).toEqual(expected);
     });
 });
 
