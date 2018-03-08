@@ -9,6 +9,8 @@ import EditProfile from './../../users/EditProfile';
 
 configure({ adapter: new Adapter() });
 
+jest.mock('./../../../database/storageAdapter');
+
 const setup = (signedIn) => {
     const props = {
         userId: signedIn ? user0.id : '',
