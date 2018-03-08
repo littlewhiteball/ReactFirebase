@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import storageAdapter from './../../database/storageAdapter';
 import { updateUser } from './../../actions/userAction';
 
 const EDIT_PROFILE = 'Edit Profile';
-const PROFILE_PHOTO = 'Profile Photo';
+const UPLOAD = 'Upload';
 const NAME = 'Name';
 const NAME_ID = 'Name';
 const EMAIL = 'Email';
@@ -13,14 +14,35 @@ const EMAIL_ID = 'Email';
 const SAVE = 'Save';
 const CANCEL = 'Cancel';
 
+const DEFAULT_PROFILE_PHOTO = '/favicon.ico';
+
 export class EditProfileComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             saving: false,
+            profilePhoto: '',
+            profilePhotoDownloadURL: this.props.user.photoUrl,
             name: this.props.user.name,
             email: this.props.user.email,
         };
+    }
+
+    handleProfilePhotoChange = (e) => {
+        e.preventDefault();
+        this.setState({
+            profilePhoto: e.target.files[0],
+        });
+    }
+
+    uploadProfilePhoto = (e) => {
+        e.preventDefault();
+        storageAdapter.addProfilePhotoToStorage(this.props.user.id, this.state.profilePhoto)
+            .then((snapshot) => {
+                this.setState({
+                    profilePhotoDownloadURL: snapshot.downloadURL,
+                });
+            });
     }
 
     updateName = (e) => {
@@ -45,6 +67,7 @@ export class EditProfileComponent extends Component {
         const userUpdate = Object.assign({}, this.props.user, {
             name: this.state.name,
             email: this.state.email,
+            photoUrl: this.state.profilePhotoDownloadURL,
         });
         this.props.saveChange(userUpdate)
             .then(() => {
@@ -80,27 +103,28 @@ export class EditProfileComponent extends Component {
                                     </div>
                                     <div className="card-block">
                                         <form className="form" autoComplete="off">
-                                            <div className="form-group row col-lg-6 offset-lg-3">
-                                                <div className="text-center ">
-                                                    <img className="rounded-circle" src="favicon.ico" height="40" width="40" alt={PROFILE_PHOTO} />
-                                                    <input className="form-control" type="file" />
+                                            <div className="form-group row">
+                                                <div className="text-center row">
+                                                    <img className="rounded-circle col-1 offset-1" src={this.props.user.photoUrl} height="40" width="40" alt={DEFAULT_PROFILE_PHOTO} />
+                                                    <input className="form-control col-6" type="file" onChange={this.handleProfilePhotoChange} />
+                                                    <button className="form-control btn btn-sm btn-info col-2 ml-2" type="button" onClick={this.uploadProfilePhoto}>{UPLOAD}</button>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={NAME_ID}>{NAME}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={NAME_ID} placeholder={this.props.user.name} onChange={this.updateName} />
+                                                    <input className="form-control" type="text" id={NAME_ID} value={this.props.user.name} onChange={this.updateName} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={EMAIL_ID}>{EMAIL}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={EMAIL_ID} placeholder={this.props.user.email} onChange={this.updateEmail} />
+                                                    <input className="form-control" type="text" id={EMAIL_ID} value={this.props.user.email} readOnly onChange={this.updateEmail} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
-                                                <div className="col-lg-4 offset-lg-8 row">
-                                                    <button className="col-lg-6 btn btn-primary" onClick={this.saveProfile} type="button">
+                                                <div className="col-md-4 offset-md-8 row">
+                                                    <button className="col-md-4 btn btn-primary" onClick={this.saveProfile} type="button">
                                                         {
                                                             this.state.saving ?
                                                                 <i className="fa fa-spinner fa-spin" /> :
@@ -108,7 +132,7 @@ export class EditProfileComponent extends Component {
                                                         }
                                                         {SAVE}
                                                     </button>
-                                                    <button className="col-lg-6 btn btn-default" onClick={this.cancelChanges} type="button">{CANCEL}</button>
+                                                    <button className="col-md-4 ml-2 btn btn-default" onClick={this.cancelChanges} type="button">{CANCEL}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -128,6 +152,7 @@ EditProfileComponent.propTypes = {
         id: PropTypes.string,
         name: PropTypes.string,
         email: PropTypes.string,
+        photoUrl: PropTypes.string,
     }).isRequired,
     saveChange: PropTypes.func.isRequired,
 };

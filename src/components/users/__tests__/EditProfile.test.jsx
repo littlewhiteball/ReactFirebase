@@ -2,17 +2,18 @@ import React from 'react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { user0 } from './../../../__tests_constants__';
+import * as testConstants from './../../../__tests_constants__';
 
 import { EditProfileComponent } from './../EditProfile';
 
 configure({ adapter: new Adapter() });
 
 jest.mock('./../../../firebase');
+jest.mock('./../../../database/storageAdapter');
 
 const setup = (isShallow = false, saveChangeSucceeds = true) => {
     const props = {
-        user: user0,
+        user: testConstants.user0,
         saveChange: jest.fn(() =>
             new Promise((resolve, reject) => {
                 if (saveChangeSucceeds) {
@@ -50,15 +51,17 @@ describe('edit profile component', () => {
         expect(wrapper.find('div').at(7).hasClass('card-block')).toBe(true);
         expect(wrapper.find('form').hasClass('form')).toBe(true);
         expect(wrapper.find('form').prop('autoComplete')).toBe('off');
-        expect(wrapper.find('div').at(8).hasClass('form-group row col-lg-6 offset-lg-3')).toBe(true);
+        expect(wrapper.find('div').at(8).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('div').at(9).hasClass('text-center')).toBe(true);
-        expect(wrapper.find('img').hasClass('rounded-circle')).toBe(true);
-        expect(wrapper.find('img').prop('src')).toBe('favicon.ico');
+        expect(wrapper.find('img').hasClass('rounded-circle col-1 offset-1')).toBe(true);
+        expect(wrapper.find('img').prop('src')).toBe('https://firebasestorage.googleapis.com/v0/blabla/profilePhoto1.jpg?token=token1');
         expect(wrapper.find('img').prop('height')).toBe('40');
         expect(wrapper.find('img').prop('width')).toBe('40');
-        expect(wrapper.find('img').prop('alt')).toBe('Profile Photo');
-        expect(wrapper.find('input').at(0).hasClass('form-control')).toBe(true);
+        expect(wrapper.find('img').prop('alt')).toBe('/favicon.ico');
+        expect(wrapper.find('input').at(0).hasClass('form-control col-6')).toBe(true);
         expect(wrapper.find('input').at(0).prop('type')).toBe('file');
+        expect(wrapper.find('button').at(0).hasClass('form-control btn btn-sm btn-info col-2 ml-2')).toBe(true);
+        expect(wrapper.find('button').at(0).prop('type')).toBe('button');
         expect(wrapper.find('div').at(10).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('label').at(0).hasClass('col-lg-3 col-form-label form-control-label')).toBe(true);
         expect(wrapper.find('label').at(0).prop('htmlFor')).toBe('Name');
@@ -67,7 +70,7 @@ describe('edit profile component', () => {
         expect(wrapper.find('input').at(1).hasClass('form-control')).toBe(true);
         expect(wrapper.find('input').at(1).prop('type')).toBe('text');
         expect(wrapper.find('input').at(1).prop('id')).toBe('Name');
-        expect(wrapper.find('input').at(1).prop('placeholder')).toBe('name0');
+        expect(wrapper.find('input').at(1).prop('value')).toBe('name0');
         expect(wrapper.find('div').at(12).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('label').at(1).hasClass('col-lg-3 col-form-label form-control-label')).toBe(true);
         expect(wrapper.find('label').at(1).prop('htmlFor')).toBe('Email');
@@ -76,24 +79,53 @@ describe('edit profile component', () => {
         expect(wrapper.find('input').at(2).hasClass('form-control')).toBe(true);
         expect(wrapper.find('input').at(2).prop('type')).toBe('text');
         expect(wrapper.find('input').at(2).prop('id')).toBe('Email');
-        expect(wrapper.find('input').at(2).prop('placeholder')).toBe('email0@me0.com');
+        expect(wrapper.find('input').at(2).prop('value')).toBe('email0@me0.com');
         expect(wrapper.find('div').at(14).hasClass('form-group row')).toBe(true);
-        expect(wrapper.find('div').at(15).hasClass('col-lg-4 offset-lg-8 row')).toBe(true);
-        expect(wrapper.find('button').at(0).hasClass('col-lg-6 btn btn-primary')).toBe(true);
-        expect(wrapper.find('button').at(0).prop('type')).toBe('button');
-        expect(wrapper.find('button').at(0).text()).toBe('Save');
-        expect(wrapper.find('button').at(1).hasClass('col-lg-6 btn btn-default')).toBe(true);
+        expect(wrapper.find('div').at(15).hasClass('col-md-4 offset-md-8 row')).toBe(true);
+        expect(wrapper.find('button').at(1).hasClass('col-md-4 btn btn-primary')).toBe(true);
         expect(wrapper.find('button').at(1).prop('type')).toBe('button');
-        expect(wrapper.find('button').at(1).text()).toBe('Cancel');
+        expect(wrapper.find('button').at(1).text()).toBe('Save');
+        expect(wrapper.find('button').at(2).hasClass('col-md-4 ml-2 btn btn-default')).toBe(true);
+        expect(wrapper.find('button').at(2).prop('type')).toBe('button');
+        expect(wrapper.find('button').at(2).text()).toBe('Cancel');
         expect(wrapper.find('i').exists()).toBe(false);
     });
 
     it('initial state', () => {
+        const expectedState = {
+            saving: false,
+            name: 'name0',
+            email: 'email0@me0.com',
+            profilePhoto: '',
+            profilePhotoDownloadURL: testConstants.user0.photoUrl,
+        };
         const { wrapper } = setup();
 
-        expect(wrapper.state('saving')).toBe(false);
-        expect(wrapper.state('name')).toBe('name0');
-        expect(wrapper.state('email')).toBe('email0@me0.com');
+        expect(wrapper.state()).toEqual(expectedState);
+    });
+
+    it('should handle profile photo change', () => {
+        const { wrapper } = setup();
+        wrapper.find('input').at(0).simulate('change', {
+            target: {
+                name: 'file',
+                files: [testConstants.profilePhotoFile],
+            },
+        });
+
+        expect(wrapper.state('profilePhoto')).toEqual(testConstants.profilePhotoFile);
+    });
+
+    it('should handle profile photo upload, and set profilePhotoDownloadURL state', () => {
+        const { wrapper } = setup();
+        wrapper.setState({
+            profilePhoto: testConstants.profilePhotoFile,
+        });
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        setImmediate(() => {
+            expect(wrapper.state('profilePhotoDownloadURL')).toBe(testConstants.profilePhotoFromStorage1.downloadURL);
+        });
     });
 
     it('should handle name change', () => {
@@ -141,7 +173,7 @@ describe('edit profile component', () => {
     });
 
     it('should call props save change with updated user name when save clicked', () => {
-        const expectedArg = Object.assign({}, user0, {
+        const expectedArg = Object.assign({}, testConstants.user0, {
             name: 'new name',
         });
         const { props, wrapper } = setup();
@@ -151,7 +183,7 @@ describe('edit profile component', () => {
                 value: 'new name',
             },
         });
-        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+        wrapper.find('button').at(1).simulate('click', { preventDefault() { } });
 
         expect(props.saveChange.mock.calls.length).toBe(1);
         expect(props.saveChange.mock.calls[0][0]).toEqual(expectedArg);
@@ -165,7 +197,7 @@ describe('edit profile component', () => {
                 value: 'new name',
             },
         });
-        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+        wrapper.find('button').at(1).simulate('click', { preventDefault() { } });
 
         expect(wrapper.state('saving')).toBe(true);
         expect(wrapper.find('i').hasClass('fa fa-spinner fa-spin'));
@@ -185,7 +217,7 @@ describe('edit profile component', () => {
                 value: 'new name',
             },
         });
-        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+        wrapper.find('button').at(1).simulate('click', { preventDefault() { } });
 
         expect(wrapper.state('saving')).toBe(true);
         expect(wrapper.find('i').hasClass('fa fa-spinner fa-spin'));
