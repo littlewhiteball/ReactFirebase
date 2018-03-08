@@ -5,6 +5,7 @@ const reduxModelToDbModel = reduxModel => usersDbModel(
     reduxModel.id,
     reduxModel.name,
     reduxModel.email,
+    reduxModel.photoUrl,
 );
 
 const getUserRef = key => firebaseApp.database().ref(`/users/${key}`);

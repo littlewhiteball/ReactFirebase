@@ -58,6 +58,7 @@ export const addUser = firebaseUser =>
             // use email as name before user updates it
             firebaseUser.email,
             firebaseUser.email,
+            firebaseUser.photoUrl,
         );
         return usersDbAdapter.addUserToDb(model).then(() => {
             dispatch(userAddAction(model));

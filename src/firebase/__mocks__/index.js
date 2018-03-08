@@ -242,7 +242,7 @@ const firebase = {
                     new Promise((resolve, reject) => {
                         if (filePath === `user/profilePhotos/${testConstants.user0.id}.jpg` &&
                             file.name === testConstants.profilePhotoFile.name) {
-                            resolve(testConstants.profilePhotoFromStorage);
+                            resolve(testConstants.profilePhotoFromStorage1);
                         } else {
                             const error = new Error('failed to upload file to firebase storage');
                             reject(error);

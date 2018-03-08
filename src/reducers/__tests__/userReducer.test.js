@@ -22,6 +22,7 @@ describe('user get', () => {
             id: 'id0id0id0id0id0id0id0id0id0+',
             name: 'name0',
             email: 'email0@me0.com',
+            photoUrl: user0.photoUrl,
         };
         const action = {
             type: actionTypes.USER_GET,
@@ -33,11 +34,12 @@ describe('user get', () => {
 });
 
 describe('user add', () => {
-    it('should return user', () => {
+    it('should return added user', () => {
         const expectedState = {
             id: 'id0id0id0id0id0id0id0id0id0+',
             name: 'name0',
             email: 'email0@me0.com',
+            photoUrl: user0.photoUrl,
         };
         const action = {
             type: actionTypes.USER_ADD,
@@ -54,6 +56,7 @@ describe('user update', () => {
             id: 'id0id0id0id0id0id0id0id0id0+',
             name: 'name0update',
             email: 'email0@me0.com',
+            photoUrl: user0.photoUrl,
         };
         const action = {
             type: actionTypes.USER_UPDATE,

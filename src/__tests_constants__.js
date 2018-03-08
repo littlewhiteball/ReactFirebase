@@ -1,6 +1,25 @@
 import { CompetitionVisibilityEnum } from './utilities/enums/competitionVisibility';
 
 /**
+ * File
+ */
+export const profilePhotoFile = {
+    name: 'profilePhoto1.jpg',
+    size: 1000,
+    type: 'image/jpeg',
+};
+
+/**
+ * Storage
+ */
+export const profilePhotoFromStorage1 = {
+    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto1.jpg?token=token1',
+    metadata: {
+        name: 'profilePhoto1.jpg',
+    },
+};
+
+/**
  * firebase returned models
  */
 export const emailUser0 = {
@@ -8,9 +27,10 @@ export const emailUser0 = {
     email: 'email0@me0.com',
     password: 'emailuser0password',
     name: 'name0',
+    photoUrl: profilePhotoFromStorage1.downloadURL,
     updateProfile: profile =>
         new Promise((resolve, reject) => {
-            if (profile.displayName === 'display name0' && profile.photoURL === 'https://photourl0.com') {
+            if (profile.displayName === 'display name0' && profile.photoURL === profilePhotoFromStorage1.downloadURL) {
                 resolve();
             } else {
                 const error = new Error('update profile failed on firebase');
@@ -39,6 +59,7 @@ export const user0FromDb = {
     id: 'id0id0id0id0id0id0id0id0id0+',
     name: 'name0',
     email: 'email0@me0.com',
+    photoUrl: profilePhotoFromStorage1.downloadURL,
 };
 
 export const user1FromDb = {
@@ -79,11 +100,13 @@ export const user0 = {
     id: 'id0id0id0id0id0id0id0id0id0+',
     name: 'name0',
     email: 'email0@me0.com',
+    photoUrl: profilePhotoFromStorage1.downloadURL,
 };
 export const user0Update = {
     id: 'id0id0id0id0id0id0id0id0id0+',
     name: 'name0update',
     email: 'email0@me0.com',
+    photoUrl: profilePhotoFromStorage1.downloadURL,
 };
 export const user1 = {
     id: 'id1id1id1id1id1id1id1id1id1+',
@@ -195,22 +218,3 @@ export const categoryList = [
 export const dateTimeNow = new Date('2018-02-18T11:30:00.000Z');
 export const dateTimeAddOneDay = new Date('2018-02-19T11:30:00.000Z');
 export const dateTimeAddTwoDays = new Date('2018-02-20T11:30:00.000Z');
-
-/**
- * File
- */
-export const profilePhotoFile = {
-    name: 'profilePhoto1.jpg',
-    size: 1000,
-    type: 'image/jpeg',
-};
-
-/**
- * Storage
- */
-export const profilePhotoFromStorage = {
-    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto1.jpg?token=token1',
-    metadata: {
-        name: 'profilePhoto1.jpg',
-    },
-};

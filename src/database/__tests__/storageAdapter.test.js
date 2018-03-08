@@ -9,7 +9,7 @@ describe('storage adapter', () => {
             testConstants.user0.id,
             testConstants.profilePhotoFile,
         ).then((snapshot) => {
-            expect(snapshot).toEqual(testConstants.profilePhotoFromStorage);
+            expect(snapshot).toEqual(testConstants.profilePhotoFromStorage1);
         });
     });
 

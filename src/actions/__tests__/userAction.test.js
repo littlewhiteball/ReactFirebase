@@ -20,6 +20,7 @@ describe('userGetAction', () => {
                 id: 'id0id0id0id0id0id0id0id0id0+',
                 name: 'name0',
                 email: 'email0@me0.com',
+                photoUrl: user0.photoUrl,
             },
         };
 
@@ -35,6 +36,7 @@ describe('userAddAction', () => {
                 id: 'id0id0id0id0id0id0id0id0id0+',
                 name: 'name0',
                 email: 'email0@me0.com',
+                photoUrl: user0.photoUrl,
             },
         };
 
@@ -50,6 +52,7 @@ describe('userUpdateAction', () => {
                 id: 'id0id0id0id0id0id0id0id0id0+',
                 name: 'name0update',
                 email: 'email0@me0.com',
+                photoUrl: user0.photoUrl,
             },
         };
 
@@ -76,6 +79,7 @@ describe('getUser', () => {
                     id: 'id0id0id0id0id0id0id0id0id0+',
                     name: 'name0',
                     email: 'email0@me0.com',
+                    photoUrl: user0.photoUrl,
                 },
             },
         ];
@@ -142,6 +146,7 @@ describe('updateUser', () => {
                     id: 'id0id0id0id0id0id0id0id0id0+',
                     name: 'name0update',
                     email: 'email0@me0.com',
+                    photoUrl: user0.photoUrl,
                 },
             },
         ];
