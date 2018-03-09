@@ -3,8 +3,9 @@ import userReduxModel from './../reduxModels/userReduxModel';
 
 const initialState = userReduxModel(
     '',
-    undefined,
-    undefined,
+    '',
+    '',
+    '',
 );
 
 export default (state = initialState, action) => {

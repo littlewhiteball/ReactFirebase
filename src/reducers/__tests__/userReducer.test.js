@@ -4,12 +4,13 @@ import { user0 } from './../../__tests_constants__';
 
 const initialState = {
     id: '',
-    name: undefined,
-    email: undefined,
+    name: '',
+    email: '',
+    photoUrl: '',
 };
 
 describe('initial state', () => {
-    it('should return undefined user', () => {
+    it('should return empty user', () => {
         const expectedState = initialState;
 
         expect(userReducer(undefined, {})).toEqual(expectedState);
