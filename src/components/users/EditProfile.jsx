@@ -22,10 +22,18 @@ export class EditProfileComponent extends Component {
         this.state = {
             saving: false,
             profilePhoto: '',
-            profilePhotoDownloadURL: this.props.user.photoUrl,
-            name: this.props.user.name,
-            email: this.props.user.email,
+            profilePhotoDownloadURL: '',
+            name: '',
+            email: '',
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            profilePhotoDownloadURL: nextProps.user.photoUrl,
+            name: nextProps.user.name,
+            email: nextProps.user.email,
+        });
     }
 
     handleProfilePhotoChange = (e) => {
@@ -89,6 +97,7 @@ export class EditProfileComponent extends Component {
 
     render() {
         const formTitle = `${EDIT_PROFILE} - ${this.props.user.name}`;
+        const imgSrc = this.state.profilePhotoDownloadURL;
         return (
             <div className="col-md-12">
                 <div className="row">
@@ -105,7 +114,7 @@ export class EditProfileComponent extends Component {
                                         <form className="form" autoComplete="off">
                                             <div className="form-group row">
                                                 <div className="text-center row">
-                                                    <img className="rounded-circle col-1 offset-1" src={this.props.user.photoUrl} height="40" width="40" alt={DEFAULT_PROFILE_PHOTO} />
+                                                    <img className="rounded-circle col-1 offset-1" src={imgSrc} key={imgSrc} height="40" width="40" alt={DEFAULT_PROFILE_PHOTO} />
                                                     <input className="form-control col-6" type="file" onChange={this.handleProfilePhotoChange} />
                                                     <button className="form-control btn btn-sm btn-info col-2 ml-2" type="button" onClick={this.uploadProfilePhoto}>{UPLOAD}</button>
                                                 </div>
@@ -113,13 +122,13 @@ export class EditProfileComponent extends Component {
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={NAME_ID}>{NAME}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={NAME_ID} value={this.props.user.name} onChange={this.updateName} />
+                                                    <input className="form-control" type="text" id={NAME_ID} value={this.state.name} onChange={this.updateName} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={EMAIL_ID}>{EMAIL}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={EMAIL_ID} value={this.props.user.email} readOnly onChange={this.updateEmail} />
+                                                    <input className="form-control" type="text" id={EMAIL_ID} value={this.state.email} readOnly onChange={this.updateEmail} />
                                                 </div>
                                             </div>
                                             <div className="form-group row">

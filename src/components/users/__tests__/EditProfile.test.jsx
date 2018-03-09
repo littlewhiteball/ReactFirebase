@@ -54,7 +54,7 @@ describe('edit profile component', () => {
         expect(wrapper.find('div').at(8).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('div').at(9).hasClass('text-center')).toBe(true);
         expect(wrapper.find('img').hasClass('rounded-circle col-1 offset-1')).toBe(true);
-        expect(wrapper.find('img').prop('src')).toBe('https://firebasestorage.googleapis.com/v0/blabla/profilePhoto1.jpg?token=token1');
+        expect(wrapper.find('img').prop('src')).toBe('');
         expect(wrapper.find('img').prop('height')).toBe('40');
         expect(wrapper.find('img').prop('width')).toBe('40');
         expect(wrapper.find('img').prop('alt')).toBe('/favicon.ico');
@@ -70,7 +70,7 @@ describe('edit profile component', () => {
         expect(wrapper.find('input').at(1).hasClass('form-control')).toBe(true);
         expect(wrapper.find('input').at(1).prop('type')).toBe('text');
         expect(wrapper.find('input').at(1).prop('id')).toBe('Name');
-        expect(wrapper.find('input').at(1).prop('value')).toBe('name0');
+        expect(wrapper.find('input').at(1).prop('value')).toBe('');
         expect(wrapper.find('div').at(12).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('label').at(1).hasClass('col-lg-3 col-form-label form-control-label')).toBe(true);
         expect(wrapper.find('label').at(1).prop('htmlFor')).toBe('Email');
@@ -79,7 +79,7 @@ describe('edit profile component', () => {
         expect(wrapper.find('input').at(2).hasClass('form-control')).toBe(true);
         expect(wrapper.find('input').at(2).prop('type')).toBe('text');
         expect(wrapper.find('input').at(2).prop('id')).toBe('Email');
-        expect(wrapper.find('input').at(2).prop('value')).toBe('email0@me0.com');
+        expect(wrapper.find('input').at(2).prop('value')).toBe('');
         expect(wrapper.find('div').at(14).hasClass('form-group row')).toBe(true);
         expect(wrapper.find('div').at(15).hasClass('col-md-4 offset-md-8 row')).toBe(true);
         expect(wrapper.find('button').at(1).hasClass('col-md-4 btn btn-primary')).toBe(true);
@@ -94,14 +94,41 @@ describe('edit profile component', () => {
     it('initial state', () => {
         const expectedState = {
             saving: false,
-            name: 'name0',
-            email: 'email0@me0.com',
+            name: '',
+            email: '',
             profilePhoto: '',
-            profilePhotoDownloadURL: testConstants.user0.photoUrl,
+            profilePhotoDownloadURL: '',
         };
         const { wrapper } = setup();
 
         expect(wrapper.state()).toEqual(expectedState);
+    });
+
+    it('should update state after receiving props', () => {
+        const expectedState = {
+            saving: false,
+            name: testConstants.user0.name,
+            email: testConstants.user0.email,
+            profilePhoto: '',
+            profilePhotoDownloadURL: testConstants.user0.photoUrl,
+        };
+        const { wrapper } = setup();
+        wrapper.setProps({
+            user: testConstants.user0,
+        });
+
+        expect(wrapper.state()).toEqual(expectedState);
+    });
+
+    it('should update component after receiving props', () => {
+        const { wrapper } = setup();
+        wrapper.setProps({
+            user: testConstants.user0,
+        });
+
+        expect(wrapper.find('img').prop('src')).toBe('https://firebasestorage.googleapis.com/v0/blabla/profilePhoto1.jpg?token=token1');
+        expect(wrapper.find('input').at(1).prop('value')).toBe('name0');
+        expect(wrapper.find('input').at(2).prop('value')).toBe('email0@me0.com');
     });
 
     it('should handle profile photo change', () => {
@@ -177,6 +204,9 @@ describe('edit profile component', () => {
             name: 'new name',
         });
         const { props, wrapper } = setup();
+        wrapper.setProps({
+            user: testConstants.user0,
+        });
         wrapper.find('input').at(1).simulate('change', {
             target: {
                 name: 'text',
