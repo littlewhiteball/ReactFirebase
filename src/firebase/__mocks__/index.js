@@ -196,6 +196,11 @@ const firebase = {
     auth: () => ({
         // TODO: figure out how to return undefined currentUser
         currentUser: testConstants.emailUser0,
+        onAuthStateChanged: (callback) => {
+            callback(testConstants.emailUser0);
+
+            // TODO: return null to mock when there is no user signed in
+        },
         createUserWithEmailAndPassword: (email, password) =>
             new Promise((resolve, reject) => {
                 // eslint-disable-next-line max-len

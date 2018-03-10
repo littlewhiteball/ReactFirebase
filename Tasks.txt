@@ -1,9 +1,5 @@
 TODO: When Home page was redirected from another page, it is not required to pull competitions from db again. The list was already in redux store
 
-TODO: Create a util component for upload profile picture. Profile picture can be saved with auth user, not necessarily realtime db user
-
-TODO: Persist redux store after browser refresh. Use local storage?
-
 TODO: Firebase Log Events and/or Analytics
 
 TODO: Util for raising errors
@@ -20,6 +16,6 @@ TODO: Public page for all public competitions
 
 Bug: Navbar does not collapse in medium size
 
-TODO: PrivateRoute component componentWillMount not tested
-
 TODO: react error boundaries
+
+TODO: Update profile photo succeeded alert

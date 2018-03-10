@@ -5,6 +5,8 @@ import { Route, Redirect } from 'react-router-dom';
 
 import * as testConstants from './../../../__tests_constants__';
 
+import firebase from './../../../firebase';
+
 import { PrivateRouteComponent } from './../PrivateRoute';
 
 configure({ adapter: new Adapter() });
@@ -39,6 +41,49 @@ describe('private route component', () => {
         const { wrapper } = setup();
 
         expect(wrapper.find('i').hasClass('fa fa-spinner fa-10x')).toBe(true);
+    });
+
+    it('initial state', () => {
+        const { wrapper } = setup();
+
+        expect(wrapper.state()).toEqual({
+            loading: true,
+            signedIn: false,
+        });
+    });
+
+    it('componentWillMount should change state and call props getSignedInUser when signed in', () => {
+        // with jest.spyOn, we can mock different logic in different test cases
+        const spy = jest.spyOn(firebase, 'auth')
+            .mockImplementation(() => ({
+                onAuthStateChanged: (callback) => {
+                    callback({
+                        uid: 'id0id0id0id0id0id0id0id0id0+',
+                    });
+                },
+            }));
+        const { props, wrapper } = setup();
+
+        expect(spy).toHaveBeenCalled();
+        expect(wrapper.state('loading')).toBe(false);
+        expect(wrapper.state('signedIn')).toBe(true);
+        expect(props.getSignedInUser.mock.calls.length).toBe(1);
+        expect(props.getSignedInUser.mock.calls[0][0]).toEqual(testConstants.emailUser0.uid);
+    });
+
+    it('componentWillMount should change state and not call props getSignedInUser when not signed in', () => {
+        const spy = jest.spyOn(firebase, 'auth')
+            .mockImplementation(() => ({
+                onAuthStateChanged: (callback) => {
+                    callback(undefined);
+                },
+            }));
+        const { props, wrapper } = setup();
+
+        expect(spy).toHaveBeenCalled();
+        expect(wrapper.state('loading')).toBe(false);
+        expect(wrapper.state('signedIn')).toBe(false);
+        expect(props.getSignedInUser.mock.calls.length).toBe(0);
     });
 
     it('should have default props', () => {
@@ -99,14 +144,5 @@ describe('private route component', () => {
         };
         expect(wrapper.find(Route).prop('render')(routeProps).type).toEqual(Redirect);
         expect(wrapper.find(Route).prop('render')(routeProps).props.to).toEqual(expectedRedirectTo);
-    });
-
-    it('initial state', () => {
-        const { wrapper } = setup();
-
-        expect(wrapper.state()).toEqual({
-            loading: true,
-            signedIn: false,
-        });
     });
 });
