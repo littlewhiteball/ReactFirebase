@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "firebase": "firebase serve --only functions,hosting",
+    "deploy": "firebase deploy",
     "test": "jest"
   },
   "devDependencies": {
