@@ -37,6 +37,7 @@ export class AddCompetitionFormComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            saving: false,
             title: '',
             description: '',
             visibility: CompetitionVisibilityEnum.PUBLIC,
@@ -87,6 +88,10 @@ export class AddCompetitionFormComponent extends Component {
     }
 
     saveCompetition = () => {
+        this.setState({
+            saving: true,
+        });
+
         // TODO: validation
         const competition = {
             ownerId: this.props.userId,
@@ -98,7 +103,18 @@ export class AddCompetitionFormComponent extends Component {
             fulfillment: this.state.fulfillment.getTime(),
             options: this.state.options,
         };
-        this.props.saveChange(competition);
+        this.props.saveChange(competition)
+            .then(() => {
+                this.setState({
+                    saving: false,
+                });
+            })
+            .catch((error) => {
+                console.error(error.Message);
+                this.setState({
+                    saving: false,
+                });
+            });
 
         // TODO: if save succeeded
         this.props.navToPath('/');
@@ -166,7 +182,14 @@ export class AddCompetitionFormComponent extends Component {
                                             </div>
                                             <div className="form-group row">
                                                 <div className="col-lg-4 offset-lg-8 row">
-                                                    <button className="col-lg-6 form-control btn btn-primary" type="button" onClick={this.saveCompetition}>{SAVE}</button>
+                                                    <button className="col-lg-6 form-control btn btn-primary" type="button" onClick={this.saveCompetition}>
+                                                        {
+                                                            this.state.saving ?
+                                                                <i className="fa fa-spinner fa-spin" /> :
+                                                                null
+                                                        }
+                                                        {SAVE}
+                                                    </button>
                                                     <button className="col-lg-6 form-control btn btn-default" type="button" onClick={this.cancelChanges}>{CANCEL}</button>
                                                 </div>
                                             </div>

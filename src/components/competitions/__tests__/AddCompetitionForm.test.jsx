@@ -15,7 +15,10 @@ configure({ adapter: new Adapter() });
 const setup = () => {
     const props = {
         userId: testConstants.user0.id,
-        saveChange: jest.fn(),
+        saveChange: jest.fn(() =>
+            new Promise((resolve) => {
+                resolve();
+            })),
         navToPath: jest.fn(),
     };
 
@@ -113,16 +116,29 @@ describe('add competition form component', () => {
         expect(wrapper.find('button').at(1).text()).toBe('Cancel');
     });
 
+    it('should render spinner on save button if saving state is set to true', () => {
+        const { wrapper } = setup();
+        wrapper.setState({
+            saving: true,
+        });
+
+        expect(wrapper.find('i').hasClass('fa fa-spinner fa-spin')).toBe(true);
+    });
+
     it('initial state', () => {
+        const expectedState = {
+            saving: false,
+            title: '',
+            description: '',
+            visibility: CompetitionVisibilityEnum.PUBLIC,
+            start: testConstants.dateTimeNow,
+            entriesClose: testConstants.dateTimeAddOneDay,
+            fulfillment: testConstants.dateTimeAddTwoDays,
+            options: [],
+        };
         const { wrapper } = setup();
 
-        expect(wrapper.state('title')).toEqual('');
-        expect(wrapper.state('description')).toEqual('');
-        expect(wrapper.state('visibility')).toEqual(CompetitionVisibilityEnum.PUBLIC);
-        expect(wrapper.state('start')).toEqual(testConstants.dateTimeNow);
-        expect(wrapper.state('entriesClose')).toEqual(testConstants.dateTimeAddOneDay);
-        expect(wrapper.state('fulfillment')).toEqual(testConstants.dateTimeAddTwoDays);
-        expect(wrapper.state('options')).toEqual([]);
+        expect(wrapper.state()).toEqual(expectedState);
     });
 
     it('should handle title change', () => {
@@ -171,6 +187,18 @@ describe('add competition form component', () => {
         });
 
         expect(wrapper.state('options')).toEqual(['option1', 'option2']);
+    });
+
+    it('should set saving state when save is clicked', () => {
+        const { wrapper } = setup();
+        wrapper.setState({
+            name: 'competition 0',
+            description: 'competition 0 description',
+            options: ['option1', 'option2'],
+        });
+        wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
+
+        expect(wrapper.state('saving')).toBe(true);
     });
 
     it('should call props save change when save is clicked', () => {
