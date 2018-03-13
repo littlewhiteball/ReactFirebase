@@ -2,6 +2,8 @@ import authDbAdapter from './../database/authDbAdapter';
 import usersDbAdapter from './../database/usersDbAdapter';
 import userReduxModel from './../reduxModels/userReduxModel';
 
+const DEFAULT_PROFILE_PHOTO_URL = 'https://firebasestorage.googleapis.com/v0/b/freepolls-2a96d.appspot.com/o/default%2FprofilePhoto.jpg?alt=media&token=7d8114f9-3c23-4ee7-aa4e-994d6fc3fb06';
+
 const dbModelToReduxModel = dbModel => userReduxModel(
     dbModel.id,
     dbModel.name,
@@ -58,7 +60,7 @@ export const addUser = firebaseUser =>
             // use email as name before user updates it
             firebaseUser.email,
             firebaseUser.email,
-            firebaseUser.photoUrl,
+            DEFAULT_PROFILE_PHOTO_URL,
         );
         return usersDbAdapter.addUserToDb(model).then(() => {
             dispatch(userAddAction(model));

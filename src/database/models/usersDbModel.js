@@ -1,5 +1,6 @@
-export default (id, name, email) => ({
+export default (id, name, email, photoUrl) => ({
     id,
     name,
     email,
+    photoUrl,
 });

@@ -116,6 +116,7 @@ describe('addUser', () => {
                 type: 'USER_ADD',
                 user: Object.assign({}, user0FromDb, {
                     name: user0FromDb.email,
+                    photoUrl: 'https://firebasestorage.googleapis.com/v0/b/freepolls-2a96d.appspot.com/o/default%2FprofilePhoto.jpg?alt=media&token=7d8114f9-3c23-4ee7-aa4e-994d6fc3fb06',
                 }),
             },
         ];

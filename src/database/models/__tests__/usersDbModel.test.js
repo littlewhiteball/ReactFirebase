@@ -6,8 +6,9 @@ describe('users db model', () => {
             id: 'id0',
             name: 'name0',
             email: 'email0@me0.com',
+            photoUrl: 'https://photoUrl0.com',
         };
 
-        expect(usersDbModel('id0', 'name0', 'email0@me0.com')).toEqual(expected);
+        expect(usersDbModel('id0', 'name0', 'email0@me0.com', 'https://photoUrl0.com')).toEqual(expected);
     });
 });
