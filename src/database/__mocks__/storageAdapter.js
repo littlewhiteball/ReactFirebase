@@ -7,9 +7,9 @@ import * as testConstants from './../../__tests_constants__';
 const addProfilePhotoToStorage = (userId, file) =>
     new Promise((resolve, reject) => {
         // eslint-disable-next-line max-len
-        if (userId === testConstants.user0.id && file.name === testConstants.profilePhotoFile.name) {
+        if (userId === testConstants.user0.id && file.name === testConstants.profilePhotoFile0.name) {
             const snapshot = {
-                downloadURL: testConstants.profilePhotoFromStorage1.downloadURL,
+                downloadURL: testConstants.profilePhotoFromStorage0.downloadURL,
             };
             resolve(snapshot);
         } else {

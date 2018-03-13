@@ -3,19 +3,25 @@ import { CompetitionVisibilityEnum } from './utilities/enums/competitionVisibili
 /**
  * File
  */
-export const profilePhotoFile = {
-    name: 'profilePhoto1.jpg',
+export const profilePhotoFile0 = {
+    name: 'profilePhoto0.jpg',
     size: 1000,
     type: 'image/jpeg',
+};
+
+export const profilePhotoFil1 = {
+    name: 'profilePhoto1.jpg',
+    size: 1111,
+    type: 'image/png',
 };
 
 /**
  * Storage
  */
-export const profilePhotoFromStorage1 = {
-    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto1.jpg?token=token1',
+export const profilePhotoFromStorage0 = {
+    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto0.jpg?token=token0',
     metadata: {
-        name: 'profilePhoto1.jpg',
+        name: 'profilePhoto0.jpg',
     },
 };
 
@@ -27,10 +33,10 @@ export const emailUser0 = {
     email: 'email0@me0.com',
     password: 'emailuser0password',
     name: 'name0',
-    photoUrl: profilePhotoFromStorage1.downloadURL,
+    photoUrl: profilePhotoFromStorage0.downloadURL,
     updateProfile: profile =>
         new Promise((resolve, reject) => {
-            if (profile.displayName === 'display name0' && profile.photoURL === profilePhotoFromStorage1.downloadURL) {
+            if (profile.displayName === 'display name0' && profile.photoURL === profilePhotoFromStorage0.downloadURL) {
                 resolve();
             } else {
                 const error = new Error('update profile failed on firebase');
@@ -59,7 +65,7 @@ export const user0FromDb = {
     id: 'id0id0id0id0id0id0id0id0id0+',
     name: 'name0',
     email: 'email0@me0.com',
-    photoUrl: profilePhotoFromStorage1.downloadURL,
+    photoUrl: profilePhotoFromStorage0.downloadURL,
 };
 
 export const user1FromDb = {
@@ -100,13 +106,13 @@ export const user0 = {
     id: 'id0id0id0id0id0id0id0id0id0+',
     name: 'name0',
     email: 'email0@me0.com',
-    photoUrl: profilePhotoFromStorage1.downloadURL,
+    photoUrl: profilePhotoFromStorage0.downloadURL,
 };
 export const user0Update = {
     id: 'id0id0id0id0id0id0id0id0id0+',
     name: 'name0update',
     email: 'email0@me0.com',
-    photoUrl: profilePhotoFromStorage1.downloadURL,
+    photoUrl: profilePhotoFromStorage0.downloadURL,
 };
 export const user1 = {
     id: 'id1id1id1id1id1id1id1id1id1+',

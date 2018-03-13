@@ -69,7 +69,7 @@ describe.skip('user with provider auth', () => {
 
 describe('update user', () => {
     it('should update user with display name and photo url', () => {
-        authDbAdapter.updateUserProfile(testConstants.user0.id, 'display name0', testConstants.profilePhotoFromStorage1.downloadURL).then(() => {
+        authDbAdapter.updateUserProfile(testConstants.user0.id, 'display name0', testConstants.profilePhotoFromStorage0.downloadURL).then(() => {
             expect(true).toBe(true);
         });
     });
