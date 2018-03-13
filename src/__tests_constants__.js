@@ -9,7 +9,7 @@ export const profilePhotoFile0 = {
     type: 'image/jpeg',
 };
 
-export const profilePhotoFil1 = {
+export const profilePhotoFile1 = {
     name: 'profilePhoto1.jpg',
     size: 1111,
     type: 'image/png',
