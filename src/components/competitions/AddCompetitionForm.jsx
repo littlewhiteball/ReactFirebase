@@ -13,7 +13,9 @@ const COMPETITION_INFORMATION = 'Competition Information';
 const TITLE = 'Title';
 const TITLE_PLACEHOLDER = 'Competition title';
 const TITLE_ID = 'Title';
-const DESCRIPTION = 'Description';
+const TITLE_INVALID_FEEDBACK = 'Please provide a title for your competition';
+const TITLE_MAX_LENGTH = 256;
+const DESCRIPTION = 'Description (Optional)';
 const DESCRIPTION_PLACEHOLDER = 'Competition description';
 const DESCRIPTION_ID = 'Description';
 const PUBLIC = getText(CompetitionVisibilityEnum.PUBLIC);
@@ -24,12 +26,17 @@ const VISIBILITY = 'Visibility';
 const VISIBILITY_ID = 'Visibility';
 const ENTRIES_CLOSE = 'Entries Close';
 const ENTRIES_CLOSE_ID = 'EntriesClose';
+const ENTRIES_CLOSE_INVALID_FEEDBACK = 'Please provide a valid datetime in the format of MM/dd/yyyy hh:mm AM/PM';
 const FULFILLMENT_DATE = 'Fulfillment Date';
 const FULFILLMENT_DATE_ID = 'FulfillmentDate';
+const FULFILLMENT_DATE_INVALID_FEEDBACK = 'Please provide a valid datetime in the format of MM/dd/yyyy hh:mm AM/PM';
 const OPTIONS = 'Options';
 // TODO: Temporarily using comma separated text as list of options
 const OPTIONS_PLACEHOLDER = 'Option1,Option2';
 const OPTIONS_ID = 'Options';
+const OPTIONS_INVALID_FEEDBACK = 'Please provide a list of comma separated options without whitespaces';
+// TODO: temp: no whitespaces allowed for options
+const OPTIONS_REGEX = '^\\S*$';
 const SAVE = 'Save';
 const CANCEL = 'Cancel';
 
@@ -37,6 +44,7 @@ export class AddCompetitionFormComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            formClass: 'needs-validation',
             saving: false,
             title: '',
             description: '',
@@ -46,6 +54,18 @@ export class AddCompetitionFormComponent extends Component {
             fulfillment: moment().add(2, 'days').toDate(),
             options: [],
         };
+    }
+
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.target.checkValidity() === true) {
+            this.saveCompetition();
+        } else {
+            this.setState({
+                formClass: 'was-validated',
+            });
+        }
     }
 
     updateTitle = (e) => {
@@ -140,11 +160,14 @@ export class AddCompetitionFormComponent extends Component {
                                         <h3>{COMPETITION_INFORMATION}</h3>
                                     </div>
                                     <div className="card-block">
-                                        <form className="form" autoComplete="off">
+                                        <form className={this.state.formClass} onSubmit={this.handleFormSubmit} noValidate autoComplete="off">
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={TITLE_ID}>{TITLE}</label>
                                                 <div className="col-lg-9">
-                                                    <input className="form-control" type="text" id={TITLE_ID} placeholder={TITLE_PLACEHOLDER} onChange={this.updateTitle} />
+                                                    <input className="form-control" type="text" id={TITLE_ID} placeholder={TITLE_PLACEHOLDER} onChange={this.updateTitle} required maxLength={TITLE_MAX_LENGTH} />
+                                                    <div className="invalid-feedback">
+                                                        {TITLE_INVALID_FEEDBACK}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
@@ -166,23 +189,32 @@ export class AddCompetitionFormComponent extends Component {
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={ENTRIES_CLOSE_ID}>{ENTRIES_CLOSE}</label>
                                                 <div className="col-lg-9" id={ENTRIES_CLOSE_ID}>
                                                     <DateTimePicker defaultDateTimeValue={this.state.entriesClose} onChange={this.updateEntriesClose} />
+                                                    <div className="invalid-feedback">
+                                                        {ENTRIES_CLOSE_INVALID_FEEDBACK}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={FULFILLMENT_DATE_ID}>{FULFILLMENT_DATE}</label>
                                                 <div className="col-lg-9" id={FULFILLMENT_DATE_ID}>
                                                     <DateTimePicker defaultDateTimeValue={this.state.fulfillment} onChange={this.updateFulfillmentDate} />
+                                                    <div className="invalid-feedback">
+                                                        {FULFILLMENT_DATE_INVALID_FEEDBACK}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-lg-3 col-form-label form-control-label" htmlFor={OPTIONS_ID}>{OPTIONS}</label>
                                                 <div className="col-lg-9" id={OPTIONS_ID}>
-                                                    <input className="form-control" type="text" id={OPTIONS_ID} placeholder={OPTIONS_PLACEHOLDER} onChange={this.updateOptions} />
+                                                    <input className="form-control" type="text" id={OPTIONS_ID} placeholder={OPTIONS_PLACEHOLDER} onChange={this.updateOptions} required pattern={OPTIONS_REGEX} />
+                                                    <div className="invalid-feedback">
+                                                        {OPTIONS_INVALID_FEEDBACK}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <div className="col-lg-4 offset-lg-8 row">
-                                                    <button className="col-lg-6 form-control btn btn-primary" type="button" onClick={this.saveCompetition}>
+                                                    <button className="col-lg-6 form-control btn btn-primary" type="submit" >
                                                         {
                                                             this.state.saving ?
                                                                 <i className="fa fa-spinner fa-spin" /> :
