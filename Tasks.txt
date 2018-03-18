@@ -1,10 +1,4 @@
-TODO: When Home page was redirected from another page, it is not required to pull competitions from db again. The list was already in redux store
-
-TODO: Firebase Log Events and/or Analytics
-
-TODO: Util for raising errors
-
-TODO: Add validations on all UI components and before save action
+TODO: DateTimePicker UI validation
 
 TODO: Nav to previous route
 
@@ -14,8 +8,14 @@ TODO: Show only competitions from friends
 
 TODO: Public page for all public competitions
 
+TODO: Fork a competition
+
+TODO: Join a competition
+
+TODO: Invite a friend to a competition
+
 Bug: Navbar does not collapse in medium size
 
-TODO: react error boundaries
+TODO: Upload photo to storage with a different name (other than userId). Save when save button is clicked or discard
 
-TODO: Update profile photo succeeded alert
+TODO: Two states for a competition, created and published. In created state, options are optional, while in published state, options are mandatory

@@ -9,6 +9,9 @@ const config = {
     messagingSenderId: '883434414954',
 };
 
+// TODO: Firebase Log Events and/or Analytics
+// firebase.database.enableLogging(true);
+
 export const firebaseApp = !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 
 export default firebase;
