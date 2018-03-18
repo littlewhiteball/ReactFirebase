@@ -231,14 +231,15 @@ describe('add competition form component', () => {
 
     it('should call props save change when save is clicked', () => {
         const expectedArguments = {
-            ownerId: testConstants.user0.id,
             title: 'competition 0',
             description: 'competition 0 description',
             visibility: getText(CompetitionVisibilityEnum.PUBLIC),
+            options: ['option1', 'option2'],
+            createdBy: testConstants.user0.id,
+            owner: testConstants.user0.id,
             start: testConstants.dateTimeNow.getTime(),
             closing: testConstants.dateTimeAddOneDay.getTime(),
             fulfillment: testConstants.dateTimeAddTwoDays.getTime(),
-            options: ['option1', 'option2'],
         };
         const { props, wrapper } = setup();
         wrapper.find('input').at(0).simulate('change', {

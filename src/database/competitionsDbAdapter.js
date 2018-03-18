@@ -3,14 +3,15 @@ import competitionsDbModel from './../database/models/competitionsDbModel';
 
 const reduxModelToDbModel = reduxModel => competitionsDbModel(
     reduxModel.id,
-    reduxModel.ownerId,
     reduxModel.title,
     reduxModel.description,
     reduxModel.visibility,
+    reduxModel.options,
+    reduxModel.createdBy,
+    reduxModel.owner,
     reduxModel.start,
     reduxModel.closing,
     reduxModel.fulfillment,
-    reduxModel.options,
 );
 
 const getCompetitionsRef = () => firebaseApp.database().ref('/competitions');

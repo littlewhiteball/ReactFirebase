@@ -76,31 +76,33 @@ export const user1FromDb = {
 
 export const competition0FromDb = {
     id: 'competition0idcompetition0id',
-    ownerId: user0FromDb.id,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
     visibility: CompetitionVisibilityEnum.PUBLIC,
+    options: ['Houston Astros', 'LA Dodgers'],
+    createdBy: user0FromDb.id,
+    owner: user0FromDb.id,
     start: new Date('2017-11-02T09:00:00z'),
     closing: new Date('2017-11-12T09:00:00z'),
     fulfillment: new Date('2017-11-15T10:00:00z'),
-    options: ['Houston Astros', 'LA Dodgers'],
 };
 export const competition1FromDb = {
     id: 'competition1idcompetition1id',
-    ownerId: user1FromDb.id,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
     visibility: CompetitionVisibilityEnum.PRIVATE,
+    options: ['Real Madrid', 'Juventus'],
+    createdBy: user0FromDb.id,
+    owner: user1FromDb.id,
     start: new Date('2017-05-03T09:00:00z'),
     closing: new Date('2017-05-17T09:00:00z'),
     fulfillment: new Date('2017-05-18T10:00:00z'),
-    options: ['Real Madrid', 'Juventus'],
 };
 
 export const competitionIdNotFoundFromDb = 'competitionidnotfoundfromdb+';
 
 /**
- * Users
+ * Redux models: Users
  */
 export const user0 = {
     id: 'id0id0id0id0id0id0id0id0id0+',
@@ -134,29 +136,31 @@ export const userIdNotFound = {
 };
 
 /**
- * Competitions
+ * Redux models: Competitions
  */
 export const competition0 = {
     id: 'competition0idcompetition0id',
-    ownerId: user0.id,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
     visibility: CompetitionVisibilityEnum.PUBLIC,
+    options: ['Houston Astros', 'LA Dodgers'],
+    createdBy: user0.id,
+    owner: user0.id,
     start: new Date('2017-11-02T09:00:00z'),
     closing: new Date('2017-11-12T09:00:00z'),
     fulfillment: new Date('2017-11-15T10:00:00z'),
-    options: ['Houston Astros', 'LA Dodgers'],
 };
 export const competition1 = {
     id: 'competition1idcompetition1id',
-    ownerId: user1.id,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
     visibility: CompetitionVisibilityEnum.PRIVATE,
+    options: ['Real Madrid', 'Juventus'],
+    createdBy: user0.id,
+    owner: user1.id,
     start: new Date('2017-05-03T09:00:00z'),
     closing: new Date('2017-05-17T09:00:00z'),
     fulfillment: new Date('2017-05-18T10:00:00z'),
-    options: ['Real Madrid', 'Juventus'],
 };
 export const competitions = [
     competition0, competition1,
@@ -176,6 +180,7 @@ export const competitionIdNotFound0 = {
 };
 
 /**
+ * TODO: not used
  * Auth
  */
 export const authState0 = {

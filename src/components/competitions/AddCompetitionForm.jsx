@@ -114,14 +114,15 @@ export class AddCompetitionFormComponent extends Component {
 
         // TODO: validation
         const competition = {
-            ownerId: this.props.userId,
             title: this.state.title,
             description: this.state.description,
             visibility: getText(this.state.visibility),
+            options: this.state.options,
+            createdBy: this.props.userId,
+            owner: this.props.userId,
             start: this.state.start.getTime(),
             closing: this.state.entriesClose.getTime(),
             fulfillment: this.state.fulfillment.getTime(),
-            options: this.state.options,
         };
         this.props.saveChange(competition)
             .then(() => {

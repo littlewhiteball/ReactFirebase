@@ -7,6 +7,8 @@
             "Houston Astros",
             "LA Dodgers"
         ],
+        "createdBy": "narisong",
+        "owner": "narisong",
         "startDateTime": "2017-10-30T00:00:00Z",
         "entriesCloseDateTime": "2017-11-02T00:00:00Z",
         "fulfillmentDateTime": "2017-11-03T00:00:00Z",
@@ -21,6 +23,8 @@
             "Juventus F.C.",
             "Inter Milan"
         ],
+        "createdBy": "zhuanghaoting",
+        "owner": "qiuqiu",
         "startDateTime": "2017-10-30T00:00:00Z",
         "entriesCloseDateTime": "2017-11-02T00:00:00Z",
         "fulfillmentDateTime": "2017-11-03T00:00:00Z",
