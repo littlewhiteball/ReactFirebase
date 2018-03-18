@@ -1,17 +1,29 @@
 {
-    "1": {
+    "competition1": {
         "title": "MLB world series 2017",
+        "description": "MLB world series 2017 championship team",
         "visibility": "public",
         "options": [
             "Houston Astros",
             "LA Dodgers"
         ],
         "startDateTime": "2017-10-30T00:00:00Z",
-        "closingDateTime": "2017-11-02T00:00:00Z",
-        "fullfillmentDateTime": "2017-11-03T00:00:00Z",
+        "entriesCloseDateTime": "2017-11-02T00:00:00Z",
+        "fulfillmentDateTime": "2017-11-03T00:00:00Z",
         "endDateTime": "2017-11-04T00:00:00Z"
     },
-    "2": {
-        // ...
+    "competition2": {
+        "title": "Serie A 2017-2018",
+        "description": "Serie A 2017-2018 championship team",
+        "visibility": "public",
+        "options": [
+            "S.S.C. Napoli",
+            "Juventus F.C.",
+            "Inter Milan"
+        ],
+        "startDateTime": "2017-10-30T00:00:00Z",
+        "entriesCloseDateTime": "2017-11-02T00:00:00Z",
+        "fulfillmentDateTime": "2017-11-03T00:00:00Z",
+        "endDateTime": "2017-11-04T00:00:00Z"
     }
 }

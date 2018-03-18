@@ -1,15 +1,27 @@
 {
     "users": {
         "narisong@gmail.com": {
+            "id": "narisong",
             "name": "Risong Na",
             "contacts": {
-                "daphnezht@gmail.com": true
+                "daphnezht@gmail.com": true,
+                "qiuqiuna@gmail.com": true
             }
         },
         "daphnezht@gmail.com": {
+            "id": "zhuanghaoting",
             "name": "Haoting Zhuang",
             "contacts": {
-                "narisong@gmail.com": true
+                "narisong@gmail.com": true,
+                "qiuqiuna@gmail.com": true
+            }
+        },
+        "qiuqiuna@gmail.com": {
+            "id": "qiuqiu",
+            "name": "Qiuqiu Na",
+            "contacts": {
+                "narisong@gmail.com": true,
+                "daphnezht@gmail.com": true
             }
         }
     }

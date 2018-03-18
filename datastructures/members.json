@@ -1,11 +1,13 @@
 {
     "members": {
-        "1": {
+        "competition1": {
             "narisong": true,
             "zhuanghaoting": true
         },
-        "2": {
-            // ...
+        "competition2": {
+            "narisong": true,
+            "zhuanghaoting": true,
+            "qiuqiu": true
         }
     }
 }
