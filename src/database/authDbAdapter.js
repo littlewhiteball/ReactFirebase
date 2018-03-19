@@ -22,6 +22,15 @@ const signInWithFacebook = () => {
     return signInWithPopup(provider);
 };
 
+/**
+ * TODO: firebase uses auth as a function, so I need to mock firebase.auth()
+ * However, in order to test this method, I also need to mock firebase.auth
+ * as the namespace of TwitterAuthProvider class. I can't figure out how to
+ * mock both a method and class namespace with the same name (auth).
+ * A stack overflow thread with no answers...: https://stackoverflow.com/questions/45175599/mock-a-namespace-and-a-function-with-same-name-using-jest?stw=2
+ * So this method will be mocked in the tests of its consumers.
+ * I will test it later when I figure out how to mock firebase.auth.* classes
+ */
 const signInWithTwitter = () => {
     const provider = new firebase.auth.TwitterAuthProvider();
     return signInWithPopup(provider);

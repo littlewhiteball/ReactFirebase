@@ -229,6 +229,18 @@ const firebase = {
                     reject(error);
                 }
             }),
+        /**
+         * TODO: firebase.auth.*Provider needs to be mocked as well
+         */
+        signInWithPopup: provider =>
+            new Promise((resolve, reject) => {
+                if (provider.providerId === 'twitter.com') {
+                    resolve(testConstants.twitterExistingUser0);
+                } else {
+                    const error = new Error(`sign in with provider: ${provider.providerId} failed on firebase`);
+                    reject(error);
+                }
+            }),
         signOut: () =>
             new Promise((resolve, reject) => {
                 resolve();

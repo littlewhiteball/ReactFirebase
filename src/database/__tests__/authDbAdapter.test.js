@@ -53,6 +53,17 @@ describe('user with email and password', () => {
     });
 });
 
+// TODO: check authDbAdapter.js for more details on why this is skpped for now
+describe.skip('twitter user', () => {
+    it('should return twitter user when sign in succeeded', () => {
+        const expected = testConstants.twitterExistingUser0;
+
+        return authDbAdapter.signInWithTwitter().then((twitterUser) => {
+            expect(twitterUser).toBe(expected);
+        });
+    });
+});
+
 describe('sign out', () => {
     it('should sign out successfully', () => {
         const expected = true;
