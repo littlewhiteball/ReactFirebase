@@ -88,6 +88,10 @@ export class LoginComponent extends Component {
             this.props.getSignedInUser(user.uid);
         }).catch((signInWithGoogleError) => {
             console.error(signInWithGoogleError.message);
+            this.setState({
+                signingIn: false,
+                signInFailed: true,
+            });
         });
     }
 
@@ -99,11 +103,24 @@ export class LoginComponent extends Component {
         });
     }
 
-    signInWithTwitter = () => {
-        authDbAdapter.signInWithTwitter().then((user) => {
-            this.props.getSignedInUser(user.uid);
+    signInWithTwitter = (e) => {
+        e.preventDefault();
+
+        this.setState({
+            signingIn: true,
+        });
+
+        authDbAdapter.signInWithTwitter().then((result) => {
+            if (result.additionalUserInfo.isNewUser === true) {
+                this.props.addSignedUpUser(result.user);
+            } else {
+                this.props.getSignedInUser(result.user.uid);
+            }
         }).catch((signInWithTwitterError) => {
             console.error(signInWithTwitterError.message);
+            this.setState({
+                signingIn: false,
+            });
         });
     }
 

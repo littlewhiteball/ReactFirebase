@@ -58,6 +58,7 @@ export const addUser = firebaseUser =>
         const model = userReduxModel(
             firebaseUser.uid,
             // use email as name before user updates it
+            // TODO: third party login (e.g. Twitter) has display name
             firebaseUser.email,
             firebaseUser.email,
             DEFAULT_PROFILE_PHOTO_URL,

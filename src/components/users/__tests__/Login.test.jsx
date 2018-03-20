@@ -2,7 +2,8 @@ import React from 'react';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { user0, emailUser0, emailUserNotFound0, emailUserNotFoundSignUp0 } from './../../../__tests_constants__';
+import * as testConstants from './../../../__tests_constants__';
+import authDbAdapter from './../../../database/authDbAdapter';
 
 import { LoginComponent } from './../Login';
 
@@ -12,7 +13,7 @@ jest.mock('./../../../firebase');
 
 const setup = (isShallow = false, signedIn = false) => {
     const props = {
-        userId: signedIn ? user0.id : '',
+        userId: signedIn ? testConstants.user0.id : '',
         getSignedInUser: jest.fn(),
         addSignedUpUser: jest.fn(),
     };
@@ -89,7 +90,7 @@ describe('login component', () => {
         expect(wrapper.find('p').text()).toBe('The username and password you entered did not match our records. Please double-check and try again.');
     });
 
-    it('should reset signInFailed state when close button is clicked', () => {
+    it('should reset signInFailed state when alert message is closed', () => {
         const { wrapper } = setup();
         wrapper.setState({
             signInFailed: true,
@@ -132,13 +133,13 @@ describe('login component', () => {
         wrapper.find('input').at(0).simulate('change', {
             target: {
                 name: 'email',
-                value: emailUser0.email,
+                value: testConstants.emailUser0.email,
             },
         });
         wrapper.find('input').at(1).simulate('change', {
             target: {
                 name: 'password',
-                value: emailUser0.password,
+                value: testConstants.emailUser0.password,
             },
         });
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
@@ -153,13 +154,13 @@ describe('login component', () => {
         wrapper.find('input').at(0).simulate('change', {
             target: {
                 name: 'email',
-                value: emailUser0.email,
+                value: testConstants.emailUser0.email,
             },
         });
         wrapper.find('input').at(1).simulate('change', {
             target: {
                 name: 'password',
-                value: emailUser0.password,
+                value: testConstants.emailUser0.password,
             },
         });
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
@@ -171,7 +172,7 @@ describe('login component', () => {
         // https://github.com/airbnb/enzyme/issues/823 comment by jwbay
         setImmediate(() => {
             expect(props.getSignedInUser.mock.calls.length).toBe(1);
-            expect(props.getSignedInUser.mock.calls[0][0]).toBe(emailUser0.uid);
+            expect(props.getSignedInUser.mock.calls[0][0]).toBe(testConstants.emailUser0.uid);
         });
     });
 
@@ -180,20 +181,21 @@ describe('login component', () => {
         wrapper.find('input').at(0).simulate('change', {
             target: {
                 name: 'email',
-                value: emailUserNotFound0.email,
+                value: testConstants.emailUserNotFound0.email,
             },
         });
         wrapper.find('input').at(1).simulate('change', {
             target: {
                 name: 'password',
-                value: emailUserNotFound0.password,
+                value: testConstants.emailUserNotFound0.password,
             },
         });
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
         setImmediate(() => {
             expect(props.addSignedUpUser.mock.calls.length).toBe(1);
-            expect(props.addSignedUpUser.mock.calls[0][0]).toBe(emailUserNotFoundSignUp0);
+            expect(props.addSignedUpUser.mock.calls[0][0])
+                .toBe(testConstants.emailUserNotFoundSignUp0);
         });
     });
 
@@ -219,11 +221,71 @@ describe('login component', () => {
         expect(props.signInWithFacebook.mock.calls.length).toBe(1);
     });
 
-    it.skip('should call props sign in with twitter once clicked', () => {
+    it('should set signingIn state, add spinner and reset signInFailed state when twitter is clicked', () => {
+        const spy = jest.spyOn(authDbAdapter, 'signInWithTwitter')
+            .mockImplementation(() =>
+                new Promise((resolve) => {
+                    resolve(testConstants.twitterSignInResultExistingUser0);
+                }));
+        const { wrapper } = setup();
+        wrapper.find('button').at(3).simulate('click', { preventDefault() { } });
+
+        expect(spy).toHaveBeenCalled();
+        expect(wrapper.state('signingIn')).toBe(true);
+        expect(wrapper.find('i').at(1).hasClass('fa fa-spinner fa-spin'));
+        expect(wrapper.state('signInFailed')).toBe(false);
+    });
+
+    it('should call props getSignedInUser when an existing twitter user is signed in', () => {
+        const spy = jest.spyOn(authDbAdapter, 'signInWithTwitter')
+            .mockImplementation(() =>
+                new Promise((resolve) => {
+                    resolve(testConstants.twitterSignInResultExistingUser0);
+                }));
         const { props, wrapper } = setup();
         wrapper.find('button').at(3).simulate('click', { preventDefault() { } });
 
-        expect(props.signInWithTwitter.mock.calls.length).toBe(1);
+        expect(spy).toHaveBeenCalled();
+        setImmediate(() => {
+            expect(props.getSignedInUser.mock.calls.length).toBe(1);
+            expect(props.getSignedInUser.mock.calls[0][0])
+                .toBe(testConstants.twitterSignInResultExistingUser0.user.uid);
+        });
+    });
+
+    it('should call props addSignedUpUser when a new twitter user is signed in', () => {
+        const spy = jest.spyOn(authDbAdapter, 'signInWithTwitter')
+            .mockImplementation(() =>
+                new Promise((resolve) => {
+                    resolve(testConstants.twitterSignInResultNewUser0);
+                }));
+        const { props, wrapper } = setup();
+        wrapper.find('button').at(3).simulate('click', { preventDefault() { } });
+
+        expect(spy).toHaveBeenCalled();
+        setImmediate(() => {
+            expect(props.addSignedUpUser.mock.calls.length).toBe(1);
+            expect(props.addSignedUpUser.mock.calls[0][0])
+                .toEqual(testConstants.twitterSignInResultNewUser0.user);
+        });
+    });
+
+    it('should reset signingIn state and not call getSignedInUser or addSignedUpUser when twitter sign in failed', () => {
+        const spy = jest.spyOn(authDbAdapter, 'signInWithTwitter')
+            .mockImplementation(() =>
+                new Promise((resolve, reject) => {
+                    const error = new Error('twitter sign in failed');
+                    reject(error);
+                }));
+        const { props, wrapper } = setup();
+        wrapper.find('button').at(3).simulate('click', { preventDefault() { } });
+
+        expect(spy).toHaveBeenCalled();
+        setImmediate(() => {
+            expect(props.getSignedInUser.mock.calls.length).toBe(0);
+            expect(props.addSignedUpUser.mock.calls.length).toBe(0);
+            expect(wrapper.state('signingIn')).toBe(false);
+        });
     });
 
     it('should render redirect when use has signed in', () => {

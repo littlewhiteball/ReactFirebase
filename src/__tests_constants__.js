@@ -28,6 +28,12 @@ export const profilePhotoFromStorage0 = {
 /**
  * firebase returned models
  */
+export const AUTH_GOOGLE_PROVIDER_ID = 'google.com';
+
+export const AUTH_FACEBOOK_PROVIDER_ID = 'facebook.com';
+
+export const AUTH_TWITTER_PROVIDER_ID = 'twitter.com';
+
 export const emailUser0 = {
     uid: 'id0id0id0id0id0id0id0id0id0+',
     email: 'email0@me0.com',
@@ -56,6 +62,58 @@ export const emailUserNotFoundSignUp0 = {
     email: 'emailemailusernotfound0@meemailusernotfound0.com',
     password: 'emailusernotfound0password',
     name: 'emailusernotfound0name',
+};
+
+const twitterExistingUser0 = {
+    uid: 'twitterexistinguserid0++++++',
+    displayName: 'twitter existing user 0',
+    email: 'twitterexistinguser0@twitterexistingemail0.com',
+    photoURL: 'https://pbs.twimg.com/profile_images/someguidexisting0/existingimage0.jpg',
+};
+
+const twitterExistingUser0AdditionalUserInfo = {
+    isNewUser: false,
+    providerId: 'twitter.com',
+    username: 'twitterexistinguser0',
+};
+
+const twitterExistingUser0Credential = {
+    accessToken: 'twitterexistinguser0accesstoken',
+    providerId: 'twitter.com',
+    secret: 'twitterexistinguser0secret',
+};
+
+export const twitterSignInResultExistingUser0 = {
+    additionalUserInfo: twitterExistingUser0AdditionalUserInfo,
+    credential: twitterExistingUser0Credential,
+    operationType: 'signIn',
+    user: twitterExistingUser0,
+};
+
+const twitterNewUser0 = {
+    uid: 'twitternewuserid0++++++',
+    displayName: 'twitter new user 0',
+    email: 'twitternewuser0@twitternewemail0.com',
+    photoURL: 'https://pbs.twimg.com/profile_images/someguidnew0/newimage0.jpg',
+};
+
+const twitterNewUser0AdditionalUserInfo = {
+    isNewUser: true,
+    providerId: 'twitter.com',
+    username: 'twitternewuser0',
+};
+
+const twitterNewUser0Credential = {
+    accessToken: 'twitternewuser0accesstoken',
+    providerId: 'twitter.com',
+    secret: 'twitternewuser0secret',
+};
+
+export const twitterSignInResultNewUser0 = {
+    additionalUserInfo: twitterNewUser0AdditionalUserInfo,
+    credential: twitterNewUser0Credential,
+    operationType: 'signIn',
+    user: twitterNewUser0,
 };
 
 /**
@@ -177,36 +235,6 @@ export const competition0Update = {
 };
 export const competitionIdNotFound0 = {
     id: competitionIdNotFoundFromDb,
-};
-
-/**
- * TODO: not used
- * Auth
- */
-export const authState0 = {
-    userId: 'auth0userid',
-};
-export const emailResult = {
-    uid: 'auth0userid',
-};
-export const googleResult = {
-    googleUser: emailResult,
-    credential: {
-        accessToken: 'googleaccesstoken',
-    },
-};
-export const facebookResult = {
-    facebookUser: emailResult,
-    credential: {
-        accessToken: 'facebookaccesstoken',
-    },
-};
-export const twitterResult = {
-    twitterUser: emailResult,
-    credential: {
-        accessToken: 'twitteraccesstoken',
-        secret: 'secret',
-    },
 };
 
 /**
