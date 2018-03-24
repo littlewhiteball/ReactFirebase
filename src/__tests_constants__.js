@@ -25,6 +25,27 @@ export const profilePhotoFromStorage0 = {
     },
 };
 
+export const profilePhotoFromStorage1 = {
+    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto1.jpg?token=token1',
+    metadata: {
+        name: 'profilePhoto1.jpg',
+    },
+};
+
+export const profilePhotoFromStorage2 = {
+    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto2.jpg?token=token2',
+    metadata: {
+        name: 'profilePhoto2.jpg',
+    },
+};
+
+export const profilePhotoFromStorage3 = {
+    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto3.jpg?token=token3',
+    metadata: {
+        name: 'profilePhoto3.jpg',
+    },
+};
+
 /**
  * firebase returned models
  */
@@ -130,6 +151,21 @@ export const user1FromDb = {
     id: 'id1id1id1id1id1id1id1id1id1+',
     name: 'name1',
     email: 'email1@me1.com',
+    photoUrl: profilePhotoFromStorage1.downloadURL,
+};
+
+export const user2FromDb = {
+    id: 'id2id2id2id2id2id2id2id2id2+',
+    name: 'name2',
+    email: 'email2@me2.com',
+    photoUrl: profilePhotoFromStorage2.downloadURL,
+};
+
+export const user3FromDb = {
+    id: 'id3id3id3id3id3id3id3id3id3+',
+    name: 'name3',
+    email: 'email3@me3.com',
+    photoUrl: profilePhotoFromStorage3.downloadURL,
 };
 
 export const competition0FromDb = {
@@ -157,6 +193,27 @@ export const competition1FromDb = {
     fulfillment: new Date('2017-05-18T10:00:00z'),
 };
 
+const member0FromDb = {
+    competitionId: competition0FromDb.id,
+};
+member0FromDb[user0FromDb.id] = true;
+member0FromDb[user1FromDb.id] = true;
+
+const member1FromDb = {
+    competitionId: competition1FromDb.id,
+};
+member1FromDb[user2FromDb.id] = true;
+member1FromDb[user3FromDb.id] = true;
+
+/**
+ * members cannot be initialized in one statement,
+ * so have to be exported as properties of a new object
+ */
+export const members = {
+    member0FromDb,
+    member1FromDb,
+};
+
 export const competitionIdNotFoundFromDb = 'competitionidnotfoundfromdb+';
 
 /**
@@ -178,6 +235,7 @@ export const user1 = {
     id: 'id1id1id1id1id1id1id1id1id1+',
     name: 'name1',
     email: 'email1@me1.com',
+    photoUrl: profilePhotoFromStorage1.downloadURL,
 };
 export const users = [
     user0,

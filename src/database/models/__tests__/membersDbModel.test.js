@@ -12,7 +12,7 @@ describe('members db model', () => {
 
         expect(membersDbModel(
             testConstants.competition0.id,
-            [testConstants.user0.id, testConstants.user1.id]
+            [testConstants.user0.id, testConstants.user1.id],
         ));
     });
 });

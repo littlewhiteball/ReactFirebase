@@ -119,7 +119,8 @@ const competitionsRefFunc = (key) => {
                 }),
         });
     }
-    // competitions
+
+    // else: competitions
     return ({
         push: () => ({
             key: testConstants.competition0FromDb.id,
@@ -176,6 +177,69 @@ const competitionsRefFunc = (key) => {
     });
 };
 
+const membersRefFuncs = key => ({
+    once: eventType =>
+        new Promise((resolve, reject) => {
+            switch (eventType) {
+                case 'value': {
+                    if (key === testConstants.competition0FromDb.id) {
+                        const snapshot = ({
+                            val: () => testConstants.members.member0FromDb,
+                            exists: () => true,
+                        });
+                        resolve(snapshot);
+                    } else if (key === testConstants.competitionIdNotFound0.id) {
+                        const snapshot = ({
+                            exists: () => false,
+                        });
+                        resolve(snapshot);
+                    } else {
+                        const error = new Error('get member has failed on firebase database');
+                        reject(error);
+                    }
+                    break;
+                }
+
+                default: {
+                    const error = new Error(`${eventType} is not a supported eventType by once method`);
+                    reject(error);
+                }
+            }
+        }),
+    set: value =>
+        new Promise((resolve, reject) => {
+            if (value.competitionId === testConstants.competition0FromDb.id) {
+                resolve();
+            } else {
+                const error = new Error('set member has failed on firebase database');
+                reject(error);
+            }
+        }),
+    update: values =>
+        new Promise((resolve, reject) => {
+            // update mock: add user2 to user list of member
+            if (values.competitionId === testConstants.competition0FromDb.id
+                && values[testConstants.user2FromDb.id] === true) {
+                resolve();
+            } else {
+                const error = new Error('update member has failed on firebase database');
+                reject(error);
+            }
+        }),
+    remove: () =>
+        new Promise((resolve, reject) => {
+            if (key === testConstants.members.member0FromDb.competitionId) {
+                resolve();
+            } else if (key === testConstants.competitionIdNotFoundFromDb) {
+                const error = new Error(`cannot remove member with competition id: ${key} as it does not exist in database`);
+                reject(error);
+            } else {
+                const error = new Error('remove member has failed on firebase database');
+                reject(error);
+            }
+        }),
+});
+
 export const firebaseApp = {
     database: () => ({
         ref: (path) => {
@@ -185,6 +249,9 @@ export const firebaseApp = {
             } else if (path.startsWith('/competitions')) {
                 const key = path.substring(14);
                 return competitionsRefFunc(key);
+            } else if (path.startsWith('/members')) {
+                const key = path.substring(9);
+                return membersRefFuncs(key);
             }
 
             return undefined;

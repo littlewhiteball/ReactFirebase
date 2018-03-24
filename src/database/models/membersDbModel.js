@@ -1,6 +1,10 @@
-export default (id, userIdList) => {
+/**
+ * members table uses competition id as id
+ */
+
+export default (competitionId, userIdList) => {
     const member = {
-        id,
+        competitionId,
     };
 
     Object.keys(userIdList).forEach((user) => {
