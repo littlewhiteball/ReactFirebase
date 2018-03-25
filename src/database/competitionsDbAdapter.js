@@ -26,6 +26,8 @@ const getCompetitionsOnceFromDb = (limitToLast = 0) => {
     return getCompetitionsRef().once('value');
 };
 
+const getCompetitionOnceFromDb = id => getCompetitionRef(id).once('value');
+
 const generateKeyForCompetitionFromDb = () => getCompetitionsRef().push().key;
 
 const addCompetitionToDb = (competitionModel) => {
@@ -38,7 +40,7 @@ const updateCompetitionToDb = async (competitionUpdateModel) => {
     const { id } = competitionUpdateModel;
 
     try {
-        const snapshot = await getCompetitionRef(id).once('value');
+        const snapshot = await getCompetitionOnceFromDb(id);
         // Check if id already exists in database
         if (snapshot.exists()) {
             return getCompetitionRef(id).update(competitionUpdateModel);
