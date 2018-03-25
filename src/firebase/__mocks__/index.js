@@ -53,7 +53,7 @@ const usersRefFuncs = key => ({
         }),
 });
 
-const competitionsRefFunc = (key) => {
+const competitionsRefFuncs = (key) => {
     if (key) {
         // single competition
         return ({
@@ -97,8 +97,8 @@ const competitionsRefFunc = (key) => {
                 }),
             update: values =>
                 new Promise((resolve, reject) => {
-                    // eslint-disable-next-line max-len
-                    if (values.id === testConstants.competition0FromDb.id && values.title !== testConstants.competition0FromDb.title) {
+                    if (values.id === testConstants.competition0FromDb.id
+                        && values.title !== testConstants.competition0FromDb.title) {
                         resolve();
                     } else {
                         const error = new Error('update competition has failed on firebase database');
@@ -240,6 +240,137 @@ const membersRefFuncs = key => ({
         }),
 });
 
+const competitionEntriesRefFuncs = (key) => {
+    if (key) {
+        // entries for a single competition
+        return ({
+            once: eventType =>
+                new Promise((resolve, reject) => {
+                    switch (eventType) {
+                        case 'value': {
+                            console.log(key);
+                            if (key === testConstants.competition0FromDb.id) {
+                                const snapshot = ({
+                                    val: () => {
+                                        const result = {};
+                                        // eslint-disable-next-line max-len
+                                        result[testConstants.competitionEntry00Id] = testConstants.competitionEntry00;
+                                        // eslint-disable-next-line max-len
+                                        result[testConstants.competitionEntry01Id] = testConstants.competitionEntry01;
+                                        return result;
+                                    },
+                                    exists: () => true,
+                                });
+                                resolve(snapshot);
+                            } else if (key === testConstants.competitionIdNotFoundFromDb) {
+                                const snapshot = ({
+                                    exists: () => false,
+                                });
+                                resolve(snapshot);
+                            } else {
+                                const error = new Error('get competition entries has failed on firebase database');
+                                reject(error);
+                            }
+
+                            break;
+                        }
+
+                        default: {
+                            const error = new Error(`${eventType} is not a supported eventType by once method`);
+                            reject(error);
+                        }
+                    }
+                }),
+            remove: () =>
+                new Promise((resolve, reject) => {
+                    if (key === testConstants.competition0FromDb.id) {
+                        resolve();
+                    } else {
+                        const error = new Error('remove competition entries has failed on firebase database');
+                        reject(error);
+                    }
+                }),
+        });
+    }
+    // all competition entries
+    return ({
+        push: () => ({
+            key: testConstants.competitionEntry00Id,
+        }),
+    });
+};
+
+const competitionEntryRefFuncs = (competitionId, entryId) => ({
+    once: eventType =>
+        new Promise((resolve, reject) => {
+            switch (eventType) {
+                case 'value': {
+                    if (competitionId === testConstants.competition0FromDb.id
+                        && entryId === testConstants.competitionEntry00Id) {
+                        const snapshot = ({
+                            val: () => testConstants.competitionEntry00,
+                            exists: () => true,
+                        });
+                        resolve(snapshot);
+                    } else if (competitionId === testConstants.competitionIdNotFoundFromDb
+                        || entryId === testConstants.competitionIdNotFoundFromDb) {
+                        const snapshot = ({
+                            exists: () => false,
+                        });
+                        resolve(snapshot);
+                    } else {
+                        const error = new Error('get competition entry has failed on firebase database');
+                        reject(error);
+                    }
+
+                    break;
+                }
+
+                default: {
+                    const error = new Error(`${eventType} is not a supported eventType by once method`);
+                    reject(error);
+                }
+            }
+        }),
+    set: competitionEntry =>
+        new Promise((resolve, reject) => {
+            if (competitionId === testConstants.competition0FromDb.id
+                && entryId === testConstants.competitionEntry00Id
+                && competitionEntry.userId === testConstants.user0FromDb.id) {
+                resolve();
+            } else if (competitionId === testConstants.competition1FromDb.id
+                // as generate key is mocked to always return 00Id
+                && entryId === testConstants.competitionEntry00Id
+                && competitionEntry.userId === testConstants.user3FromDb.id) {
+                resolve();
+            } else {
+                const error = new Error('set competition entry has failed on firebase database');
+                reject(error);
+            }
+        }),
+    update: competitionEntryUpdate =>
+        new Promise((resolve, reject) => {
+            if (competitionId === testConstants.competition0FromDb.id
+                && entryId === testConstants.competitionEntry00Id
+                && competitionEntryUpdate.userId === testConstants.user0FromDb.id) {
+                resolve();
+            } else {
+                const error = new Error('update competition entry has failed on firebase database');
+                reject(error);
+            }
+        }),
+    remove: () =>
+        new Promise((resolve, reject) => {
+            if (competitionId === testConstants.competition0FromDb.id
+                && entryId === testConstants.competitionEntry00Id) {
+                resolve();
+            } else {
+                const error = new Error('remove competition entry has failed on firebase database');
+                reject(error);
+            }
+        }),
+});
+
 export const firebaseApp = {
     database: () => ({
         ref: (path) => {
@@ -248,10 +379,18 @@ export const firebaseApp = {
                 return usersRefFuncs(key);
             } else if (path.startsWith('/competitions')) {
                 const key = path.substring(14);
-                return competitionsRefFunc(key);
+                return competitionsRefFuncs(key);
             } else if (path.startsWith('/members')) {
                 const key = path.substring(9);
                 return membersRefFuncs(key);
+            } else if (path.startsWith('/competitionEntries')) {
+                const key = path.substring(20).split('/');
+                if (key.length === 1) {
+                    // entries for a single competition
+                    return competitionEntriesRefFuncs(key[0]);
+                }
+                // single competition entry
+                return competitionEntryRefFuncs(key[0], key[1]);
             }
 
             return undefined;

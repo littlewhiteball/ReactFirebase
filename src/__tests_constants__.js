@@ -46,6 +46,13 @@ export const profilePhotoFromStorage3 = {
     },
 };
 
+export const profilePhotoFromStorage4 = {
+    downloadURL: 'https://firebasestorage.googleapis.com/v0/blabla/profilePhoto4.jpg?token=token4',
+    metadata: {
+        name: 'profilePhoto4.jpg',
+    },
+};
+
 /**
  * firebase returned models
  */
@@ -168,6 +175,13 @@ export const user3FromDb = {
     photoUrl: profilePhotoFromStorage3.downloadURL,
 };
 
+export const user4FromDb = {
+    id: 'id4id4id4id4id4id4id4id4id4+',
+    name: 'name4',
+    email: 'email4@me4.com',
+    photoUrl: profilePhotoFromStorage4.downloadURL,
+};
+
 export const competition0FromDb = {
     id: 'competition0idcompetition0id',
     title: 'MLB world series 2017',
@@ -204,6 +218,52 @@ const member1FromDb = {
 };
 member1FromDb[user2FromDb.id] = true;
 member1FromDb[user3FromDb.id] = true;
+
+/**
+ * Start: entries for competition0
+ */
+export const competitionEntry00Id = 'competitionEntry00Id+++++++++';
+export const competitionEntry00 = {
+    userId: user0FromDb.id,
+    option: competition0FromDb.options[0],
+    value: 1,
+    entryCreated: new Date('2017-06-01T00:00:00Z'),
+    entryLastModified: new Date('2017-06-02T00:00:00Z'),
+};
+
+export const competitionEntry01Id = 'competitionEntry01Id+++++++++';
+export const competitionEntry01 = {
+    userId: user1FromDb.id,
+    option: competition1FromDb.options[1],
+    value: 2,
+    entryCreated: new Date('2018-06-01T00:00:00Z'),
+    entryLastModified: new Date('2018-06-02T00:00:00Z'),
+};
+
+/** End: entries for competition0 */
+
+/**
+ * Start: entries for competition1
+ */
+export const competitionEntry10Id = 'competitionEntry00Id+++++++++';
+export const competitionEntry10 = {
+    userId: user3FromDb.id,
+    option: competition1FromDb.options[0],
+    value: 3,
+    entryCreated: new Date('2017-06-01T00:00:00Z'),
+    entryLastModified: new Date('2017-06-02T00:00:00Z'),
+};
+
+export const competitionEntry11Id = 'competitionEntry01Id+++++++++';
+export const competitionEntry11 = {
+    userId: user4FromDb.id,
+    option: competition1FromDb.options[1],
+    value: 2,
+    entryCreated: new Date('2018-06-01T00:00:00Z'),
+    entryLastModified: new Date('2018-06-02T00:00:00Z'),
+};
+
+/** End: entries for competition1 */
 
 /**
  * members cannot be initialized in one statement,
