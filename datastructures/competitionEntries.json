@@ -1,17 +1,19 @@
 {
-    "entries": {
+    "competitionEntries": {
         "competition1": {
             "entry1": {
                 "user": "narisong",
                 "option": "Houston Astros",
                 "value": 1.0,
-                "timestamp": "2017-11-01T00:00:00Z"
+                "entryCreated": "2017-11-01T00:00:00Z",
+                "entryLastModified": "2017-11-02T00:00:00Z"
             },
             "entry2": {
                 "user": "zhuanghaoting",
                 "option": "LA Dodgers",
                 "value": 1.0,
-                "timestamp": "2017-11-01T00:00:00Z"
+                "entryCreated": "2017-11-01T00:00:00Z",
+                "entryLastModified": "2017-11-02T00:00:00Z"
             }
         },
         "competition2": {
@@ -19,19 +21,22 @@
                 "user": "narisong",
                 "option": "Inter Milan",
                 "value": 1.0,
-                "timestamp": "2017-11-01T00:00:00Z"
+                "entryCreated": "2017-11-01T00:00:00Z",
+                "entryLastModified": "2017-11-02T00:00:00Z"
             },
             "entry2": {
                 "user": "zhuanghaoting",
                 "option": "Juventus F.C.",
                 "value": 1.0,
-                "timestamp": "2017-11-01T00:00:00Z"
+                "entryCreated": "2017-11-01T00:00:00Z",
+                "entryLastModified": "2017-11-02T00:00:00Z"
             },
             "entry3": {
                 "user": "qiuqiu",
                 "option": "S.S.C. Napoli",
                 "value": 1.0,
-                "timestamp": "2017-11-01T00:00:00Z"
+                "entryCreated": "2017-11-01T00:00:00Z",
+                "entryLastModified": "2017-11-02T00:00:00Z"
             }
         }
     }
