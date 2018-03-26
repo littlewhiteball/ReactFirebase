@@ -1,5 +1,5 @@
 {
-    "members": {
+    "competitionParticipants": {
         "competition1": {
             "competitionId": "competition1",
             "narisong": true,
