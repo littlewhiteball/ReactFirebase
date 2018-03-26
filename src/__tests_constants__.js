@@ -274,7 +274,7 @@ export const members = {
     member1FromDb,
 };
 
-export const competitionIdNotFoundFromDb = 'competitionidnotfoundfromdb+';
+export const idNotFoundFromDb = 'competitionidnotfoundfromdb+';
 
 /**
  * Redux models: Users
@@ -350,9 +350,6 @@ export const competition0Update = {
     start: competition0.start,
     closing: competition0.closing,
     options: competition0.options,
-};
-export const competitionIdNotFound0 = {
-    id: competitionIdNotFoundFromDb,
 };
 
 /**

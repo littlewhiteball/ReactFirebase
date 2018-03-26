@@ -78,7 +78,7 @@ describe('add competition entry to db', () => {
         const expectedError = new Error('set competition entry has failed on firebase database');
 
         return competitionEntriesDbAdapter.addCompetitionEntryToDb(
-            testConstants.competitionIdNotFoundFromDb,
+            testConstants.idNotFoundFromDb,
             testConstants.competitionEntry11,
         ).catch((error) => {
             expect(error).toEqual(expectedError);
@@ -109,7 +109,7 @@ describe('update competition entry to db', () => {
         });
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
-            testConstants.competitionIdNotFoundFromDb,
+            testConstants.idNotFoundFromDb,
             testConstants.competitionEntry00Id,
             competitionEntryUpdate,
         ).catch((error) => {
@@ -122,7 +122,7 @@ describe('update competition entry to db', () => {
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
             testConstants.competition0FromDb.id,
-            testConstants.competitionIdNotFoundFromDb,
+            testConstants.idNotFoundFromDb,
             testConstants.competitionEntry00,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);

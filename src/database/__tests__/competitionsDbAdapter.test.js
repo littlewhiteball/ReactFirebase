@@ -59,8 +59,11 @@ describe('update competition to db', () => {
 
     it('should fail if competition id does not exist in database', () => {
         const expectedError = new Error('provided competition id: competitionidnotfoundfromdb+ does not exist in database. cannot update');
+        const competitionUpdate = Object.assign({}, testConstants.competition0FromDb, {
+            id: testConstants.idNotFoundFromDb,
+        });
 
-        return competitionsDbAdapter.updateCompetitionToDb(testConstants.competitionIdNotFound0)
+        return competitionsDbAdapter.updateCompetitionToDb(competitionUpdate)
             .catch((error) => {
                 expect(error).toMatchObject(expectedError);
             });
@@ -90,7 +93,7 @@ describe('remove competition from db', () => {
         const expectedError = new Error('cannot remove competition with id: competitionidnotfoundfromdb+ as it does not exist in database');
 
         // eslint-disable-next-line max-len
-        return competitionsDbAdapter.removeCompetitionFromDb(testConstants.competitionIdNotFound0.id)
+        return competitionsDbAdapter.removeCompetitionFromDb(testConstants.idNotFoundFromDb)
             .catch((error) => {
                 expect(error).toMatchObject(expectedError);
             });

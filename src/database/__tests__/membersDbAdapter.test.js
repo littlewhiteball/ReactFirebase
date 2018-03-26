@@ -57,7 +57,7 @@ describe('update member to db', () => {
     it('should fail if competition id of member does not exist in database', () => {
         const expectedError = new Error('provided competition id: competitionidnotfoundfromdb+ does not exist in database. cannot update');
         const memberUpdate = Object.assign({}, testConstants.members.member0FromDb, {
-            competitionId: testConstants.competitionIdNotFoundFromDb,
+            competitionId: testConstants.idNotFoundFromDb,
         });
 
         return membersDbAdapter.updateMemberToDb(memberUpdate)
@@ -95,7 +95,7 @@ describe('remove member from db', () => {
     it('should fail if competition id of member does not exist in database', () => {
         const expectedError = new Error('cannot remove member with competition id: competitionidnotfoundfromdb+ as it does not exist in database');
 
-        return membersDbAdapter.removeMemberFromDb(testConstants.competitionIdNotFoundFromDb)
+        return membersDbAdapter.removeMemberFromDb(testConstants.idNotFoundFromDb)
             .catch((error) => {
                 expect(error).toMatchObject(expectedError);
             });

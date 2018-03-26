@@ -67,7 +67,7 @@ const competitionsRefFuncs = (key) => {
                                     exists: () => true,
                                 });
                                 resolve(snapshot);
-                            } else if (key === testConstants.competitionIdNotFoundFromDb) {
+                            } else if (key === testConstants.idNotFoundFromDb) {
                                 const snapshot = ({
                                     exists: () => false,
                                 });
@@ -109,7 +109,7 @@ const competitionsRefFuncs = (key) => {
                 new Promise((resolve, reject) => {
                     if (key === testConstants.competition0FromDb.id) {
                         resolve();
-                    } else if (key === testConstants.competitionIdNotFoundFromDb) {
+                    } else if (key === testConstants.idNotFoundFromDb) {
                         const error = new Error(`cannot remove competition with id: ${key} as it does not exist in database`);
                         reject(error);
                     } else {
@@ -188,7 +188,7 @@ const membersRefFuncs = key => ({
                             exists: () => true,
                         });
                         resolve(snapshot);
-                    } else if (key === testConstants.competitionIdNotFound0.id) {
+                    } else if (key === testConstants.idNotFoundFromDb) {
                         const snapshot = ({
                             exists: () => false,
                         });
@@ -230,7 +230,7 @@ const membersRefFuncs = key => ({
         new Promise((resolve, reject) => {
             if (key === testConstants.members.member0FromDb.competitionId) {
                 resolve();
-            } else if (key === testConstants.competitionIdNotFoundFromDb) {
+            } else if (key === testConstants.idNotFoundFromDb) {
                 const error = new Error(`cannot remove member with competition id: ${key} as it does not exist in database`);
                 reject(error);
             } else {
@@ -262,7 +262,7 @@ const competitionEntriesRefFuncs = (key) => {
                                     exists: () => true,
                                 });
                                 resolve(snapshot);
-                            } else if (key === testConstants.competitionIdNotFoundFromDb) {
+                            } else if (key === testConstants.idNotFoundFromDb) {
                                 const snapshot = ({
                                     exists: () => false,
                                 });
@@ -312,8 +312,8 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
                             exists: () => true,
                         });
                         resolve(snapshot);
-                    } else if (competitionId === testConstants.competitionIdNotFoundFromDb
-                        || entryId === testConstants.competitionIdNotFoundFromDb) {
+                    } else if (competitionId === testConstants.idNotFoundFromDb
+                        || entryId === testConstants.idNotFoundFromDb) {
                         const snapshot = ({
                             exists: () => false,
                         });

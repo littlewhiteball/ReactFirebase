@@ -13,6 +13,8 @@ const addMemberToDb = (memberDbModel) => {
     return getMemberRef(competitionId).set(memberDbModel);
 };
 
+// TODO: Add member and update member is same thing
+
 // TODO: currently the only update is to add a user
 const updateMemberToDb = async (memberUpdateDbModel) => {
     const { competitionId } = memberUpdateDbModel;
