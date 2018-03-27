@@ -1,45 +1,26 @@
 import { firebaseApp } from './../firebase';
 
-const getCompetitionParticipantRef = key => firebaseApp.database().ref(`/competitionParticipants/${key}`);
+const getCompetitionParticipantsRef = competitionId => firebaseApp.database().ref(`/competitionParticipants/${competitionId}`);
 
-const getCompetitionParticipantOnceFromDb = competitionId => getCompetitionParticipantRef(competitionId).once('value');
+const getCompetitionParticipantRef = (competitionId, userId) => firebaseApp.database().ref(`/competitionParticipants/${competitionId}/${userId}`);
 
-const addCompetitionParticipantToDb = (competitionParticipantDbModel) => {
-    const { competitionId } = competitionParticipantDbModel;
-    return getCompetitionParticipantRef(competitionId).set(competitionParticipantDbModel);
-};
+const getCompetitionParticipantsOnceFromDb = competitionId => getCompetitionParticipantsRef(competitionId).once('value');
 
-// TODO: Add competitionParticipant and update competitionParticipant is same thing
+const getCompetitionParticipantOnceFromDb = (competitionId, userId) => getCompetitionParticipantRef(competitionId, userId).once('value');
 
-// TODO: currently the only update is to add a user
-const updateCompetitionParticipantToDb = async (competitionParticipantUpdateDbModel) => {
-    const { competitionId } = competitionParticipantUpdateDbModel;
+const addCompetitionParticipantToDb = (competitionId, userId) =>
+    getCompetitionParticipantRef(competitionId, userId).set(true);
 
-    try {
-        const snapshot = await getCompetitionParticipantRef(competitionId).once('value');
-        // Check if id already exists in database
-        if (snapshot.exists()) {
-            return getCompetitionParticipantRef(competitionId)
-                .update(competitionParticipantUpdateDbModel);
-        }
+const removeCompetitionParticipantsFromDb = competitionId =>
+    getCompetitionParticipantsRef(competitionId).remove();
 
-        return new Promise((resolve, reject) => {
-            const error = new Error(`provided competition id: ${competitionId} does not exist in database. cannot update`);
-            reject(error);
-        });
-    } catch (error) {
-        console.error(error.message);
-        // TODO: should throw
-        throw error;
-    }
-};
-
-const removeCompetitionParticipantFromDb =
-    competitionId => getCompetitionParticipantRef(competitionId).remove();
+const removeCompetitionParticipantFromDb = (competitionId, userId) =>
+    getCompetitionParticipantRef(competitionId, userId).remove();
 
 export default {
+    getCompetitionParticipantsOnceFromDb,
     getCompetitionParticipantOnceFromDb,
     addCompetitionParticipantToDb,
-    updateCompetitionParticipantToDb,
+    removeCompetitionParticipantsFromDb,
     removeCompetitionParticipantFromDb,
 };

@@ -177,25 +177,24 @@ const competitionsRefFuncs = (key) => {
     });
 };
 
-const competitionParticipantsRefFuncs = key => ({
+const competitionParticipantsRefFuncs = competitionId => ({
     once: eventType =>
         new Promise((resolve, reject) => {
             switch (eventType) {
                 case 'value': {
-                    const { competitionParticipant0FromDb } = testConstants.competitionParticipants;
-                    if (key === testConstants.competition0FromDb.id) {
+                    if (competitionId === testConstants.competition0FromDb.id) {
                         const snapshot = ({
-                            val: () => competitionParticipant0FromDb,
+                            val: () => testConstants.competitionParticipants0,
                             exists: () => true,
                         });
                         resolve(snapshot);
-                    } else if (key === testConstants.idNotFoundFromDb) {
+                    } else if (competitionId === testConstants.idNotFoundFromDb) {
                         const snapshot = ({
                             exists: () => false,
                         });
                         resolve(snapshot);
                     } else {
-                        const error = new Error('get competitionParticipant has failed on firebase database');
+                        const error = new Error('get competition participants has failed on firebase database');
                         reject(error);
                     }
                     break;
@@ -207,37 +206,70 @@ const competitionParticipantsRefFuncs = key => ({
                 }
             }
         }),
-    set: value =>
+    remove: () =>
         new Promise((resolve, reject) => {
-            if (value.competitionId === testConstants.competition0FromDb.id) {
+            // eslint-disable-next-line max-len
+            if (competitionId === testConstants.competition0FromDb.id) {
                 resolve();
             } else {
-                const error = new Error('set competitionParticipant has failed on firebase database');
+                const error = new Error('remove competition participants has failed on firebase database');
                 reject(error);
             }
         }),
-    update: values =>
+});
+
+const competitionParticipantRefFuncs = (competitionId, userId) => ({
+    once: eventType =>
         new Promise((resolve, reject) => {
-            // update mock: add user2 to user list of competitionParticipant
-            if (values.competitionId === testConstants.competition0FromDb.id
-                && values[testConstants.user2FromDb.id] === true) {
+            switch (eventType) {
+                case 'value': {
+                    if (competitionId === testConstants.competition0FromDb.id) {
+                        const snapshot = ({
+                            val: () => {
+                                const result = {};
+                                result[testConstants.user0FromDb.id] = true;
+                                result[testConstants.user1FromDb.id] = true;
+                                return result;
+                            },
+                            exists: () => true,
+                        });
+                        resolve(snapshot);
+                    } else if (competitionId === testConstants.idNotFoundFromDb) {
+                        const snapshot = {
+                            exists: () => false,
+                        };
+                        resolve(snapshot);
+                    } else {
+                        const error = new Error('get competition participant has failed on firebase database');
+                        reject(error);
+                    }
+
+                    break;
+                }
+
+                default: {
+                    const error = new Error(`${eventType} is not a supported eventType by once method`);
+                    reject(error);
+                }
+            }
+        }),
+    set: () =>
+        new Promise((resolve, reject) => {
+            if (competitionId === testConstants.competition0FromDb.id
+                && userId === testConstants.user0FromDb.id) {
                 resolve();
             } else {
-                const error = new Error('update competitionParticipant has failed on firebase database');
+                const error = new Error('set competition participant has failed on firebase database');
                 reject(error);
             }
         }),
     remove: () =>
         new Promise((resolve, reject) => {
-            const { competitionId }
-                = testConstants.competitionParticipants.competitionParticipant0FromDb;
-            if (key === competitionId) {
+            if (competitionId === testConstants.competition0FromDb.id
+                && userId === testConstants.user0FromDb.id) {
                 resolve();
-            } else if (key === testConstants.idNotFoundFromDb) {
-                const error = new Error(`cannot remove competitionParticipant with competition id: ${key} as it does not exist in database`);
-                reject(error);
             } else {
-                const error = new Error('remove competitionParticipant has failed on firebase database');
+                const error = new Error('remove competition participant has failed on firebase database');
                 reject(error);
             }
         }),
@@ -251,7 +283,6 @@ const competitionEntriesRefFuncs = (key) => {
                 new Promise((resolve, reject) => {
                     switch (eventType) {
                         case 'value': {
-                            console.log(key);
                             if (key === testConstants.competition0FromDb.id) {
                                 const snapshot = ({
                                     val: () => {
@@ -384,8 +415,13 @@ export const firebaseApp = {
                 const key = path.substring(14);
                 return competitionsRefFuncs(key);
             } else if (path.startsWith('/competitionParticipants')) {
-                const key = path.substring(25);
-                return competitionParticipantsRefFuncs(key);
+                const key = path.substring(25).split('/');
+                if (key.length === 1) {
+                    // participants for a single competition
+                    return competitionParticipantsRefFuncs(key[0]);
+                }
+                // single competition participant
+                return competitionParticipantRefFuncs(key[0], key[1]);
             } else if (path.startsWith('/competitionEntries')) {
                 const key = path.substring(20).split('/');
                 if (key.length === 1) {

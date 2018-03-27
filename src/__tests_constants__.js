@@ -207,17 +207,22 @@ export const competition1FromDb = {
     fulfillment: new Date('2017-05-18T10:00:00z'),
 };
 
-const competitionParticipant0FromDb = {
-    competitionId: competition0FromDb.id,
-};
+/**
+ * competition participants cannot be initialized in one statement,
+ * so have to be exported as properties of a new object
+ */
+const competitionParticipant0FromDb = {};
 competitionParticipant0FromDb[user0FromDb.id] = true;
 competitionParticipant0FromDb[user1FromDb.id] = true;
 
-const competitionParticipant1FromDb = {
-    competitionId: competition1FromDb.id,
-};
+const competitionParticipant1FromDb = {};
 competitionParticipant1FromDb[user2FromDb.id] = true;
 competitionParticipant1FromDb[user3FromDb.id] = true;
+
+export const competitionParticipants0 = {
+    competitionParticipant0FromDb,
+    competitionParticipant1FromDb,
+};
 
 /**
  * Start: entries for competition0
@@ -264,15 +269,6 @@ export const competitionEntry11 = {
 };
 
 /** End: entries for competition1 */
-
-/**
- * competition participants cannot be initialized in one statement,
- * so have to be exported as properties of a new object
- */
-export const competitionParticipants = {
-    competitionParticipant0FromDb,
-    competitionParticipant1FromDb,
-};
 
 export const idNotFoundFromDb = 'competitionidnotfoundfromdb+';
 
