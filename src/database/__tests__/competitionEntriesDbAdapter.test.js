@@ -16,6 +16,16 @@ describe('get competition entries once from db', () => {
             });
     });
 
+    it('should return an empty snapshot with exists equals to false', () => {
+        const expected = false;
+
+        return competitionEntriesDbAdapter
+            .getCompetitionEntriesOnceFromDb(testConstants.idNotFoundFromDb)
+            .then((snapshot) => {
+                expect(snapshot.exists()).toEqual(expected);
+            });
+    });
+
     it('should fail on firebase', () => {
         const expectedError = new Error('get competition entries has failed on firebase database');
 
@@ -36,6 +46,17 @@ describe('get competition entry once from db', () => {
             testConstants.competitionEntry00Id,
         ).then((snapshot) => {
             expect(snapshot.val()).toEqual(expected);
+        });
+    });
+
+    it('should return an empty snapshot with exists equals to false', () => {
+        const expected = false;
+
+        return competitionEntriesDbAdapter.getCompetitionEntryOnceFromDb(
+            testConstants.idNotFoundFromDb,
+            testConstants.competitionEntry00Id,
+        ).then((snapshot) => {
+            expect(snapshot.exists()).toEqual(expected);
         });
     });
 
