@@ -182,8 +182,9 @@ export const user4FromDb = {
     photoUrl: profilePhotoFromStorage4.downloadURL,
 };
 
+export const competitionId0 = 'competition0idcompetition0id';
 export const competition0FromDb = {
-    id: 'competition0idcompetition0id',
+    id: competitionId0,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
     visibility: CompetitionVisibilityEnum.PUBLIC,
@@ -194,8 +195,10 @@ export const competition0FromDb = {
     closing: new Date('2017-11-12T09:00:00z'),
     fulfillment: new Date('2017-11-15T10:00:00z'),
 };
+
+export const competitionId1 = 'competition1idcompetition1id';
 export const competition1FromDb = {
-    id: 'competition1idcompetition1id',
+    id: competitionId1,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
     visibility: CompetitionVisibilityEnum.PRIVATE,
@@ -311,7 +314,7 @@ export const userIdNotFound = {
  * Redux models: Competitions
  */
 export const competition0 = {
-    id: 'competition0idcompetition0id',
+    id: competitionId0,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
     visibility: CompetitionVisibilityEnum.PUBLIC,
@@ -323,7 +326,7 @@ export const competition0 = {
     fulfillment: new Date('2017-11-15T10:00:00z'),
 };
 export const competition1 = {
-    id: 'competition1idcompetition1id',
+    id: competitionId1,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
     visibility: CompetitionVisibilityEnum.PRIVATE,
@@ -341,7 +344,7 @@ export const competitionWithoutId = {
     title: 'competition without id',
 };
 export const competition0Update = {
-    id: competition0.id,
+    id: competitionId0,
     title: 'update title',
     start: competition0.start,
     closing: competition0.closing,

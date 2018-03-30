@@ -12,11 +12,14 @@ TODO: Show only competitions from friends
 
 TODO: Public page for all public competitions
 
+TODO: Id is not needed in value of key-value pairs in database (competitions, users, competitionParticipant)
+TODO: Id is needed for competition, but not entries and participants. They both have userId property
+
 TODO: Fork a competition. Should change owner to the user that forked the competition
 
 TODO: Join a competition.
 
-TODO: Implement entries and members db adapters
+TODO: Leave a competition
 
 TODO: Invite a friend to a competition
 
@@ -26,4 +29,6 @@ TODO: Upload photo to storage with a different name (other than userId). Save wh
 
 TODO: Two states for a competition, created and published. In created state, options are optional, while in published state, options are mandatory
 
-TODO: Remove user, remove auth
+TODO: Remove user should also remove auth
+
+TODO: dbAdapter test: remove with not existing id should not fail (members, users, competitions)

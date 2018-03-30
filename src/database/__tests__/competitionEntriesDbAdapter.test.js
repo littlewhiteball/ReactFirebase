@@ -10,7 +10,7 @@ describe('get competition entries once from db', () => {
         expected[testConstants.competitionEntry01Id] = testConstants.competitionEntry01;
 
         return competitionEntriesDbAdapter
-            .getCompetitionEntriesOnceFromDb(testConstants.competition0FromDb.id)
+            .getCompetitionEntriesOnceFromDb(testConstants.competitionId0)
             .then((snapshot) => {
                 expect(snapshot.val()).toEqual(expected);
             });
@@ -30,7 +30,7 @@ describe('get competition entries once from db', () => {
         const expectedError = new Error('get competition entries has failed on firebase database');
 
         return competitionEntriesDbAdapter
-            .getCompetitionEntriesOnceFromDb(testConstants.competition1FromDb.id)
+            .getCompetitionEntriesOnceFromDb(testConstants.competitionId1)
             .catch((error) => {
                 expect(error).toMatchObject(expectedError);
             });
@@ -42,7 +42,7 @@ describe('get competition entry once from db', () => {
         const expected = testConstants.competitionEntry00;
 
         return competitionEntriesDbAdapter.getCompetitionEntryOnceFromDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.competitionEntry00Id,
         ).then((snapshot) => {
             expect(snapshot.val()).toEqual(expected);
@@ -64,7 +64,7 @@ describe('get competition entry once from db', () => {
         const expectedError = new Error('get competition entry has failed on firebase database');
 
         return competitionEntriesDbAdapter.getCompetitionEntryOnceFromDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.competitionEntry00Id,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);
@@ -77,7 +77,7 @@ describe('add competition entry to db', () => {
         const expected = true;
 
         return competitionEntriesDbAdapter.addCompetitionEntryToDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.competitionEntry00,
         ).then(() => {
             expect(true).toBe(expected);
@@ -88,7 +88,7 @@ describe('add competition entry to db', () => {
         const expected = true;
 
         return competitionEntriesDbAdapter.addCompetitionEntryToDb(
-            testConstants.competition1FromDb.id,
+            testConstants.competitionId1,
             testConstants.competitionEntry10,
         ).then(() => {
             expect(true).toBe(expected);
@@ -115,7 +115,7 @@ describe('update competition entry to db', () => {
         });
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.competitionEntry00Id,
             competitionEntryUpdate,
         ).then(() => {
@@ -142,7 +142,7 @@ describe('update competition entry to db', () => {
         const expectedError = new Error('provided competition id: competition0idcompetition0id and entry id: competitionidnotfoundfromdb+ do not match any record in database. cannot update');
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.idNotFoundFromDb,
             testConstants.competitionEntry00,
         ).catch((error) => {
@@ -154,7 +154,7 @@ describe('update competition entry to db', () => {
         const expectedError = new Error('update competition entry has failed on firebase database');
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.competitionEntry00Id,
             testConstants.competitionEntry01,
         ).catch((error) => {
@@ -168,7 +168,7 @@ describe('remove competition entries from db', () => {
         const expected = true;
 
         return competitionEntriesDbAdapter
-            .removeCompetitionEntriesFromDb(testConstants.competition0FromDb.id)
+            .removeCompetitionEntriesFromDb(testConstants.competitionId0)
             .then(() => {
                 expect(true).toBe(expected);
             });
@@ -178,7 +178,7 @@ describe('remove competition entries from db', () => {
         const expectedError = new Error('remove competition entries has failed on firebase database');
 
         return competitionEntriesDbAdapter
-            .removeCompetitionEntriesFromDb(testConstants.competition1FromDb.id)
+            .removeCompetitionEntriesFromDb(testConstants.competitionId1)
             .catch((error) => {
                 expect(error).toMatchObject(expectedError);
             });
@@ -190,7 +190,7 @@ describe('remove competition entry from db', () => {
         const expected = true;
 
         return competitionEntriesDbAdapter.removeCompetitionEntryFromDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.competitionEntry00Id,
         ).then(() => {
             expect(true).toBe(expected);
@@ -201,7 +201,7 @@ describe('remove competition entry from db', () => {
         const expectedError = new Error('remove competition entry has failed on firebase database');
 
         return competitionEntriesDbAdapter.removeCompetitionEntryFromDb(
-            testConstants.competition1FromDb.id,
+            testConstants.competitionId1,
             testConstants.competitionEntry11Id,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);

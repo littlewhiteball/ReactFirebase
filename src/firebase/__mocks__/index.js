@@ -61,7 +61,7 @@ const competitionsRefFuncs = (key) => {
                 new Promise((resolve, reject) => {
                     switch (eventType) {
                         case 'value': {
-                            if (key === testConstants.competition0FromDb.id) {
+                            if (key === testConstants.competitionId0) {
                                 const snapshot = ({
                                     val: () => testConstants.competition0FromDb,
                                     exists: () => true,
@@ -88,7 +88,7 @@ const competitionsRefFuncs = (key) => {
                 }),
             set: value =>
                 new Promise((resolve, reject) => {
-                    if (value.id === testConstants.competition0FromDb.id) {
+                    if (value.title === testConstants.competition0FromDb.title) {
                         resolve();
                     } else {
                         const error = new Error('set competition has failed on firebase database');
@@ -97,8 +97,7 @@ const competitionsRefFuncs = (key) => {
                 }),
             update: values =>
                 new Promise((resolve, reject) => {
-                    if (values.id === testConstants.competition0FromDb.id
-                        && values.title !== testConstants.competition0FromDb.title) {
+                    if (values.title !== testConstants.competition0FromDb.title) {
                         resolve();
                     } else {
                         const error = new Error('update competition has failed on firebase database');
@@ -107,7 +106,7 @@ const competitionsRefFuncs = (key) => {
                 }),
             remove: () =>
                 new Promise((resolve, reject) => {
-                    if (key === testConstants.competition0FromDb.id) {
+                    if (key === testConstants.competitionId0) {
                         resolve();
                     } else if (key === testConstants.idNotFoundFromDb) {
                         const error = new Error(`cannot remove competition with id: ${key} as it does not exist in database`);
@@ -123,7 +122,7 @@ const competitionsRefFuncs = (key) => {
     // else: competitions
     return ({
         push: () => ({
-            key: testConstants.competition0FromDb.id,
+            key: testConstants.competitionId0,
         }),
         limitToLast: () => ({
             // TODO: this is not tested
@@ -131,11 +130,13 @@ const competitionsRefFuncs = (key) => {
                 new Promise((resolve, reject) => {
                     switch (eventType) {
                         case 'value': {
+                            const competitions = {};
+                            // eslint-disable-next-line max-len
+                            competitions[testConstants.competitionId0] = testConstants.competition0FromDb;
+                            // eslint-disable-next-line max-len
+                            competitions[testConstants.competitionId1] = testConstants.competition1FromDb;
                             const snapshot = ({
-                                val: () => [
-                                    testConstants.competition0FromDb,
-                                    testConstants.competition1FromDb,
-                                ],
+                                val: () => competitions,
                                 exists: () => true,
                             });
                             resolve(snapshot);
@@ -155,11 +156,13 @@ const competitionsRefFuncs = (key) => {
             new Promise((resolve, reject) => {
                 switch (eventType) {
                     case 'value': {
+                        const competitions = {};
+                        // eslint-disable-next-line max-len
+                        competitions[testConstants.competitionId0] = testConstants.competition0FromDb;
+                        // eslint-disable-next-line max-len
+                        competitions[testConstants.competitionId1] = testConstants.competition1FromDb;
                         const snapshot = ({
-                            val: () => [
-                                testConstants.competition0FromDb,
-                                testConstants.competition1FromDb,
-                            ],
+                            val: () => competitions,
                             exists: () => true,
                         });
                         resolve(snapshot);
@@ -182,7 +185,7 @@ const competitionParticipantsRefFuncs = competitionId => ({
         new Promise((resolve, reject) => {
             switch (eventType) {
                 case 'value': {
-                    if (competitionId === testConstants.competition0FromDb.id) {
+                    if (competitionId === testConstants.competitionId0) {
                         const snapshot = ({
                             val: () => testConstants.competitionParticipants0,
                             exists: () => true,
@@ -209,7 +212,7 @@ const competitionParticipantsRefFuncs = competitionId => ({
     remove: () =>
         new Promise((resolve, reject) => {
             // eslint-disable-next-line max-len
-            if (competitionId === testConstants.competition0FromDb.id) {
+            if (competitionId === testConstants.competitionId0) {
                 resolve();
             } else {
                 const error = new Error('remove competition participants has failed on firebase database');
@@ -223,7 +226,7 @@ const competitionParticipantRefFuncs = (competitionId, userId) => ({
         new Promise((resolve, reject) => {
             switch (eventType) {
                 case 'value': {
-                    if (competitionId === testConstants.competition0FromDb.id) {
+                    if (competitionId === testConstants.competitionId0) {
                         const snapshot = ({
                             val: () => {
                                 const result = {};
@@ -255,7 +258,7 @@ const competitionParticipantRefFuncs = (competitionId, userId) => ({
         }),
     set: () =>
         new Promise((resolve, reject) => {
-            if (competitionId === testConstants.competition0FromDb.id
+            if (competitionId === testConstants.competitionId0
                 && userId === testConstants.user0FromDb.id) {
                 resolve();
             } else {
@@ -265,7 +268,7 @@ const competitionParticipantRefFuncs = (competitionId, userId) => ({
         }),
     remove: () =>
         new Promise((resolve, reject) => {
-            if (competitionId === testConstants.competition0FromDb.id
+            if (competitionId === testConstants.competitionId0
                 && userId === testConstants.user0FromDb.id) {
                 resolve();
             } else {
@@ -283,7 +286,7 @@ const competitionEntriesRefFuncs = (key) => {
                 new Promise((resolve, reject) => {
                     switch (eventType) {
                         case 'value': {
-                            if (key === testConstants.competition0FromDb.id) {
+                            if (key === testConstants.competitionId0) {
                                 const snapshot = ({
                                     val: () => {
                                         const result = {};
@@ -317,7 +320,7 @@ const competitionEntriesRefFuncs = (key) => {
                 }),
             remove: () =>
                 new Promise((resolve, reject) => {
-                    if (key === testConstants.competition0FromDb.id) {
+                    if (key === testConstants.competitionId0) {
                         resolve();
                     } else {
                         const error = new Error('remove competition entries has failed on firebase database');
@@ -339,7 +342,7 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
         new Promise((resolve, reject) => {
             switch (eventType) {
                 case 'value': {
-                    if (competitionId === testConstants.competition0FromDb.id
+                    if (competitionId === testConstants.competitionId0
                         && entryId === testConstants.competitionEntry00Id) {
                         const snapshot = ({
                             val: () => testConstants.competitionEntry00,
@@ -368,11 +371,11 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
         }),
     set: competitionEntry =>
         new Promise((resolve, reject) => {
-            if (competitionId === testConstants.competition0FromDb.id
+            if (competitionId === testConstants.competitionId0
                 && entryId === testConstants.competitionEntry00Id
                 && competitionEntry.userId === testConstants.user0FromDb.id) {
                 resolve();
-            } else if (competitionId === testConstants.competition1FromDb.id
+            } else if (competitionId === testConstants.competitionId1
                 // as generate key is mocked to always return 00Id
                 && entryId === testConstants.competitionEntry00Id
                 && competitionEntry.userId === testConstants.user3FromDb.id) {
@@ -384,7 +387,7 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
         }),
     update: competitionEntryUpdate =>
         new Promise((resolve, reject) => {
-            if (competitionId === testConstants.competition0FromDb.id
+            if (competitionId === testConstants.competitionId0
                 && entryId === testConstants.competitionEntry00Id
                 && competitionEntryUpdate.userId === testConstants.user0FromDb.id) {
                 resolve();
@@ -395,7 +398,7 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
         }),
     remove: () =>
         new Promise((resolve, reject) => {
-            if (competitionId === testConstants.competition0FromDb.id
+            if (competitionId === testConstants.competitionId0
                 && entryId === testConstants.competitionEntry00Id) {
                 resolve();
             } else {

@@ -8,7 +8,7 @@ describe('get competition participants once from db', () => {
         const expected = testConstants.competitionParticipants0;
 
         return competitionParticipantsDbAdapter
-            .getCompetitionParticipantsOnceFromDb(testConstants.competition0FromDb.id)
+            .getCompetitionParticipantsOnceFromDb(testConstants.competitionId0)
             .then((snapshot) => {
                 expect(snapshot.val()).toEqual(expected);
             });
@@ -34,7 +34,7 @@ describe('get competition participant once from db', () => {
         const expected = testConstants.competitionParticipants0.competitionParticipant0FromDb;
 
         return competitionParticipantsDbAdapter.getCompetitionParticipantOnceFromDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.user0FromDb.id,
         ).then((snapshot) => {
             expect(snapshot.val()).toEqual(expected);
@@ -56,7 +56,7 @@ describe('get competition participant once from db', () => {
         const expectedError = new Error('get competition participant has failed on firebase database');
 
         return competitionParticipantsDbAdapter.getCompetitionParticipantOnceFromDb(
-            testConstants.competition1FromDb.id,
+            testConstants.competitionId1,
             testConstants.user1FromDb.id,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);
@@ -69,7 +69,7 @@ describe('add competitionParticipant to db', () => {
         const expected = true;
 
         return competitionParticipantsDbAdapter.addCompetitionParticipantToDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.user0FromDb.id,
         ).then(() => {
             expect(true).toBe(expected);
@@ -81,7 +81,7 @@ describe('add competitionParticipant to db', () => {
 
         return competitionParticipantsDbAdapter.addCompetitionParticipantToDb(
             testConstants.idNotFoundFromDb,
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
         ).catch((error) => {
             expect(error).toEqual(expectedError);
         });
@@ -93,7 +93,7 @@ describe('remove competitionParticipants from db', () => {
         const expected = true;
 
         return competitionParticipantsDbAdapter
-            .removeCompetitionParticipantsFromDb(testConstants.competition0FromDb.id)
+            .removeCompetitionParticipantsFromDb(testConstants.competitionId0)
             .then(() => {
                 expect(true).toBe(expected);
             });
@@ -115,7 +115,7 @@ describe('remove competitionParticipant from db', () => {
         const expected = true;
 
         return competitionParticipantsDbAdapter.removeCompetitionParticipantsFromDb(
-            testConstants.competition0FromDb.id,
+            testConstants.competitionId0,
             testConstants.user0FromDb.id,
         ).then(() => {
             expect(true).toBe(expected);

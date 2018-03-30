@@ -13,17 +13,14 @@ describe('generate key for competition from db', () => {
 
 describe('get competitions once from db', () => {
     it('should return two competitions', () => {
-        const expected = {
-            competitions: [
-                testConstants.competition0FromDb,
-                testConstants.competition1FromDb,
-            ],
-            exists: true,
-        };
+        const expectedCompetitions = {};
+        expectedCompetitions[testConstants.competitionId0] = testConstants.competition0FromDb;
+        expectedCompetitions[testConstants.competitionId1] = testConstants.competition1FromDb;
+        const expectedExists = true;
 
         return competitionsDbAdapter.getCompetitionsOnceFromDb().then((snapshot) => {
-            expect(snapshot.val()).toEqual(expected.competitions);
-            expect(snapshot.exists()).toBe(expected.exists);
+            expect(snapshot.val()).toEqual(expectedCompetitions);
+            expect(snapshot.exists()).toBe(expectedExists);
         });
     });
 });

@@ -17,22 +17,22 @@
             }
         },
         "competition2": {
-            "entry1": {
-                "user": "narisong",
+            "narisong": {
+                "userId": "narisong",
                 "option": "Inter Milan",
                 "value": 1.0,
                 "entryCreated": "2017-11-01T00:00:00Z",
                 "entryLastModified": "2017-11-02T00:00:00Z"
             },
-            "entry2": {
-                "user": "zhuanghaoting",
+            "zhuanghaoting": {
+                "userId": "zhuanghaoting",
                 "option": "Juventus F.C.",
                 "value": 1.0,
                 "entryCreated": "2017-11-01T00:00:00Z",
                 "entryLastModified": "2017-11-02T00:00:00Z"
             },
-            "entry3": {
-                "user": "qiuqiu",
+            "qiuqiu": {
+                "userId": "qiuqiu",
                 "option": "S.S.C. Napoli",
                 "value": 1.0,
                 "entryCreated": "2017-11-01T00:00:00Z",

@@ -30,7 +30,7 @@ export const getCompetitions = () =>
         competitionsDbAdapter.getCompetitionsOnceFromDb().then((snapshot) => {
             // TODO: get around Redux panicking about actions in reducers
             // setTimeout(() => {
-            const competitions = snapshot.val() || [];
+            const competitions = snapshot.val() || {};
 
             Object.keys(competitions).forEach((key) => {
                 dispatch(addCompetitionAction(competitions[key]));
