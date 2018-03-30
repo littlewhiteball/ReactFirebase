@@ -1,24 +1,27 @@
 {
     "users": {
-        "narisong@gmail.com": {
+        "narisong": {
             "id": "narisong",
             "name": "Risong Na",
+            "email": "narisong@gmail.com",
             "contacts": {
                 "daphnezht@gmail.com": true,
                 "qiuqiuna@gmail.com": true
             }
         },
-        "daphnezht@gmail.com": {
+        "zhuanghaoting": {
             "id": "zhuanghaoting",
             "name": "Haoting Zhuang",
+            "email": "daphnezht@gmail.com",
             "contacts": {
                 "narisong@gmail.com": true,
                 "qiuqiuna@gmail.com": true
             }
         },
-        "qiuqiuna@gmail.com": {
+        "qiuqiu": {
             "id": "qiuqiu",
             "name": "Qiuqiu Na",
+            "email": "qiuqiuna@gmail.com",
             "contacts": {
                 "narisong@gmail.com": true,
                 "daphnezht@gmail.com": true
