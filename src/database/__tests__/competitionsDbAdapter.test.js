@@ -86,16 +86,6 @@ describe('remove competition from db', () => {
             });
     });
 
-    it('should fail if competition id does not exist in database', () => {
-        const expectedError = new Error('cannot remove competition with id: competitionidnotfoundfromdb+ as it does not exist in database');
-
-        // eslint-disable-next-line max-len
-        return competitionsDbAdapter.removeCompetitionFromDb(testConstants.idNotFoundFromDb)
-            .catch((error) => {
-                expect(error).toMatchObject(expectedError);
-            });
-    });
-
     it('should fail on firebase', () => {
         const expectedError = new Error('remove competition has failed on firebase database');
 

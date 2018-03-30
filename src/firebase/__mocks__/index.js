@@ -108,9 +108,6 @@ const competitionsRefFuncs = (key) => {
                 new Promise((resolve, reject) => {
                     if (key === testConstants.competitionId0) {
                         resolve();
-                    } else if (key === testConstants.idNotFoundFromDb) {
-                        const error = new Error(`cannot remove competition with id: ${key} as it does not exist in database`);
-                        reject(error);
                     } else {
                         const error = new Error('remove competition has failed on firebase database');
                         reject(error);
