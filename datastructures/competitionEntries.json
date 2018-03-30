@@ -1,14 +1,14 @@
 {
     "competitionEntries": {
         "competition1": {
-            "entry1": {
+            "narisong": {
                 "user": "narisong",
                 "option": "Houston Astros",
                 "value": 1.0,
                 "entryCreated": "2017-11-01T00:00:00Z",
                 "entryLastModified": "2017-11-02T00:00:00Z"
             },
-            "entry2": {
+            "zhuanghaoting": {
                 "user": "zhuanghaoting",
                 "option": "LA Dodgers",
                 "value": 1.0,

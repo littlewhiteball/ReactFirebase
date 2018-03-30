@@ -278,64 +278,54 @@ const competitionParticipantRefFuncs = (competitionId, userId) => ({
         }),
 });
 
-const competitionEntriesRefFuncs = (key) => {
-    if (key) {
-        // entries for a single competition
-        return ({
-            once: eventType =>
-                new Promise((resolve, reject) => {
-                    switch (eventType) {
-                        case 'value': {
-                            if (key === testConstants.competitionId0) {
-                                const snapshot = ({
-                                    val: () => {
-                                        const result = {};
-                                        // eslint-disable-next-line max-len
-                                        result[testConstants.competitionEntry00Id] = testConstants.competitionEntry00;
-                                        // eslint-disable-next-line max-len
-                                        result[testConstants.competitionEntry01Id] = testConstants.competitionEntry01;
-                                        return result;
-                                    },
-                                    exists: () => true,
-                                });
-                                resolve(snapshot);
-                            } else if (key === testConstants.idNotFoundFromDb) {
-                                const snapshot = ({
-                                    exists: () => false,
-                                });
-                                resolve(snapshot);
-                            } else {
-                                const error = new Error('get competition entries has failed on firebase database');
-                                reject(error);
-                            }
-
-                            break;
-                        }
-
-                        default: {
-                            const error = new Error(`${eventType} is not a supported eventType by once method`);
+const competitionEntriesRefFuncs = key =>
+    ({
+        once: eventType =>
+            new Promise((resolve, reject) => {
+                switch (eventType) {
+                    case 'value': {
+                        if (key === testConstants.competitionId0) {
+                            const snapshot = ({
+                                val: () => {
+                                    const result = {};
+                                    // eslint-disable-next-line max-len
+                                    result[testConstants.userId0] = testConstants.competitionEntry00;
+                                    // eslint-disable-next-line max-len
+                                    result[testConstants.userId1] = testConstants.competitionEntry01;
+                                    return result;
+                                },
+                                exists: () => true,
+                            });
+                            resolve(snapshot);
+                        } else if (key === testConstants.idNotFoundFromDb) {
+                            const snapshot = ({
+                                exists: () => false,
+                            });
+                            resolve(snapshot);
+                        } else {
+                            const error = new Error('get competition entries has failed on firebase database');
                             reject(error);
                         }
+
+                        break;
                     }
-                }),
-            remove: () =>
-                new Promise((resolve, reject) => {
-                    if (key === testConstants.competitionId0) {
-                        resolve();
-                    } else {
-                        const error = new Error('remove competition entries has failed on firebase database');
+
+                    default: {
+                        const error = new Error(`${eventType} is not a supported eventType by once method`);
                         reject(error);
                     }
-                }),
-        });
-    }
-    // all competition entries
-    return ({
-        push: () => ({
-            key: testConstants.competitionEntry00Id,
-        }),
+                }
+            }),
+        remove: () =>
+            new Promise((resolve, reject) => {
+                if (key === testConstants.competitionId0) {
+                    resolve();
+                } else {
+                    const error = new Error('remove competition entries has failed on firebase database');
+                    reject(error);
+                }
+            }),
     });
-};
 
 const competitionEntryRefFuncs = (competitionId, entryId) => ({
     once: eventType =>
@@ -343,7 +333,7 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
             switch (eventType) {
                 case 'value': {
                     if (competitionId === testConstants.competitionId0
-                        && entryId === testConstants.competitionEntry00Id) {
+                        && entryId === testConstants.userId0) {
                         const snapshot = ({
                             val: () => testConstants.competitionEntry00,
                             exists: () => true,
@@ -372,13 +362,12 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
     set: competitionEntry =>
         new Promise((resolve, reject) => {
             if (competitionId === testConstants.competitionId0
-                && entryId === testConstants.competitionEntry00Id
+                && entryId === testConstants.userId0
                 && competitionEntry.userId === testConstants.user0FromDb.id) {
                 resolve();
             } else if (competitionId === testConstants.competitionId1
-                // as generate key is mocked to always return 00Id
-                && entryId === testConstants.competitionEntry00Id
-                && competitionEntry.userId === testConstants.user3FromDb.id) {
+                && entryId === testConstants.userId2
+                && competitionEntry.userId === testConstants.user2FromDb.id) {
                 resolve();
             } else {
                 const error = new Error('set competition entry has failed on firebase database');
@@ -388,8 +377,8 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
     update: competitionEntryUpdate =>
         new Promise((resolve, reject) => {
             if (competitionId === testConstants.competitionId0
-                && entryId === testConstants.competitionEntry00Id
-                && competitionEntryUpdate.userId === testConstants.user0FromDb.id) {
+                && entryId === testConstants.userId0
+                && competitionEntryUpdate.value !== testConstants.competitionEntry00.value) {
                 resolve();
             } else {
                 const error = new Error('update competition entry has failed on firebase database');
@@ -399,7 +388,7 @@ const competitionEntryRefFuncs = (competitionId, entryId) => ({
     remove: () =>
         new Promise((resolve, reject) => {
             if (competitionId === testConstants.competitionId0
-                && entryId === testConstants.competitionEntry00Id) {
+                && entryId === testConstants.userId0) {
                 resolve();
             } else {
                 const error = new Error('remove competition entry has failed on firebase database');

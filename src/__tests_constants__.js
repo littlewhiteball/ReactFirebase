@@ -147,36 +147,41 @@ export const twitterSignInResultNewUser0 = {
 /**
  * Database models
  */
+export const userId0 = 'id0id0id0id0id0id0id0id0id0+';
 export const user0FromDb = {
-    id: 'id0id0id0id0id0id0id0id0id0+',
+    id: userId0,
     name: 'name0',
     email: 'email0@me0.com',
     photoUrl: profilePhotoFromStorage0.downloadURL,
 };
 
+export const userId1 = 'id1id1id1id1id1id1id1id1id1+';
 export const user1FromDb = {
-    id: 'id1id1id1id1id1id1id1id1id1+',
+    id: userId1,
     name: 'name1',
     email: 'email1@me1.com',
     photoUrl: profilePhotoFromStorage1.downloadURL,
 };
 
+export const userId2 = 'id2id2id2id2id2id2id2id2id2+';
 export const user2FromDb = {
-    id: 'id2id2id2id2id2id2id2id2id2+',
+    id: userId2,
     name: 'name2',
     email: 'email2@me2.com',
     photoUrl: profilePhotoFromStorage2.downloadURL,
 };
 
+export const userId3 = 'id3id3id3id3id3id3id3id3id3+';
 export const user3FromDb = {
-    id: 'id3id3id3id3id3id3id3id3id3+',
+    id: userId3,
     name: 'name3',
     email: 'email3@me3.com',
     photoUrl: profilePhotoFromStorage3.downloadURL,
 };
 
+export const userId4 = 'id4id4id4id4id4id4id4id4id4+';
 export const user4FromDb = {
-    id: 'id4id4id4id4id4id4id4id4id4+',
+    id: userId4,
     name: 'name4',
     email: 'email4@me4.com',
     photoUrl: profilePhotoFromStorage4.downloadURL,
@@ -230,18 +235,16 @@ export const competitionParticipants0 = {
 /**
  * Start: entries for competition0
  */
-export const competitionEntry00Id = 'competitionEntry00Id+++++++++';
 export const competitionEntry00 = {
-    userId: user0FromDb.id,
+    userId: userId0,
     option: competition0FromDb.options[0],
     value: 1,
     entryCreated: new Date('2017-06-01T00:00:00Z'),
     entryLastModified: new Date('2017-06-02T00:00:00Z'),
 };
 
-export const competitionEntry01Id = 'competitionEntry01Id+++++++++';
 export const competitionEntry01 = {
-    userId: user1FromDb.id,
+    userId: userId1,
     option: competition1FromDb.options[1],
     value: 2,
     entryCreated: new Date('2018-06-01T00:00:00Z'),
@@ -253,18 +256,16 @@ export const competitionEntry01 = {
 /**
  * Start: entries for competition1
  */
-export const competitionEntry10Id = 'competitionEntry00Id+++++++++';
 export const competitionEntry10 = {
-    userId: user3FromDb.id,
+    userId: userId2,
     option: competition1FromDb.options[0],
     value: 3,
     entryCreated: new Date('2017-06-01T00:00:00Z'),
     entryLastModified: new Date('2017-06-02T00:00:00Z'),
 };
 
-export const competitionEntry11Id = 'competitionEntry01Id+++++++++';
 export const competitionEntry11 = {
-    userId: user4FromDb.id,
+    userId: userId3,
     option: competition1FromDb.options[1],
     value: 2,
     entryCreated: new Date('2018-06-01T00:00:00Z'),

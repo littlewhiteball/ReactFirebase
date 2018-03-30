@@ -6,8 +6,8 @@ jest.mock('./../../firebase');
 describe('get competition entries once from db', () => {
     it('should return all entries (2) of a competition', () => {
         const expected = {};
-        expected[testConstants.competitionEntry00Id] = testConstants.competitionEntry00;
-        expected[testConstants.competitionEntry01Id] = testConstants.competitionEntry01;
+        expected[testConstants.userId0] = testConstants.competitionEntry00;
+        expected[testConstants.userId1] = testConstants.competitionEntry01;
 
         return competitionEntriesDbAdapter
             .getCompetitionEntriesOnceFromDb(testConstants.competitionId0)
@@ -43,7 +43,7 @@ describe('get competition entry once from db', () => {
 
         return competitionEntriesDbAdapter.getCompetitionEntryOnceFromDb(
             testConstants.competitionId0,
-            testConstants.competitionEntry00Id,
+            testConstants.userId0,
         ).then((snapshot) => {
             expect(snapshot.val()).toEqual(expected);
         });
@@ -54,7 +54,7 @@ describe('get competition entry once from db', () => {
 
         return competitionEntriesDbAdapter.getCompetitionEntryOnceFromDb(
             testConstants.idNotFoundFromDb,
-            testConstants.competitionEntry00Id,
+            testConstants.userId0,
         ).then((snapshot) => {
             expect(snapshot.exists()).toEqual(expected);
         });
@@ -65,7 +65,7 @@ describe('get competition entry once from db', () => {
 
         return competitionEntriesDbAdapter.getCompetitionEntryOnceFromDb(
             testConstants.competitionId0,
-            testConstants.competitionEntry00Id,
+            testConstants.userId0,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);
         });
@@ -116,7 +116,6 @@ describe('update competition entry to db', () => {
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
             testConstants.competitionId0,
-            testConstants.competitionEntry00Id,
             competitionEntryUpdate,
         ).then(() => {
             expect(true).toBe(expected);
@@ -124,14 +123,13 @@ describe('update competition entry to db', () => {
     });
 
     it('should fail if competition id does not exist in database', () => {
-        const expectedError = new Error('provided competition id: competitionidnotfoundfromdb+ and entry id: competitionEntry00Id+++++++++ do not match any record in database. cannot update');
+        const expectedError = new Error('provided competition id: competitionidnotfoundfromdb+ and entry id: id0id0id0id0id0id0id0id0id0+ do not match any record in database. cannot update');
         const competitionEntryUpdate = Object.assign({}, testConstants.competitionEntry00, {
             value: 100,
         });
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
             testConstants.idNotFoundFromDb,
-            testConstants.competitionEntry00Id,
             competitionEntryUpdate,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);
@@ -140,11 +138,13 @@ describe('update competition entry to db', () => {
 
     it('should fail if entry id does not exist in database', () => {
         const expectedError = new Error('provided competition id: competition0idcompetition0id and entry id: competitionidnotfoundfromdb+ do not match any record in database. cannot update');
+        const competitionEntryUpdate = Object.assign({}, testConstants.competitionEntry00, {
+            userId: testConstants.idNotFoundFromDb,
+        });
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
             testConstants.competitionId0,
-            testConstants.idNotFoundFromDb,
-            testConstants.competitionEntry00,
+            competitionEntryUpdate,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);
         });
@@ -155,8 +155,7 @@ describe('update competition entry to db', () => {
 
         return competitionEntriesDbAdapter.updateCompetitionEntryToDb(
             testConstants.competitionId0,
-            testConstants.competitionEntry00Id,
-            testConstants.competitionEntry01,
+            testConstants.competitionEntry00,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);
         });
@@ -191,7 +190,7 @@ describe('remove competition entry from db', () => {
 
         return competitionEntriesDbAdapter.removeCompetitionEntryFromDb(
             testConstants.competitionId0,
-            testConstants.competitionEntry00Id,
+            testConstants.userId0,
         ).then(() => {
             expect(true).toBe(expected);
         });
@@ -202,7 +201,7 @@ describe('remove competition entry from db', () => {
 
         return competitionEntriesDbAdapter.removeCompetitionEntryFromDb(
             testConstants.competitionId1,
-            testConstants.competitionEntry11Id,
+            testConstants.userId3,
         ).catch((error) => {
             expect(error).toMatchObject(expectedError);
         });
