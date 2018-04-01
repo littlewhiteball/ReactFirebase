@@ -9,11 +9,11 @@ export default class CompetitionListItemSummary extends Component {
         const closing = new Date(this.props.competition.closing).toLocaleString();
         // TODO: Get count of each option
         return (
-            <div className="jumbotron mt-2 col-9">
+            <div className="jumbotron py-2 mt-2 col-9">
                 <small>start: {start}</small>
                 <br />
                 <small>closing: {closing}</small>
-                <ul className="list-group">
+                <ul className="list-group mt-2">
                     {
                         this.props.competition.options.map((option, i) => {
                             const optionId = `${this.props.competition.id}option${i}`;
