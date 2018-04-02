@@ -27,7 +27,8 @@ const profile = fs.readFileSync(path.join(__dirname, '/public/profile.ejs'), 'ut
  * staticly render html from server side, and let client side render the actual
  * react components. This breaks the isomorphic characterists of react components
  * between server and client, as I have to maintain server side html and client
- * react components separately.
+ * react components separately. The App.jsx is also different between server
+ * and client.
  * Possible solutions:
  * 1. Use Next.js for server side rendering
  * 2. Keep checking updates from Firebase Storage API

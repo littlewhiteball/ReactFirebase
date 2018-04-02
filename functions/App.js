@@ -35,6 +35,10 @@ var _NewCompetition = require('./src/components/pages/NewCompetition');
 
 var _NewCompetition2 = _interopRequireDefault(_NewCompetition);
 
+var _JoinCompetition = require('./src/components/pages/JoinCompetition');
+
+var _JoinCompetition2 = _interopRequireDefault(_JoinCompetition);
+
 var _Header = require('./src/components/main/Header');
 
 var _Header2 = _interopRequireDefault(_Header);
@@ -84,6 +88,7 @@ var AppComponent = exports.AppComponent = function (_Component) {
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Home2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/auth', exact: true, component: _Auth2.default }),
                     _react2.default.createElement(_PrivateRoute2.default, { path: '/competition', exact: true, component: _NewCompetition2.default }),
+                    _react2.default.createElement(_PrivateRoute2.default, { path: '/competition/join', exact: true, component: _JoinCompetition2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '*', component: _NotFound2.default })
                 ),
                 _react2.default.createElement(_Footer2.default, null)

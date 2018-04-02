@@ -7,6 +7,7 @@ import PrivateRoute from './utilities/PrivateRoute';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import NewCompetition from './pages/NewCompetition';
+import JoinCompetition from './pages/JoinCompetition';
 import Profile from './pages/Profile';
 import Header from './main/Header';
 import Footer from './main/Footer';
@@ -22,6 +23,7 @@ export class AppComponent extends Component {
                     <Route path="/" exact component={Home} />
                     <Route path="/auth" exact component={Auth} />
                     <PrivateRoute path="/competition" exact component={NewCompetition} />
+                    <PrivateRoute path="/competition/join" exact component={JoinCompetition} />
                     <PrivateRoute path="/profile" exact component={Profile} />
                     <Route path="*" component={NotFound} />
                 </Switch>
