@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 
 import CompetitionListItemSummary from './CompetitionListItemSummary';
 
-import { deleteCompetition } from './../../actions/competitionsAction';
-
 export class CompetitionListItemComponent extends Component {
-    remove = (e) => {
+    handleJoin = (e) => {
         e.preventDefault();
-        this.props.delete(this.props.competition);
-    };
+        this.props.navToPath(`/competition/join/${this.props.competition.id}`);
+    }
 
     render() {
         const competitionSummaryId = `competitionSummary${this.props.competition.id}`;
@@ -24,9 +23,7 @@ export class CompetitionListItemComponent extends Component {
                         </a>
                     </div>
                     <div className="col-3">
-                        <form onSubmit={this.remove}>
-                            <button type="button" className="btn btn-primary">Join</button>
-                        </form>
+                        <button type="button" className="btn btn-primary" onClick={this.handleJoin}>Join</button>
                     </div>
                 </div>
                 <div className="collapse" id={competitionSummaryId}>
@@ -46,13 +43,11 @@ CompetitionListItemComponent.propTypes = {
         closing: PropTypes.date,
         options: PropTypes.arrayOf(PropTypes.string),
     }).isRequired,
-    delete: PropTypes.func.isRequired,
+    navToPath: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => (
-    {
-        delete: competition => dispatch(deleteCompetition(competition)),
-    }
-);
+const mapDispatchToProps = dispatch => ({
+    navToPath: pathname => dispatch(push(pathname)),
+});
 
 export default connect(null, mapDispatchToProps)(CompetitionListItemComponent);

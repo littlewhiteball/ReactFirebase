@@ -12,7 +12,7 @@ configure({ adapter: new Adapter() });
 const setup = () => {
     const props = {
         competition: testConstants.competition0,
-        delete: jest.fn(),
+        navToPath: jest.fn(),
     };
     const wrapper = mount(<CompetitionListItemComponent {...props} />);
 
@@ -42,11 +42,11 @@ describe('competition component', () => {
         expect(wrapper.find(CompetitionListItemSummary).props('competition').competition).toBe(testConstants.competition0);
     });
 
-    it('should call delete once submitted', () => {
+    it('should handle join once clicked', () => {
         const { props, wrapper } = setup();
-        wrapper.find('form').simulate('submit', { preventDefault() { } });
+        wrapper.find('button').simulate('click', { preventDefault() { } });
 
-        expect(props.delete.mock.calls.length).toBe(1);
-        expect(props.delete.mock.calls[0][0]).toBe(testConstants.competition0);
+        expect(props.navToPath.mock.calls.length).toBe(1);
+        expect(props.navToPath.mock.calls[0][0]).toBe(`/competition/join/${testConstants.competition0.id}`);
     });
 });
