@@ -23,7 +23,7 @@ export class AppComponent extends Component {
                     <Route path="/" exact component={Home} />
                     <Route path="/auth" exact component={Auth} />
                     <PrivateRoute path="/competition" exact component={NewCompetition} />
-                    <PrivateRoute path="/competition/join" exact component={JoinCompetition} />
+                    <PrivateRoute path="/competition/join/:id" exact component={JoinCompetition} />
                     <PrivateRoute path="/profile" exact component={Profile} />
                     <Route path="*" component={NotFound} />
                 </Switch>

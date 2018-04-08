@@ -111,7 +111,7 @@ describe('private route component', () => {
         expect(wrapper.find(Route).exists()).toBe(true);
         expect(wrapper.find(Route).props()[0]).toEqual({ path: '/testPath' });
         expect(wrapper.find(Route).prop('render')().type).toEqual(props.component);
-        expect(wrapper.find(Route).prop('render')().props).toEqual({ path: '/testPath' });
+        expect(wrapper.find(Route).prop('render')().props.rest).toEqual([{ path: '/testPath' }]);
     });
 
     it('should render route with redirect to auth page when loading state is false and signedIn state is false', () => {

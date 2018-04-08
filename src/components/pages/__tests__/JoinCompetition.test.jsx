@@ -25,8 +25,9 @@ const setup = (signedIn) => {
 
 describe('join competition component', () => {
     it('should render self', () => {
-        const { wrapper } = setup(true);
+        const { props, wrapper } = setup(true);
 
         expect(wrapper.find(JoinCompetitionForm).exists()).toBe(true);
+        expect(wrapper.find(JoinCompetitionForm).props()).toEqual(props);
     });
 });

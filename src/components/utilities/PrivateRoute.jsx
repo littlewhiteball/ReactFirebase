@@ -37,7 +37,7 @@ export class PrivateRouteComponent extends Component {
     }
 
     render() {
-        const componentProps = Object.assign({}, ...this.props.rest);
+        const componentProps = Object.assign({}, this.props);
         return this.state.loading ?
             // TODO: create a loading component
             (<i className="fa fa-spinner fa-10x" />) :
