@@ -1,6 +1,6 @@
 TODO: DateTimePicker UI validation
 
-TODO: Nav to previous route
+TODO: Nav to previous route. Browser go back does not work
 
 TODO: Use twitter display name and profile photo url
 
@@ -9,6 +9,10 @@ TODO: Profile drop down -> friends
 TODO: Show only competitions from friends
 
 TODO: Public page for all public competitions
+
+TODO: Add plus minus button input to join-competition page
+
+TODO: Competition summary option voted count
 
 TODO: Fork a competition. Should change owner to the user that forked the competition
 
@@ -25,3 +29,5 @@ TODO: Upload photo to storage with a different name (other than userId). Save wh
 TODO: Two states for a competition, created and published. In created state, options are optional, while in published state, options are mandatory
 
 TODO: Remove user should also remove auth
+
+TODO: Show profile photo in header
