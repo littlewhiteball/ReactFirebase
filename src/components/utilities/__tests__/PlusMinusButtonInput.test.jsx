@@ -68,6 +68,9 @@ describe('plus minus button input component', () => {
 
         expect(wrapper.state('value')).toBe(1);
         expect(props.onValueChange.mock.calls.length).toBe(1);
+        expect(props.onValueChange.mock.calls[0][0]).toEqual({
+            value: 1,
+        });
     });
 
     it('handle plus, should set value state and call onValueChange of props', () => {
@@ -76,6 +79,9 @@ describe('plus minus button input component', () => {
 
         expect(wrapper.state('value')).toBe(4);
         expect(props.onValueChange.mock.calls.length).toBe(1);
+        expect(props.onValueChange.mock.calls[0][0]).toEqual({
+            value: 4,
+        });
     });
 
     it('should disable minus button when value is 1', () => {
