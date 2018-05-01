@@ -10,7 +10,7 @@ export default class RadioButtons extends Component {
         return (
             <div>
                 {this.props.options.map(opt => (
-                    <div className="form-check" key={opt}>
+                    <div className="form-check my-1" key={opt}>
                         <input
                             // TODO: eslint bug: https://github.com/yannickcr/eslint-plugin-react/issues/1187
                             /* eslint-disable */

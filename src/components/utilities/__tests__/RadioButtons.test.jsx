@@ -24,7 +24,7 @@ describe('radio buttons component', () => {
     it('should render self', () => {
         const { wrapper } = setup(1);
 
-        expect(wrapper.find('div').at(1).hasClass('form-check')).toBe(true);
+        expect(wrapper.find('div').at(1).hasClass('form-check my-1')).toBe(true);
         expect(wrapper.find('div').at(1).key()).toBe('option1');
         expect(wrapper.find('input').at(0).hasClass('form-check-input')).toBe(true);
         expect(wrapper.find('input').at(0).prop('type')).toBe('radio');
