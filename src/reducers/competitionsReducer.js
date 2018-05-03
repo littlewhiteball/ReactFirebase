@@ -1,22 +1,28 @@
 import { actionTypes } from './../actions/competitionsAction';
 
-export default (state = [], action) => {
+export default (state = {}, action) => {
     switch (action.type) {
-        case actionTypes.ADD_COMPETITION:
-            if (state.map(competition => competition.id).includes(action.competition.id)) {
+        case actionTypes.ADD_COMPETITION: {
+            const actionCompetitionId = action.competition.id;
+
+            if (Object.prototype.hasOwnProperty.call(state, actionCompetitionId)) {
                 return state;
             }
-            return [action.competition, ...state];
 
+            return Object.assign({}, state, {
+                [actionCompetitionId]: action.competition,
+            });
+        }
 
         case actionTypes.DELETE_COMPETITION: {
-            const newState = [...state];
-            const index = newState.findIndex(c => c.id === action.competition.id);
-            if (index !== -1) {
-                newState.splice(index, 1);
-                console.log(`competition deleted at ${index}`);
+            const actionCompetitionId = action.competition.id;
+
+            if (Object.prototype.hasOwnProperty.call(state, actionCompetitionId)) {
+                return Object.keys(state).filter(key => key !== actionCompetitionId)
+                    // eslint-disable-next-line max-len
+                    .reduce((accumulator, currentValue) => Object.assign({}, accumulator, { [currentValue]: state[currentValue] }), {});
             }
-            return newState;
+            return state;
         }
 
         default:

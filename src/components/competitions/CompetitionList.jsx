@@ -1,17 +1,17 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import CompetitionListItem from './CompetitionListItem';
 
-class CompetitionList extends PureComponent {
+export default class CompetitionList extends PureComponent {
     render() {
         return (
             <div>
                 <br />
                 {
-                    this.props.competitions.map(competition => (
-                        <CompetitionListItem competition={competition} key={competition.id} />
+                    Object.keys(this.props.competitions).map(key => (
+                        // eslint-disable-next-line max-len
+                        (<CompetitionListItem competition={this.props.competitions[key]} key={key} />)
                     ))
                 }
             </div>
@@ -20,7 +20,7 @@ class CompetitionList extends PureComponent {
 }
 
 CompetitionList.propTypes = {
-    competitions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // TODO: validate normalized (id as key) object
+    // eslint-disable-next-line react/forbid-prop-types
+    competitions: PropTypes.object.isRequired,
 };
-
-export default connect()(CompetitionList);

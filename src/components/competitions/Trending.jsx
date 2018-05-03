@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import CompetitionList from './../competitions/CompetitionList';
 import { getCompetitions } from './../../actions/competitionsAction';
 
-class Trending extends Component {
+export class TrendingComponent extends Component {
     componentWillMount() {
         this.props.get();
     }
@@ -20,8 +20,10 @@ class Trending extends Component {
     }
 }
 
-Trending.propTypes = {
-    competitions: PropTypes.arrayOf(PropTypes.object).isRequired,
+TrendingComponent.propTypes = {
+    // TODO: validate normalized (id as key) object
+    // eslint-disable-next-line react/forbid-prop-types
+    competitions: PropTypes.object.isRequired,
     get: PropTypes.func.isRequired,
 };
 
@@ -33,4 +35,4 @@ const mapDispatchToProps = dispatch => ({
     get: () => dispatch(getCompetitions()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Trending);
+export default connect(mapStateToProps, mapDispatchToProps)(TrendingComponent);
