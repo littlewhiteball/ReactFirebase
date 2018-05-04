@@ -40,9 +40,9 @@ describe('join competition form component', () => {
         expect(wrapper.find('div').at(3).hasClass('card-header mb-2')).toBe(true);
         expect(wrapper.find('div').at(4).hasClass('row')).toBe(true);
         expect(wrapper.find('h3').hasClass('col-9 text-left')).toBe(true);
-        expect(wrapper.find('h3').text()).toBe(testConstants.competition0.title);
+        expect(wrapper.find('h3').text()).toBe(`${testConstants.competition0.title}Public`);
         expect(wrapper.find('span').at(0).hasClass('badge badge-success ml-2')).toBe(true);
-        // expect(wrapper.find('span').at(0).text()).toBe('Public');
+        expect(wrapper.find('span').at(0).text()).toBe('Public');
         expect(wrapper.find('div').at(5).hasClass('col-3 card-outline-secondary text-right')).toBe(true);
         expect(wrapper.find('div').at(6).hasClass('card-block mb-2')).toBe(true);
         expect(wrapper.find('small').hasClass('card-text')).toBe(true);

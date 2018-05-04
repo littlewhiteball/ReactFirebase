@@ -1,5 +1,3 @@
-import { CompetitionVisibilityEnum } from './utilities/enums/competitionVisibility';
-
 /**
  * File
  */
@@ -192,7 +190,7 @@ export const competition0FromDb = {
     id: competitionId0,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
-    visibility: CompetitionVisibilityEnum.PUBLIC,
+    visibility: 'Public',
     options: ['Houston Astros', 'LA Dodgers'],
     createdBy: user0FromDb.id,
     owner: user0FromDb.id,
@@ -206,7 +204,7 @@ export const competition1FromDb = {
     id: competitionId1,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
-    visibility: CompetitionVisibilityEnum.PRIVATE,
+    visibility: 'Private',
     options: ['Real Madrid', 'Juventus'],
     createdBy: user0FromDb.id,
     owner: user1FromDb.id,
@@ -318,7 +316,7 @@ export const competition0 = {
     id: competitionId0,
     title: 'MLB world series 2017',
     description: 'MLB world series 2017 champion',
-    visibility: CompetitionVisibilityEnum.PUBLIC,
+    visibility: 'Public',
     options: ['Houston Astros', 'LA Dodgers'],
     createdBy: user0.id,
     owner: user0.id,
@@ -330,7 +328,7 @@ export const competition1 = {
     id: competitionId1,
     title: 'UEFA champions league final',
     description: 'UEFA champions league final 2017',
-    visibility: CompetitionVisibilityEnum.PRIVATE,
+    visibility: 'Private',
     options: ['Real Madrid', 'Juventus'],
     createdBy: user0.id,
     owner: user1.id,

@@ -3,7 +3,6 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import * as testConstants from './../../../__tests_constants__';
-import { CompetitionVisibilityEnum, getText } from './../../../utilities/enums/competitionVisibility';
 
 import { AddCompetitionFormComponent } from './../AddCompetitionForm';
 
@@ -144,7 +143,7 @@ describe('add competition form component', () => {
             saving: false,
             title: '',
             description: '',
-            visibility: CompetitionVisibilityEnum.PUBLIC,
+            visibility: 'Public',
             start: testConstants.dateTimeNow,
             entriesClose: testConstants.dateTimeAddOneDay,
             fulfillment: testConstants.dateTimeAddTwoDays,
@@ -188,7 +187,7 @@ describe('add competition form component', () => {
             },
         });
 
-        expect(wrapper.state('visibility')).toEqual(CompetitionVisibilityEnum.PRIVATE);
+        expect(wrapper.state('visibility')).toEqual('Private');
     });
 
     it('should handle options change', () => {
@@ -233,7 +232,7 @@ describe('add competition form component', () => {
         const expectedArguments = {
             title: 'competition 0',
             description: 'competition 0 description',
-            visibility: getText(CompetitionVisibilityEnum.PUBLIC),
+            visibility: 'Public',
             options: ['option1', 'option2'],
             createdBy: testConstants.user0.id,
             owner: testConstants.user0.id,
