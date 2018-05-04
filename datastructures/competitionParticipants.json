@@ -1,12 +1,12 @@
 {
     "competitionParticipants": {
-        "competition1": {
-            "competitionId": "competition1",
+        "competitionid1": {
+            "competitionId": "competitionid1",
             "narisong": true,
             "zhuanghaoting": true
         },
-        "competition2": {
-            "competitionId": "competition2",
+        "competitionid2": {
+            "competitionId": "competitionid2",
             "narisong": true,
             "zhuanghaoting": true,
             "qiuqiu": true
