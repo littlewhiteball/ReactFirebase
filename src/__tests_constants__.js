@@ -338,9 +338,10 @@ export const competition1 = {
     closing: new Date('2017-05-17T09:00:00z'),
     fulfillment: new Date('2017-05-18T10:00:00z'),
 };
-export const competitions = [
-    competition0, competition1,
-];
+export const competitions = {
+    [competitionId0]: competition0,
+    [competitionId1]: competition1,
+};
 export const competitionWithoutId = {
     title: 'competition without id',
 };
