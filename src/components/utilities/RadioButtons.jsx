@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 export default class RadioButtons extends Component {
     handleChange = (e) => {
-        this.props.onValueChanged(e.target.id);
+        this.props.onValueChanged({
+            value: e.target.id,
+        });
     };
 
     render() {

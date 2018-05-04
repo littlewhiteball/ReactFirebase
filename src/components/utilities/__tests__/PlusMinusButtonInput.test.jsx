@@ -10,7 +10,7 @@ const setup = (initialValue) => {
     const props = {
         min: 1,
         max: 5,
-        onValueChange: jest.fn(),
+        onValueChanged: jest.fn(),
         initialValue,
     };
 
@@ -62,24 +62,24 @@ describe('plus minus button input component', () => {
         expect(wrapper.props().initialValue).toBe(expectedInitialValue);
     });
 
-    it('handle minus, should set value state and call onValueChange of props', () => {
+    it('handle minus, should set value state and call onValueChanged of props', () => {
         const { props, wrapper } = setup(2);
         wrapper.find('button').at(0).simulate('click', { preventDefault() { } });
 
         expect(wrapper.state('value')).toBe(1);
-        expect(props.onValueChange.mock.calls.length).toBe(1);
-        expect(props.onValueChange.mock.calls[0][0]).toEqual({
+        expect(props.onValueChanged.mock.calls.length).toBe(1);
+        expect(props.onValueChanged.mock.calls[0][0]).toEqual({
             value: 1,
         });
     });
 
-    it('handle plus, should set value state and call onValueChange of props', () => {
+    it('handle plus, should set value state and call onValueChanged of props', () => {
         const { props, wrapper } = setup(3);
         wrapper.find('button').at(1).simulate('click', { preventDefault() { } });
 
         expect(wrapper.state('value')).toBe(4);
-        expect(props.onValueChange.mock.calls.length).toBe(1);
-        expect(props.onValueChange.mock.calls[0][0]).toEqual({
+        expect(props.onValueChanged.mock.calls.length).toBe(1);
+        expect(props.onValueChanged.mock.calls[0][0]).toEqual({
             value: 4,
         });
     });

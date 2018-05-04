@@ -23,7 +23,7 @@ export default class PlusMinusButtonInput extends Component {
         this.setState({
             value: newValue,
         });
-        this.props.onValueChange({
+        this.props.onValueChanged({
             value: newValue,
         });
     };
@@ -74,6 +74,7 @@ export default class PlusMinusButtonInput extends Component {
 PlusMinusButtonInput.propTypes = {
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
-    onValueChange: PropTypes.func.isRequired,
+    onValueChanged: PropTypes.func.isRequired,
+    // TODO: validation: initial value must be bigger than min and smaller than max
     initialValue: PropTypes.number.isRequired,
 };

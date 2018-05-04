@@ -50,7 +50,9 @@ describe('radio buttons component', () => {
         wrapper.find('input').at(0).simulate('click', { preventDefault() { } });
 
         expect(props.onValueChanged.mock.calls.length).toBe(1);
-        expect(props.onValueChanged.mock.calls[0][0]).toBe('option1');
+        expect(props.onValueChanged.mock.calls[0][0]).toEqual({
+            value: 'option1',
+        });
     });
 
     it('should handle value change when option2 is clicked', () => {
@@ -59,6 +61,8 @@ describe('radio buttons component', () => {
         wrapper.find('input').at(1).simulate('click', { preventDefault() { } });
 
         expect(props.onValueChanged.mock.calls.length).toBe(1);
-        expect(props.onValueChanged.mock.calls[0][0]).toBe('option2');
+        expect(props.onValueChanged.mock.calls[0][0]).toEqual({
+            value: 'option2',
+        });
     });
 });
