@@ -3,6 +3,8 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import DateTime from 'react-datetime';
 
+import * as testConstants from './../../../__tests_constants__';
+
 import DateTimePicker from './../DateTimePicker';
 
 configure({ adapter: new Adapter() });
@@ -29,7 +31,7 @@ describe('datetime picker component', () => {
     });
 
     it('should render default datetime value', () => {
-        const expected = new Date('2018-02-18T11:30:00.000Z');
+        const expected = testConstants.dateTimeNow;
         const { wrapper } = setup();
 
         expect(wrapper.find(DateTime).prop('defaultValue')).toEqual(expected);

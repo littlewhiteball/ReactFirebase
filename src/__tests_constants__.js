@@ -369,5 +369,6 @@ export const categoryList = [
  * Date
  */
 export const dateTimeNow = new Date('2018-02-18T11:30:00.000Z');
+export const dateTimeNowInNumber = dateTimeNow.getTime();
 export const dateTimeAddOneDay = new Date('2018-02-19T11:30:00.000Z');
 export const dateTimeAddTwoDays = new Date('2018-02-20T11:30:00.000Z');

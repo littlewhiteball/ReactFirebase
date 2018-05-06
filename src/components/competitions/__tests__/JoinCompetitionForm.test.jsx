@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, shallow, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import * as testConstants from './../../../__tests_constants__';
@@ -7,6 +7,9 @@ import * as testConstants from './../../../__tests_constants__';
 import { JoinCompetitionFormComponent } from './../JoinCompetitionForm';
 import RadioButtons from './../../utilities/RadioButtons';
 import PlusMinusButtonInput from './../../utilities/PlusMinusButtonInput';
+
+import competitionEntriesDbAdapter from './../../../database/competitionEntriesDbAdapter';
+import competitionParticipantsDbAdapter from './../../../database/competitionParticipantsDbAdapter';
 
 configure({ adapter: new Adapter() });
 
@@ -18,7 +21,7 @@ const setup = () => {
             },
         },
         competitions: testConstants.competitions,
-        userId: testConstants.user0.id,
+        userId: testConstants.userId0,
         navToPath: jest.fn(),
     };
 
@@ -80,5 +83,63 @@ describe('join competition form component', () => {
         const { wrapper } = setup();
 
         expect(wrapper.state()).toEqual(expectedInitialState);
-    })
+    });
+
+    it('should handle option change', () => {
+        const { wrapper } = setup();
+
+        wrapper.find(RadioButtons).props().onValueChanged({
+            value: 'option1',
+        });
+
+        expect(wrapper.state('option')).toBe('option1');
+    });
+
+    it('should handle value change', () => {
+        const { wrapper } = setup();
+
+        wrapper.find(PlusMinusButtonInput).props().onValueChanged({
+            value: 3,
+        });
+
+        expect(wrapper.state('value')).toBe(3);
+    });
+
+    it('should handle submit', () => {
+        const { props, wrapper } = setup();
+
+        const spyCompetitionEntries = jest.spyOn(competitionEntriesDbAdapter, 'addCompetitionEntryToDb')
+            .mockImplementation(() =>
+                new Promise((resolve) => {
+                    resolve();
+                }));
+        const spyCompetitionParticipants = jest.spyOn(competitionParticipantsDbAdapter, 'addCompetitionParticipantToDb')
+            .mockImplementation(() =>
+                new Promise((resolve) => {
+                    resolve();
+                }));
+
+        wrapper.setState({
+            option: testConstants.competition0.options[0],
+            value: 3,
+        });
+        wrapper.find('form').at(0).simulate('submit', { preventDefault() { } });
+
+        expect(spyCompetitionEntries).toHaveBeenCalledWith(
+            testConstants.competitionId0,
+            {
+                userId: testConstants.userId0,
+                option: testConstants.competition0.options[0],
+                value: 3,
+                entryCreated: testConstants.dateTimeNowInNumber,
+                entryLastModified: testConstants.dateTimeNowInNumber,
+            },
+        );
+        expect(spyCompetitionParticipants).toHaveBeenCalledWith(
+            testConstants.competitionId0,
+            testConstants.userId0,
+        );
+        expect(props.navToPath.mock.calls.length).toBe(1);
+        expect(props.navToPath.mock.calls[0][0]).toBe('/');
+    });
 });

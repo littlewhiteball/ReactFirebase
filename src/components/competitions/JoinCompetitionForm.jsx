@@ -9,6 +9,7 @@ import PlusMinusButtonInput from './../utilities/PlusMinusButtonInput';
 
 import competitionEntriesDbModel from './../../database/models/competitionEntriesDbModel';
 import competitionEntriesDbAdapter from './../../database/competitionEntriesDbAdapter';
+import competitionParticipantsDbAdapter from './../../database/competitionParticipantsDbAdapter';
 
 const SAVE_BUTTON = 'Save';
 const CANCEL_BUTTON = 'Cancel';
@@ -51,13 +52,24 @@ export class JoinCompetitionFormComponent extends Component {
             moment().toDate().getTime(),
             moment().toDate().getTime(),
         );
-        competitionEntriesDbAdapter.addCompetitionEntryToDb(this.competitionId, competitionEntry)
-            .then(() => {
-                this.props.navToPath('/');
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        competitionEntriesDbAdapter.addCompetitionEntryToDb(
+            this.competitionId,
+            competitionEntry,
+        ).then(() => {
+            // TODO
+        }).catch((error) => {
+            console.log(error);
+        });
+
+        // TODO: if save succeeded
+        competitionParticipantsDbAdapter.addCompetitionParticipantToDb(
+            this.competitionId,
+            this.props.userId,
+        ).then(() => {
+
+        }).catch((error) => {
+            console.log(error);
+        });
 
         // TODO: if save succeeded
         this.props.navToPath('/');
