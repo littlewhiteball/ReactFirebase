@@ -2,7 +2,11 @@ Bug: Join competition initial value is 0, but the plus minus button input defaul
 
 TODO: Leave a competition
 
+TODO: Update competition entry
+
 TODO: Fork a competition. Should change owner to the user that forked the competition
+
+TODO: Fulfill a competition, don't forget about forked competition
 
 TODO: Use twitter display name and profile photo url
 
